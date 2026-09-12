@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Otter</title>
+  <title>Otter Examples</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
@@ -295,57 +295,45 @@
 </head>
 <body class="otter-has-page">
     <main id="app" class="otter-page" style="background: #f8fafc; padding: 20px; gap: 20px;">
-      <header class="otter-page-header"><h1 class="otter-title">Download Otter</h1></header>
+      <header class="otter-page-header"><h1 class="otter-title">Otter Examples</h1></header>
       <div class="otter-page-content" style="display: flex; flex-direction: column; gap: 20px; width: 100%; min-width: 0;">
-      <div id="header" class="otter-row" style="background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 16px; display: flex; flex-direction: row; gap: 18px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <img id="mascot" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter mascot" style="width: 58px; height: 58px;" />
+      <div id="header" class="otter-row" style="background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 16px; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <div id="brand" class="otter-text" style="color: #0f172a; font-size: 28px; font-weight: 700;">Otter</div>
-      <div id="tagline" class="otter-text" style="color: #64748b;">Simple. Powerful. Yours.</div>
       <a id="docsLink" class="otter-link" href="/">Docs</a>
-      <a id="examplesLink" class="otter-link" href="/examples/">Examples</a>
+      <a id="downloadLink" class="otter-link" href="/download/">Download</a>
 </div>
       <div id="main" class="otter-column" style="padding: 26px; display: flex; flex-direction: column; gap: 18px; align-items: stretch; justify-content: flex-start;">
-      <div id="eyebrow" class="otter-text" style="color: #2563eb; font-weight: 700;">GET STARTED WITH OTTER</div>
-      <div id="heading" class="otter-text" style="color: #0f172a; font-size: 36px; font-weight: 700;">Run your first Otter program</div>
-      <div id="intro" class="otter-text" style="color: #475569; font-size: 18px;">Otter currently ships as a Windows-friendly project folder with its launcher, examples, tests, and editor support.</div>
-      <div id="releaseCard" class="otter-card" style="background: #ecfdf5; border-radius: 12px; padding: 22px; gap: 8px;">
+      <div id="eyebrow" class="otter-text" style="color: #2563eb; font-weight: 700;">LEARN BY CHANGING REAL PROGRAMS</div>
+      <div id="heading" class="otter-text" style="color: #0f172a; font-size: 36px; font-weight: 700;">Otter examples</div>
+      <div id="intro" class="otter-text" style="color: #475569; font-size: 18px;">Each example is a real .ot program from the Otter project. Open one, change it, and run it.</div>
+      <div id="cards" class="otter-column" style="display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
+      <div id="helloCard" class="otter-card" style="background: #ffffff; border-radius: 10px; padding: 18px; gap: 9px;">
         
         
-      <div id="releaseTitle" class="otter-text" style="color: #0f172a; font-size: 22px; font-weight: 700;">Current release</div>
-      <div id="releaseBody" class="otter-text" style="color: #475569;">Windows PowerShell 5.1. No separate runtime installation is required.</div>
+      <div id="helloTitle" class="otter-text" style="color: #0f172a; font-size: 21px; font-weight: 700;">Hello, Otter!</div>
+      <div id="helloBody" class="otter-text" style="color: #475569;">The smallest useful Otter program.</div>
+      <a id="helloSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/examples/hello.ot" target="_blank" rel="noopener noreferrer">View hello.ot source</a>
+      <a id="helloDocs" class="otter-link" href="/welcome/">Read the tutorial</a>
 
       </div>
-      <div id="steps" class="otter-column" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start;">
-      <div id="stepOne" class="otter-card" style="background: #ffffff; border-radius: 10px; padding: 18px; gap: 8px;">
+      <div id="calculatorCard" class="otter-card" style="background: #eff6ff; border-radius: 10px; padding: 18px; gap: 9px;">
         
         
-      <div id="stepOneTitle" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">1. Open the Otter folder</div>
-      <div id="stepOneBody" class="otter-text" style="color: #475569;">Use a PowerShell window in the folder containing otter.cmd.</div>
+      <div id="calculatorTitle" class="otter-text" style="color: #0f172a; font-size: 21px; font-weight: 700;">Calculator</div>
+      <div id="calculatorBody" class="otter-text" style="color: #475569;">A native UI app with text boxes, a button, and error handling.</div>
+      <a id="calculatorSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/examples/calculator.ot" target="_blank" rel="noopener noreferrer">View calculator.ot source</a>
 
       </div>
-      <div id="stepTwo" class="otter-card" style="background: #ffffff; border-radius: 10px; padding: 18px; gap: 10px;">
+      <div id="filesCard" class="otter-card" style="background: #ecfdf5; border-radius: 10px; padding: 18px; gap: 9px;">
         
         
-      <div id="stepTwoTitle" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">2. Run an example</div>
-      <div id="runCommand" class="otter-text" style="background: #0f172a; color: #a7f3d0; border-radius: 8px; padding: 14px;">.\otter.cmd examples\hello.ot</div>
-
-      </div>
-      <div id="stepThree" class="otter-card" style="background: #eff6ff; border-radius: 10px; padding: 18px; gap: 10px;">
-        
-        
-      <div id="stepThreeTitle" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">3. Start building</div>
-      <div id="stepThreeBody" class="otter-text" style="color: #475569;">Change an included example or create a new .ot file. The documentation walks through the language step by step.</div>
-      <a id="docsButton" class="otter-link" href="/welcome/">Read the documentation</a>
+      <div id="filesTitle" class="otter-text" style="color: #0f172a; font-size: 21px; font-weight: 700;">Files and folders</div>
+      <div id="filesBody" class="otter-text" style="color: #475569;">Discover and inspect files with straightforward Otter statements.</div>
+      <a id="filesSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/examples/files.ot" target="_blank" rel="noopener noreferrer">View files.ot source</a>
+      <a id="filesDocs" class="otter-link" href="/files/">Read file documentation</a>
 
       </div>
 </div>
-      <div id="noteCard" class="otter-card" style="background: #fffbeb; border-radius: 10px; padding: 18px; gap: 8px;">
-        
-        
-      <div id="noteTitle" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">About downloads</div>
-      <div id="noteBody" class="otter-text" style="color: #475569;">An official installer and public release-download link are not published yet. Until then, use the Otter project folder supplied with the current release.</div>
-
-      </div>
 </div>
 </div>
     </main>
