@@ -248,6 +248,7 @@
       cursor: pointer;
       accent-color: var(--otter-primary);
     }
+    .otter-text-area,
     .otter-textarea {
       background-color: var(--otter-input-bg);
       color: var(--otter-text);
@@ -297,6 +298,12 @@
     <main id="app" class="otter-page" style="width: 900px; background: #0f172a; gap: 16px;">
       <header class="otter-page-header"><h1 class="otter-title">Files and Folders</h1></header>
       <div class="otter-page-content" style="display: flex; flex-direction: column; gap: 16px; width: 100%; min-width: 0;">
+      <div id="siteNav" class="otter-row" style="background: #172554; border-radius: 10px; padding: 14px; display: flex; flex-direction: row; gap: 16px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="siteBrand" class="otter-text" style="color: #f8fafc; font-weight: 700;">Otter Docs</div>
+      <a id="siteDocs" class="otter-link" href="/">Docs</a>
+      <a id="siteExamples" class="otter-link" href="/examples/">Examples</a>
+      <a id="siteDownload" class="otter-link" href="/download/">Download</a>
+</div>
       <div id="heading" class="otter-text" style="color: #f8fafc; font-size: 30px; font-weight: 700;">Files and Folders</div>
       <div id="body" class="otter-text" style="color: #cbd5e1;">Read, write, copy, move, and delete files. Discover files and folders with get files and get folders.</div>
       <div id="example" class="otter-text" style="background: #172554; color: #a7f3d0; border-radius: 8px; padding: 18px;">get files in "examples" into files
@@ -317,15 +324,23 @@ say length of files</div>
       const el = otterGetElement(id);
       if (!el) return '';
       if (el.type === 'checkbox') return el.checked;
-      if ('value' in el) return el.value;
+      const tag = el.tagName ? el.tagName.toUpperCase() : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        return el.value;
+      }
       return el.textContent || '';
     }
     function otterSetText(id, val) {
       const el = otterGetElement(id);
       if (!el) return;
       if (el.type === 'checkbox') { el.checked = Boolean(val); return; }
+      const tag = el.tagName ? el.tagName.toUpperCase() : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        el.value = val;
+      } else {
+        el.textContent = val;
+      }
       if ('value' in el) { el.value = val; }
-      else { el.textContent = val; }
     }
     function otterGetTitle(id) { return document.title; }
     function otterSetTitle(id, val) { document.title = val; }
@@ -357,6 +372,105 @@ say length of files</div>
         out.textContent = args.join(' ');
       }
     }
+    async function otterReadFile(filePath) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available to read "' + filePath + '".');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: filePath })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not read file "' + filePath + '": HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      return data.content || '';
+    }
+    async function otterWriteFile(filePath, content) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available to write "' + filePath + '".');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: filePath, content: content })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not write file "' + filePath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterWriteFile = otterWriteFile;
+
+    async function otterRunCommand(command) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available to run "' + command + '".');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/terminal/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ command: command })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not execute command "' + command + '": HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      return (data.stdout || data.output || data.stderr || '').trim();
+    }
+    window.otterRunCommand = otterRunCommand;
+
+    async function otterGetFiles(folderPath, includeSubfolders = false) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available to get files in "' + folderPath + '".');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: folderPath, recursive: includeSubfolders })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not get files in "' + folderPath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterGetFiles = otterGetFiles;
+
+    async function otterGetFolders(folderPath, includeSubfolders = false) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available to get folders in "' + folderPath + '".');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: folderPath, recursive: includeSubfolders })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not get folders in "' + folderPath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterGetFolders = otterGetFolders;
 
     // Otter Declarative Reactivity Engine
     const otterState = {};
@@ -521,47 +635,6 @@ say length of files</div>
         if (e.key === 'Enter') {
           e.preventDefault();
           termRunBtn.click();
-        }
-      });
-
-      termRunBtn.addEventListener('click', async (e) => {
-        const cmd = (termBox.value || '').trim();
-        if (!cmd) return;
-        const promptStr = termPrompt ? termPrompt.textContent : 'PS C:\\projects\\otterPS> ';
-        
-        // Connect to authenticated desktop bridge if configured in runtime environment
-        const bridgeConfig = window.__OTTER_DESKTOP_BRIDGE__ || null;
-        if (!bridgeConfig || !bridgeConfig.port || !bridgeConfig.token) {
-          return;
-        }
-
-        try {
-          const resp = await fetch('http://127.0.0.1:' + bridgeConfig.port + '/api/terminal/exec', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Otter-Token': bridgeConfig.token
-            },
-            body: JSON.stringify({ command: cmd, shell: window.otterActiveShell || 'powershell' })
-          });
-          if (resp.ok) {
-            if (e && typeof e.stopImmediatePropagation === 'function') {
-              e.stopImmediatePropagation();
-            }
-            const data = await resp.json();
-            const outText = promptStr + cmd + '\n' + (data.output || data.stdout || '') + '\n';
-            if (termLog3) {
-              termLog3.textContent = outText;
-            }
-            const termScrollEl = document.getElementById('termScroll');
-            if (termScrollEl) {
-              termScrollEl.scrollTop = termScrollEl.scrollHeight;
-            }
-            termBox.value = '';
-            return;
-          }
-        } catch (err) {
-          // Bridge communication error
         }
       });
     }
