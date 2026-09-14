@@ -300,17 +300,21 @@
     <main id="app" class="otter-page" style="background: #f8fafc; gap: 20px;">
       <header class="otter-page-header"><h1 class="otter-title">Otter - Documentation</h1></header>
       <div class="otter-page-content" style="display: flex; flex-direction: column; gap: 20px; width: 100%; min-width: 0;">
-      <div id="header" class="otter-row" style="background: #ffffff; border: 1px solid #e2e8f0; padding: 16px; display: flex; flex-direction: row; gap: 22px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="header" class="otter-column" style="background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 4px; align-items: stretch; justify-content: flex-start;">
+      <div id="identity" class="otter-row" style="padding: 16px; display: flex; flex-direction: row; gap: 14px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <img id="mascot" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter Explorer mascot" style="width: 72px; height: 72px;" />
       <div id="brand" class="otter-text" style="color: #0f172a; font-size: 28px; font-weight: 700;">Otter</div>
       <div id="tagline" class="otter-text" style="color: #64748b;">Simple. Powerful. Yours.</div>
+</div>
+      <div id="navigation" class="otter-row" style="padding: 16px; display: flex; flex-direction: row; gap: 18px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <a id="docsLink" class="otter-link" href="/">Docs</a>
       <a id="referenceLink" class="otter-link" href="/reference/">Reference</a>
       <a id="examplesLink" class="otter-link" href="/examples/">Examples</a>
       <a id="downloadLink" class="otter-link" href="/download/">Download</a>
 </div>
-      <div id="body" class="otter-row" style="padding: 20px; display: flex; flex-direction: row; gap: 18px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <div id="sidebar" class="otter-column" style="width: 230px; background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 18px; display: flex; flex-direction: column; gap: 10px; align-items: stretch; justify-content: flex-start;">
+</div>
+      <div id="body" class="otter-column" style="padding: 20px; display: flex; flex-direction: column; gap: 18px; align-items: stretch; justify-content: flex-start;">
+      <div id="sidebar" class="otter-column" style="width: 100%; background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 18px; display: flex; flex-direction: column; gap: 10px; align-items: stretch; justify-content: flex-start;">
       <div id="gettingStarted" class="otter-text" style="color: #2563eb; font-weight: 700;">GETTING STARTED</div>
       <a id="introduction" class="otter-link" href="../welcome/">Introduction</a>
       <a id="installation" class="otter-link" href="../installation/">Installation</a>
@@ -330,25 +334,28 @@
       <div id="eyebrow" class="otter-text" style="color: #93c5fd; font-weight: 700;">A MODERN, HUMAN-FRIENDLY PROGRAMMING LANGUAGE</div>
       <div id="heroTitle" class="otter-text" style="color: #ffffff; font-size: 34px; font-weight: 700;">Build Real Applications with Otter</div>
       <div id="heroBody" class="otter-text" style="color: #dbeafe; font-size: 18px;">Clean, natural syntax for desktop apps, web development, and real file-system work.</div>
-      <a id="getStarted" class="otter-link" href="/first-program/" style="width: 150px; background: #1683ff; color: #ffffff;">Get Started</a>
+      <a id="getStarted" class="otter-link" href="/first-program/" style="width: 150px; background: #1683ff; color: #ffffff; border-radius: 8px; padding: 12px;">Get Started</a>
 
       </div>
-      <div id="featureRow" class="otter-row" style="display: flex; flex-direction: row; gap: 12px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="featureRow" class="otter-column" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start;">
       <div id="desktopCard" class="otter-card" style="background: #eff6ff; border-radius: 10px; padding: 18px; gap: 8px;">
-        <h3 class="otter-card-title">Desktop Applications</h3>
         
+        
+      <div id="desktopHeading" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">Desktop Applications</div>
       <div id="desktopText" class="otter-text" style="color: #334155;">Create native Windows applications with a readable syntax.</div>
 
       </div>
       <div id="webCard" class="otter-card" style="background: #ecfdf5; border-radius: 10px; padding: 18px; gap: 8px;">
-        <h3 class="otter-card-title">Web Development</h3>
         
+        
+      <div id="webHeading" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">Web Development</div>
       <div id="webText" class="otter-text" style="color: #334155;">Build responsive interfaces using the same Otter concepts.</div>
 
       </div>
       <div id="filesCard" class="otter-card" style="background: #fffbeb; border-radius: 10px; padding: 18px; gap: 8px;">
-        <h3 class="otter-card-title">Work with Real Files</h3>
         
+        
+      <div id="filesHeading" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">Work with Real Files</div>
       <div id="filesText" class="otter-text" style="color: #334155;">Read, write, and organize files and folders directly.</div>
 
       </div>
