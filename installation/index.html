@@ -36,8 +36,10 @@
     }
     body.otter-has-page {
       display: block;
-      padding: 16px;
+      padding: 0;
+      margin: 0;
       min-height: 100vh;
+      box-sizing: border-box;
     }
     .otter-row {
       display: flex;
@@ -307,6 +309,7 @@
       <div id="heading" class="otter-text" style="color: #f8fafc;">Installation</div>
       <div id="body" class="otter-text" style="color: #cbd5e1;">Download Otter for Windows, then run an .ot file from PowerShell with .\otter.cmd your-program.ot.</div>
       <div id="example" class="otter-text" style="color: #a7f3d0;">.\otter.cmd examples\hello.ot</div>
+      <a id="firstProgram" class="otter-link" href="/first-program/">Write your first program</a>
       <a id="home" class="otter-link" href="../">Documentation home</a>
       <a id="welcome" class="otter-link" href="../welcome/">Welcome to Otter</a>
       <a id="conditions" class="otter-link" href="../conditions/">Conditions</a>
@@ -376,7 +379,8 @@
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        throw new Error('Desktop Bridge is not available to read "' + filePath + '".');
+        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
+        return '';
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -395,7 +399,8 @@
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        throw new Error('Desktop Bridge is not available to write "' + filePath + '".');
+        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
+        return false;
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -415,7 +420,8 @@
     async function otterRunCommand(command) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        throw new Error('Desktop Bridge is not available to run "' + command + '".');
+        console.warn('Desktop Bridge is not available to run "' + command + '".');
+        return 'Error: Desktop Bridge is not available. Please launch Otter Studio via otter desktop examples/studio.ot or studio.cmd for live system command execution.';
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/terminal/exec', {
         method: 'POST',
@@ -436,7 +442,8 @@
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        throw new Error('Desktop Bridge is not available to get files in "' + folderPath + '".');
+        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
+        return [];
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -456,7 +463,8 @@
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        throw new Error('Desktop Bridge is not available to get folders in "' + folderPath + '".');
+        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
+        return [];
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',
@@ -624,32 +632,6 @@
     // Top-level application initialization
     (async function() {
 
-
-    // Connect Terminal Bridge for Desktop Terminal execution (D60)
-    const termRunBtn = document.getElementById('termRunBtn');
-    const termBox = document.getElementById('termBox');
-    const termLog3 = document.getElementById('termLog3');
-    const termPrompt = document.getElementById('termPrompt');
-
-    if (termBox && termRunBtn) {
-      termBox.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          termRunBtn.click();
-        }
-      });
-    }
-
-    const pPs = document.getElementById('profPowerShell');
-    if (pPs) pPs.addEventListener('click', () => { window.otterActiveShell = 'powershell'; });
-    const pCmd = document.getElementById('profCmd');
-    if (pCmd) pCmd.addEventListener('click', () => { window.otterActiveShell = 'cmd'; });
-    const pBash = document.getElementById('profGitBash');
-    if (pBash) pBash.addEventListener('click', () => { window.otterActiveShell = 'bash'; });
-    const pWsl = document.getElementById('profWsl');
-    if (pWsl) pWsl.addEventListener('click', () => { window.otterActiveShell = 'wsl'; });
-    const pRepl = document.getElementById('profRepl');
-    if (pRepl) pRepl.addEventListener('click', () => { window.otterActiveShell = 'otter'; });
 
     // Register event listeners
     const el_searchBox = document.getElementById('searchBox');

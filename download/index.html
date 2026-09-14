@@ -36,8 +36,10 @@
     }
     body.otter-has-page {
       display: block;
-      padding: 16px;
+      padding: 0;
+      margin: 0;
       min-height: 100vh;
+      box-sizing: border-box;
     }
     .otter-row {
       display: flex;
@@ -248,6 +250,7 @@
       cursor: pointer;
       accent-color: var(--otter-primary);
     }
+    .otter-text-area,
     .otter-textarea {
       background-color: var(--otter-input-bg);
       color: var(--otter-text);
@@ -311,8 +314,28 @@
       <div id="releaseCard" class="otter-card" style="background: #ecfdf5; border-radius: 12px; padding: 22px; gap: 8px;">
         
         
-      <div id="releaseTitle" class="otter-text" style="color: #0f172a; font-size: 22px; font-weight: 700;">Current release</div>
-      <div id="releaseBody" class="otter-text" style="color: #475569;">Windows PowerShell 5.1. No separate runtime installation is required.</div>
+      <div id="releaseTitle" class="otter-text" style="color: #0f172a; font-size: 22px; font-weight: 700;">Current release: 1.0.0-rc.1</div>
+      <div id="releaseBody" class="otter-text" style="color: #475569;">Release candidate. Windows 10 or Windows 11 with Windows PowerShell 5.1.</div>
+
+      </div>
+      <div id="installerCard" class="otter-card" style="background: #fffbeb; border-radius: 10px; padding: 18px; gap: 8px;">
+        
+        
+      <div id="installerTitle" class="otter-text" style="color: #0f172a; font-size: 22px; font-weight: 700;">Windows installer</div>
+      <div id="installerStatus" class="otter-text" style="color: #b45309; font-weight: 700;">Installer not published yet</div>
+      <div id="installerAction" class="otter-text" style="color: #475569;">A prominent download button will appear here when the signed installer is published.</div>
+
+      </div>
+      <div id="releaseDetails" class="otter-card" style="background: #ffffff; border-radius: 10px; padding: 18px; gap: 6px;">
+        
+        
+      <div id="detailsTitle" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">Release details</div>
+      <div id="requirementsDetail" class="otter-text" style="color: #475569;">Windows requirements: Windows 10 or Windows 11 with Windows PowerShell 5.1.</div>
+      <div id="sizeDetail" class="otter-text" style="color: #475569;">Installer size: Published with the installer</div>
+      <div id="dateDetail" class="otter-text" style="color: #475569;">Release date: Published with the installer</div>
+      <div id="checksumDetail" class="otter-text" style="color: #475569;">SHA-256: Published with the installer</div>
+      <div id="notesDetail" class="otter-text" style="color: #475569;">Release notes: Release notes will be published with the installer.</div>
+      <a id="releaseLink" class="otter-link" href="/release/">View release readiness</a>
 
       </div>
       <div id="steps" class="otter-column" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start;">
@@ -335,7 +358,7 @@
         
       <div id="stepThreeTitle" class="otter-text" style="color: #0f172a; font-size: 20px; font-weight: 700;">3. Start building</div>
       <div id="stepThreeBody" class="otter-text" style="color: #475569;">Change an included example or create a new .ot file. The documentation walks through the language step by step.</div>
-      <a id="docsButton" class="otter-link" href="/welcome/">Read the documentation</a>
+      <a id="docsButton" class="otter-link" href="/first-program/">Write your first program</a>
 
       </div>
 </div>
@@ -360,15 +383,23 @@
       const el = otterGetElement(id);
       if (!el) return '';
       if (el.type === 'checkbox') return el.checked;
-      if ('value' in el) return el.value;
+      const tag = el.tagName ? el.tagName.toUpperCase() : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        return el.value;
+      }
       return el.textContent || '';
     }
     function otterSetText(id, val) {
       const el = otterGetElement(id);
       if (!el) return;
       if (el.type === 'checkbox') { el.checked = Boolean(val); return; }
+      const tag = el.tagName ? el.tagName.toUpperCase() : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        el.value = val;
+      } else {
+        el.textContent = val;
+      }
       if ('value' in el) { el.value = val; }
-      else { el.textContent = val; }
     }
     function otterGetTitle(id) { return document.title; }
     function otterSetTitle(id, val) { document.title = val; }
@@ -400,6 +431,110 @@
         out.textContent = args.join(' ');
       }
     }
+    async function otterReadFile(filePath) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
+        return '';
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: filePath })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not read file "' + filePath + '": HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      return data.content || '';
+    }
+    async function otterWriteFile(filePath, content) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
+        return false;
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: filePath, content: content })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not write file "' + filePath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterWriteFile = otterWriteFile;
+
+    async function otterRunCommand(command) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to run "' + command + '".');
+        return 'Error: Desktop Bridge is not available. Please launch Otter Studio via otter desktop examples/studio.ot or studio.cmd for live system command execution.';
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/terminal/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ command: command })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not execute command "' + command + '": HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      return (data.stdout || data.output || data.stderr || '').trim();
+    }
+    window.otterRunCommand = otterRunCommand;
+
+    async function otterGetFiles(folderPath, includeSubfolders = false) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
+        return [];
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: folderPath, recursive: includeSubfolders })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not get files in "' + folderPath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterGetFiles = otterGetFiles;
+
+    async function otterGetFolders(folderPath, includeSubfolders = false) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
+        return [];
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: folderPath, recursive: includeSubfolders })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not get folders in "' + folderPath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterGetFolders = otterGetFolders;
 
     // Otter Declarative Reactivity Engine
     const otterState = {};
@@ -552,73 +687,6 @@
     // Top-level application initialization
     (async function() {
 
-
-    // Connect Terminal Bridge for Desktop Terminal execution (D60)
-    const termRunBtn = document.getElementById('termRunBtn');
-    const termBox = document.getElementById('termBox');
-    const termLog3 = document.getElementById('termLog3');
-    const termPrompt = document.getElementById('termPrompt');
-
-    if (termBox && termRunBtn) {
-      termBox.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          termRunBtn.click();
-        }
-      });
-
-      termRunBtn.addEventListener('click', async (e) => {
-        const cmd = (termBox.value || '').trim();
-        if (!cmd) return;
-        const promptStr = termPrompt ? termPrompt.textContent : 'PS C:\\projects\\otterPS> ';
-        
-        // Connect to authenticated desktop bridge if configured in runtime environment
-        const bridgeConfig = window.__OTTER_DESKTOP_BRIDGE__ || null;
-        if (!bridgeConfig || !bridgeConfig.port || !bridgeConfig.token) {
-          return;
-        }
-
-        try {
-          const resp = await fetch('http://127.0.0.1:' + bridgeConfig.port + '/api/terminal/exec', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Otter-Token': bridgeConfig.token
-            },
-            body: JSON.stringify({ command: cmd, shell: window.otterActiveShell || 'powershell' })
-          });
-          if (resp.ok) {
-            if (e && typeof e.stopImmediatePropagation === 'function') {
-              e.stopImmediatePropagation();
-            }
-            const data = await resp.json();
-            const outText = promptStr + cmd + '\n' + (data.output || data.stdout || '') + '\n';
-            if (termLog3) {
-              termLog3.textContent = outText;
-            }
-            const termScrollEl = document.getElementById('termScroll');
-            if (termScrollEl) {
-              termScrollEl.scrollTop = termScrollEl.scrollHeight;
-            }
-            termBox.value = '';
-            return;
-          }
-        } catch (err) {
-          // Bridge communication error
-        }
-      });
-    }
-
-    const pPs = document.getElementById('profPowerShell');
-    if (pPs) pPs.addEventListener('click', () => { window.otterActiveShell = 'powershell'; });
-    const pCmd = document.getElementById('profCmd');
-    if (pCmd) pCmd.addEventListener('click', () => { window.otterActiveShell = 'cmd'; });
-    const pBash = document.getElementById('profGitBash');
-    if (pBash) pBash.addEventListener('click', () => { window.otterActiveShell = 'bash'; });
-    const pWsl = document.getElementById('profWsl');
-    if (pWsl) pWsl.addEventListener('click', () => { window.otterActiveShell = 'wsl'; });
-    const pRepl = document.getElementById('profRepl');
-    if (pRepl) pRepl.addEventListener('click', () => { window.otterActiveShell = 'otter'; });
 
     // Register event listeners
 
