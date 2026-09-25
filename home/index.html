@@ -513,7 +513,8 @@ greet &quot;Ada&quot;</div>
       <div id="cmpOtterHead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="cmpOtterLabel" class="otter-text" style="color: #7fb0ff; font-size: 12px; font-weight: 700;">Otter</div>
 </div>
-      <div id="cmpOtter" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 20px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">age is 29
+      <div class="otter-runnable">
+        <div id="cmpOtter" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 20px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">age is 29
 
 if age is at least 18
     say &quot;Adult&quot;
@@ -522,6 +523,9 @@ if age is at least 18
 to greet person
     say &quot;Hello, &quot; + person
 .</div>
+        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="cmpOtter">&#9654; Run</button></div>
+        <pre id="cmpOtter-output" class="otter-run-output" hidden></pre>
+      </div>
 </div>
       <div id="cmpJsblock" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
       <div id="cmpJsHead" class="otter-row" style="width: 100%; max-width: 100%; background: #dde6f2; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
@@ -636,7 +640,7 @@ def greet(person):
     function otterGetElement(id) { return document.getElementById(id); }
 
     window.otterRunnables = {};
-    window.otterRunOrder = ["heroCode"];
+    window.otterRunOrder = ["heroCode","cmpOtter"];
     function otterFormatSaid(value) {
       if (value === null || value === undefined) { return 'gone'; }
       if (Array.isArray(value)) { return value.map(otterFormatSaid).join(', '); }
@@ -689,6 +693,17 @@ def greet(person):
     };
     if (typeof window !== 'undefined') { window.greet = greet; }
     greet("Ada");
+} };
+    window.otterRunnables["cmpOtter"] = { vars: ["age","greet"], run: async (otterSay) => {
+    if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('age' in otterState)) { otterSetState('age', 29); } else { window.age = 29; }
+    if ((() => { const _lD = age !== null && typeof (age) === 'object' && (age).__otterDate === true; const _rD = 18 !== null && typeof (18) === 'object' && (18).__otterDate === true; if (_lD || _rD) { if (!_lD) { throw new Error('I expected a number for the left side of this comparison but got ' + (age) + '.'); } if (!_rD) { throw new Error('I expected a number for the right side of this comparison but got ' + (18) + '.'); } return ((age).value.getTime() >= (18).value.getTime()); } return (age >= 18); })()) {
+      otterSay("Adult");
+    }
+    const greet = function(person) {
+      otterSay((() => { const _l = "Hello, "; const _r = person; if (typeof _l === 'string' && typeof _r === 'string') { return _l + _r; } if (typeof _l === 'boolean' || typeof _r === 'boolean') { throw new Error('A true/false value cannot be combined with "and" here. Boolean "and"/"or" only work inside an if or while condition.'); } const _lOk = typeof _l === 'number' || (typeof _l === 'string' && _l.trim() !== '' && !Number.isNaN(Number(_l))); if (!_lOk) { throw new Error('I expected a number for the left side of this calculation but got ' + JSON.stringify(_l) + '.'); } const _rOk = typeof _r === 'number' || (typeof _r === 'string' && _r.trim() !== '' && !Number.isNaN(Number(_r))); if (!_rOk) { throw new Error('I expected a number for the right side of this calculation but got ' + JSON.stringify(_r) + '.'); } return Number(_l) + Number(_r); })());
+      return null;
+    };
+    if (typeof window !== 'undefined') { window.greet = greet; }
 } };
 // Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
 

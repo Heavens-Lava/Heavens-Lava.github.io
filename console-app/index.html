@@ -1,0 +1,1716 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A complete console program - Otter Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --otter-bg: #f4f7fb;
+      --otter-card-bg: #1e293b;
+      --otter-text: #0f1f36;
+      --otter-text-muted: #94a3b8;
+      --otter-primary: #2563eb;
+      --otter-primary-hover: #1d4ed8;
+      --otter-input-bg: #0f172a;
+      --otter-border: #334155;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #0f1f36;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    body.otter-has-page {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body.otter-has-page.otter-doc-scroll {
+      height: auto;
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .otter-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-column {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-window {
+      background-color: #1e293b;
+      border: 1px solid var(--otter-border);
+      width: 100%;
+      max-width: 520px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-page {
+      background: transparent;
+      border: none;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-card {
+      background-color: var(--otter-card-bg);
+      border: 1px solid var(--otter-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .otter-button {
+      background-color: var(--otter-primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.08s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .otter-button:hover { background-color: var(--otter-primary-hover); }
+    .otter-button:active { transform: scale(0.98); }
+    .otter-text-box {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .otter-text-box:focus {
+      border-color: var(--otter-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .otter-text {
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .otter-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    .otter-button-primary, .otter-btn-primary {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+      border: none !important;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-primary:hover, .otter-btn-primary:hover {
+      background-color: #1d4ed8 !important;
+    }
+    .otter-button-secondary, .otter-btn-secondary {
+      background-color: #334155 !important;
+      color: #f8fafc !important;
+      border: 1px solid #475569 !important;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otter-button-secondary:hover, .otter-btn-secondary:hover {
+      background-color: #475569 !important;
+    }
+    .otter-button-danger, .otter-btn-danger {
+      background-color: #dc2626 !important;
+      color: #ffffff !important;
+      border: none !important;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-danger:hover, .otter-btn-danger:hover {
+      background-color: #b91c1c !important;
+    }
+    .otter-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-conditional {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .otter-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--otter-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .otter-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    .otter-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .otter-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    .otter-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+    .otter-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-select {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .otter-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-text-area,
+    .otter-textarea {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .otter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(37,99,235,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .otter-canvas {
+      background: #020617;
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      max-width: 100%;
+      display: block;
+    }
+    .otter-progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--otter-border);
+      background: var(--otter-input-bg);
+    }
+    .otter-progress::-webkit-progress-bar {
+      background: var(--otter-input-bg);
+      border-radius: 9999px;
+    }
+    .otter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .otter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+    }
+    .otter-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .otter-toggle-track {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .otter-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .otter-toggle:checked + .otter-toggle-track {
+      background: var(--otter-primary);
+    }
+    .otter-toggle:checked + .otter-toggle-track .otter-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .otter-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-radio {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .otter-toast {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      animation: otterToastIn 0.25s ease-out;
+      max-width: 320px;
+    }
+    @keyframes otterToastIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #otter-live-output {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: none;
+    }
+
+  </style>
+<link rel="icon" href="/static/images/otter-site-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/static/images/otter-site-icon.png">
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<script defer src="/static/docs-enhancements.js"></script>
+</head>
+<body class="otter-has-page otter-doc-scroll">
+    <main id="app" class="otter-page" style="width: 100%; max-width: 100%; background: #f4f7fb; color: #0f1f36; padding: 0px; gap: 0px;">
+      
+      <div class="otter-page-content" style="display: flex; flex-direction: column; gap: 0px; width: 100%; min-width: 0; flex: 1 1 0%; min-height: 0; height: 100%;">
+      <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
+      <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
+</div>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 25px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 206px; text-align: left;;">Search documentation...   Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+      <div id="docsBody" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 0px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="docsSidebar" class="otter-column" style="background: #ffffff; padding: 24px 12px 24px 20px; box-sizing: border-box; width: 248px; flex: 0 0 248px; border-right: 1px solid #e3e9f2; position: sticky; top: 64px; align-self: flex-start; height: calc(100vh - 64px); overflow-y: auto;; display: flex; flex-direction: column; gap: 22px; align-items: stretch; justify-content: flex-start;">
+      <div id="sideGroup1" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead1" class="otter-link" href="/docs/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Getting Started</a>
+      <a id="sideDocs" class="otter-link" href="/docs/" style="color: #4a5b75; font-size: 14px; display: none;;">Overview</a>
+      <a id="sideWelcome" class="otter-link" href="/welcome/" style="color: #4a5b75; font-size: 14px; display: none;;">Introduction</a>
+      <a id="sideWhatIsOtter" class="otter-link" href="/what-is-otter/" style="color: #4a5b75; font-size: 14px; display: none;;">What is Otter?</a>
+      <a id="sideWhoIsOtterFor" class="otter-link" href="/who-is-otter-for/" style="color: #4a5b75; font-size: 14px; display: none;;">Who is Otter for?</a>
+      <a id="sideWhatCanYouBuild" class="otter-link" href="/what-can-you-build/" style="color: #4a5b75; font-size: 14px; display: none;;">What can you build?</a>
+      <a id="sideInstallation" class="otter-link" href="/installation/" style="color: #4a5b75; font-size: 14px; display: none;;">Installation</a>
+      <a id="sideVerify" class="otter-link" href="/verify/" style="color: #4a5b75; font-size: 14px; display: none;;">Verify your installation</a>
+      <a id="sideFirstProgram" class="otter-link" href="/first-program/" style="color: #4a5b75; font-size: 14px; display: none;;">Your first program</a>
+      <a id="sideHello" class="otter-link" href="/hello/" style="color: #4a5b75; font-size: 14px; display: none;;">Hello, Otter!</a>
+      <a id="sideRepl" class="otter-link" href="/repl/" style="color: #4a5b75; font-size: 14px; display: none;;">The REPL</a>
+      <a id="sideRunningFiles" class="otter-link" href="/running-files/" style="color: #4a5b75; font-size: 14px; display: none;;">Running .ot files</a>
+      <a id="sideTinyApp" class="otter-link" href="/tiny-app/" style="color: #4a5b75; font-size: 14px; display: none;;">Build a tiny application</a>
+</div>
+      <div id="sideGroup2" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead2" class="otter-link" href="/cli/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tools</a>
+      <a id="sideCli" class="otter-link" href="/cli/" style="color: #4a5b75; font-size: 14px; display: none;;">The otter command</a>
+      <a id="sideProjects" class="otter-link" href="/projects/" style="color: #4a5b75; font-size: 14px; display: none;;">Projects</a>
+      <a id="sideTroubleshooting" class="otter-link" href="/troubleshooting/" style="color: #4a5b75; font-size: 14px; display: none;;">Troubleshooting</a>
+</div>
+      <div id="sideGroup3" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead3" class="otter-link" href="/values/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Guide</a>
+      <a id="sideValues" class="otter-link" href="/values/" style="color: #4a5b75; font-size: 14px; display: none;;">Values and variables</a>
+      <a id="sideInputOutput" class="otter-link" href="/input-output/" style="color: #4a5b75; font-size: 14px; display: none;;">Input and output</a>
+      <a id="sideConditions" class="otter-link" href="/conditions/" style="color: #4a5b75; font-size: 14px; display: none;;">Conditions</a>
+      <a id="sideLoops" class="otter-link" href="/loops/" style="color: #4a5b75; font-size: 14px; display: none;;">Loops</a>
+      <a id="sideLists" class="otter-link" href="/lists/" style="color: #4a5b75; font-size: 14px; display: none;;">Lists</a>
+      <a id="sideFunctions" class="otter-link" href="/functions/" style="color: #4a5b75; font-size: 14px; display: none;;">Functions</a>
+      <a id="sideObjects" class="otter-link" href="/objects/" style="color: #4a5b75; font-size: 14px; display: none;;">Objects and properties</a>
+      <a id="sideFiles" class="otter-link" href="/files/" style="color: #4a5b75; font-size: 14px; display: none;;">Files and folders</a>
+      <a id="sideData" class="otter-link" href="/data/" style="color: #4a5b75; font-size: 14px; display: none;;">CSV and downloads</a>
+      <a id="sideErrorHandling" class="otter-link" href="/error-handling/" style="color: #4a5b75; font-size: 14px; display: none;;">Error handling</a>
+      <a id="sideMath" class="otter-link" href="/math/" style="color: #4a5b75; font-size: 14px; display: none;;">Math</a>
+      <a id="sideNestedConditions" class="otter-link" href="/nested-conditions/" style="color: #4a5b75; font-size: 14px; display: none;;">Nested conditions</a>
+      <a id="sideModules" class="otter-link" href="/modules/" style="color: #4a5b75; font-size: 14px; display: none;;">Modules</a>
+      <a id="sideRunningPrograms" class="otter-link" href="/running-programs/" style="color: #4a5b75; font-size: 14px; display: none;;">Running programs</a>
+      <a id="sideLoggingDebugging" class="otter-link" href="/logging-debugging/" style="color: #4a5b75; font-size: 14px; display: none;;">Logging and debugging</a>
+      <a id="sideEnvironment" class="otter-link" href="/environment/" style="color: #4a5b75; font-size: 14px; display: none;;">Arguments and environment</a>
+</div>
+      <div id="sideGroup4" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead4" class="otter-link" href="/gone/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Reference</a>
+      <a id="sideGone" class="otter-link" href="/gone/" style="color: #4a5b75; font-size: 14px; display: none;;">gone</a>
+      <a id="sideOperators" class="otter-link" href="/operators/" style="color: #4a5b75; font-size: 14px; display: none;;">Operators</a>
+      <a id="sidePropertyAccess" class="otter-link" href="/property-access/" style="color: #4a5b75; font-size: 14px; display: none;;">Property access</a>
+      <a id="sideStrings" class="otter-link" href="/strings/" style="color: #4a5b75; font-size: 14px; display: none;;">Text</a>
+      <a id="sideCollections" class="otter-link" href="/collections/" style="color: #4a5b75; font-size: 14px; display: none;;">Collections</a>
+      <a id="sideDiscovery" class="otter-link" href="/discovery/" style="color: #4a5b75; font-size: 14px; display: none;;">Finding files and folders</a>
+      <a id="sideFileObjects" class="otter-link" href="/file-objects/" style="color: #4a5b75; font-size: 14px; display: none;;">File and folder objects</a>
+      <a id="sideFilesFolders" class="otter-link" href="/files-folders/" style="color: #4a5b75; font-size: 14px; display: none;;">Files</a>
+      <a id="sideFolders" class="otter-link" href="/folders/" style="color: #4a5b75; font-size: 14px; display: none;;">Folders</a>
+      <a id="sideTry" class="otter-link" href="/try/" style="color: #4a5b75; font-size: 14px; display: none;;">try and otherwise</a>
+      <a id="sideJson" class="otter-link" href="/json/" style="color: #4a5b75; font-size: 14px; display: none;;">JSON</a>
+      <a id="sideRandom" class="otter-link" href="/random/" style="color: #4a5b75; font-size: 14px; display: none;;">Random</a>
+      <a id="sideDates" class="otter-link" href="/dates/" style="color: #4a5b75; font-size: 14px; display: none;;">Dates and time</a>
+      <a id="sideScope" class="otter-link" href="/scope/" style="color: #4a5b75; font-size: 14px; display: none;;">Scope</a>
+      <a id="sideDiagnostics" class="otter-link" href="/diagnostics/" style="color: #4a5b75; font-size: 14px; display: none;;">Diagnostic output</a>
+      <a id="sideReference" class="otter-link" href="/reference/" style="color: #4a5b75; font-size: 14px; display: none;;">Reference index</a>
+</div>
+      <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead5" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
+      <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; display: none;;">Databases</a>
+      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language</a>
+      <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; display: none;;">HTTP requests</a>
+      <a id="sideWebServer" class="otter-link" href="/web-server/" style="color: #4a5b75; font-size: 14px; display: none;;">Web servers</a>
+      <a id="sideXml" class="otter-link" href="/xml/" style="color: #4a5b75; font-size: 14px; display: none;;">XML</a>
+      <a id="sideWebApps" class="otter-link" href="/web-apps/" style="color: #4a5b75; font-size: 14px; display: none;;">Web applications</a>
+      <a id="sideReactivity" class="otter-link" href="/reactivity/" style="color: #4a5b75; font-size: 14px; display: none;;">State and reactivity</a>
+      <a id="sideNetworking" class="otter-link" href="/networking/" style="color: #4a5b75; font-size: 14px; display: none;;">Networking</a>
+      <a id="sideSecurity" class="otter-link" href="/security/" style="color: #4a5b75; font-size: 14px; display: none;;">Cryptography and secrets</a>
+</div>
+      <div id="sideGroup6" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead6" class="otter-link" href="/console/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Console</a>
+      <a id="sideConsole" class="otter-link" href="/console/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Console programming</a>
+      <a id="sideConsoleInput" class="otter-link" href="/console-input/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Console input</a>
+      <a id="sideConsoleApp" class="otter-link" href="/console-app/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid #2563eb; border-radius: 4px; display: block; background: #e6efff; color: #1d4ed8; font-weight: 600;;">A complete console program</a>
+</div>
+      <div id="sideGroup7" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead7" class="otter-link" href="/windows-apps/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Desktop Apps</a>
+      <a id="sideWindowsApps" class="otter-link" href="/windows-apps/" style="color: #4a5b75; font-size: 14px; display: none;;">Windows applications</a>
+      <a id="sideControls" class="otter-link" href="/controls/" style="color: #4a5b75; font-size: 14px; display: none;;">Controls</a>
+      <a id="sideControlWindow" class="otter-link" href="/control-window/" style="color: #4a5b75; font-size: 14px; display: none;;">window</a>
+      <a id="sideControlButton" class="otter-link" href="/control-button/" style="color: #4a5b75; font-size: 14px; display: none;;">button</a>
+      <a id="sideControlText" class="otter-link" href="/control-text/" style="color: #4a5b75; font-size: 14px; display: none;;">text</a>
+      <a id="sideControlTextBox" class="otter-link" href="/control-text-box/" style="color: #4a5b75; font-size: 14px; display: none;;">text box</a>
+      <a id="sideControlHeading" class="otter-link" href="/control-heading/" style="color: #4a5b75; font-size: 14px; display: none;;">heading</a>
+      <a id="sideControlCard" class="otter-link" href="/control-card/" style="color: #4a5b75; font-size: 14px; display: none;;">card</a>
+      <a id="sideControlRow" class="otter-link" href="/control-row/" style="color: #4a5b75; font-size: 14px; display: none;;">row</a>
+      <a id="sideControlColumn" class="otter-link" href="/control-column/" style="color: #4a5b75; font-size: 14px; display: none;;">column</a>
+      <a id="sideControlPanel" class="otter-link" href="/control-panel/" style="color: #4a5b75; font-size: 14px; display: none;;">panel</a>
+      <a id="sideControlGrid" class="otter-link" href="/control-grid/" style="color: #4a5b75; font-size: 14px; display: none;;">grid</a>
+      <a id="sideControlScroll" class="otter-link" href="/control-scroll/" style="color: #4a5b75; font-size: 14px; display: none;;">scroll</a>
+      <a id="sideDesktopLayout" class="otter-link" href="/desktop-layout/" style="color: #4a5b75; font-size: 14px; display: none;;">Layout</a>
+      <a id="sideEvents" class="otter-link" href="/events/" style="color: #4a5b75; font-size: 14px; display: none;;">Events</a>
+</div>
+      <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead8" class="otter-link" href="/examples/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Examples</a>
+      <a id="sideExamples" class="otter-link" href="/examples/" style="color: #4a5b75; font-size: 14px; display: none;;">All examples</a>
+      <a id="sideExampleHello" class="otter-link" href="/example-hello/" style="color: #4a5b75; font-size: 14px; display: none;;">Hello World</a>
+      <a id="sideExampleInput" class="otter-link" href="/example-input/" style="color: #4a5b75; font-size: 14px; display: none;;">User input</a>
+      <a id="sideExampleConditions" class="otter-link" href="/example-conditions/" style="color: #4a5b75; font-size: 14px; display: none;;">Conditions</a>
+      <a id="sideExampleCounting" class="otter-link" href="/example-counting/" style="color: #4a5b75; font-size: 14px; display: none;;">Counting</a>
+      <a id="sideExampleLists" class="otter-link" href="/example-lists/" style="color: #4a5b75; font-size: 14px; display: none;;">Lists</a>
+      <a id="sideExampleDiscovery" class="otter-link" href="/example-discovery/" style="color: #4a5b75; font-size: 14px; display: none;;">File discovery</a>
+      <a id="sideExampleOrganizer" class="otter-link" href="/example-organizer/" style="color: #4a5b75; font-size: 14px; display: none;;">File organizer</a>
+      <a id="sideExampleFinding" class="otter-link" href="/example-finding/" style="color: #4a5b75; font-size: 14px; display: none;;">Finding files</a>
+      <a id="sideExampleErrors" class="otter-link" href="/example-errors/" style="color: #4a5b75; font-size: 14px; display: none;;">Handling errors</a>
+</div>
+      <div id="sideGroup9" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead9" class="otter-link" href="/task-manager/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tutorials</a>
+      <a id="sideTaskManager" class="otter-link" href="/task-manager/" style="color: #4a5b75; font-size: 14px; display: none;;">Build a Task Manager</a>
+      <a id="sideFileBrowser" class="otter-link" href="/file-browser/" style="color: #4a5b75; font-size: 14px; display: none;;">Build a File Browser</a>
+</div>
+      <div id="sideGroup10" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead10" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
+      <a id="sideDesignReadable" class="otter-link" href="/design-readable/" style="color: #4a5b75; font-size: 14px; display: none;;">Readable like English</a>
+      <a id="sideStructuralWords" class="otter-link" href="/structural-words/" style="color: #4a5b75; font-size: 14px; display: none;;">Structural words</a>
+      <a id="sidePropertiesOperations" class="otter-link" href="/properties-operations/" style="color: #4a5b75; font-size: 14px; display: none;;">Properties vs operations</a>
+      <a id="sidePeriods" class="otter-link" href="/periods/" style="color: #4a5b75; font-size: 14px; display: none;;">Period and block rules</a>
+      <a id="sidePhilosophy" class="otter-link" href="/philosophy/" style="color: #4a5b75; font-size: 14px; display: none;;">Philosophy</a>
+</div>
+      <div id="sideGroup11" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead11" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
+      <a id="sideTopics" class="otter-link" href="/topics/" style="color: #4a5b75; font-size: 14px; display: none;;">All topics</a>
+      <a id="sideDownload" class="otter-link" href="/download/" style="color: #4a5b75; font-size: 14px; display: none;;">Download</a>
+      <a id="sideRelease" class="otter-link" href="/release/" style="color: #4a5b75; font-size: 14px; display: none;;">Release status</a>
+      <a id="sideStudio" class="otter-link" href="/studio/" style="color: #4a5b75; font-size: 14px; display: none;;">Studio preview</a>
+      <a id="sideSupport" class="otter-link" href="/support/" style="color: #4a5b75; font-size: 14px; display: none;;">Support</a>
+      <a id="sideAbout" class="otter-link" href="/about/" style="color: #4a5b75; font-size: 14px; display: none;;">About Otter</a>
+      <a id="sideLicense" class="otter-link" href="/license/" style="color: #4a5b75; font-size: 14px; display: none;;">License</a>
+</div>
+      <div id="helpCard" class="otter-column" style="background: #f4f7fb; border-radius: 12px; border: 1px solid #e3e9f2; padding: 16px; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
+      <div id="helpTitle" class="otter-text" style="color: #0f1f36; font-size: 14px; font-weight: 700;">Need help?</div>
+      <div id="helpBody" class="otter-text" style="color: #4a5b75; font-size: 13px; line-height: 1.45;">Ask a question or report a problem on GitHub.</div>
+      <a id="helpLink" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/issues" style="color: #2563eb; font-size: 13px; font-weight: 600;" target="_blank" rel="noopener noreferrer">Open an issue</a>
+</div>
+</div>
+      <div id="docsMain" class="otter-column" style="padding: 40px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0; max-width: 940px;; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
+      <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">A complete console program</div>
+      <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">A small task helper that puts the pieces together: a menu, input, colors, a list, and a loop that runs until you quit.</div>
+      <div id="b3block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b3head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b3label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b3copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="b3" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">say &quot;Task helper&quot; in color &quot;cyan&quot;
+
+tasks are empty
+running is true
+
+while running
+    actions are
+        &quot;Add a task&quot;
+        &quot;Show tasks&quot;
+        &quot;Quit&quot;
+    .
+    choose from actions into action
+
+    if action is &quot;Add a task&quot;
+        ask &quot;Task name: &quot; and call it title
+        add title to tasks
+        say &quot;Added:&quot; title in color &quot;green&quot;
+    otherwise if action is &quot;Show tasks&quot;
+        if length of tasks is 0
+            say &quot;No tasks yet.&quot; in color &quot;yellow&quot;
+        otherwise
+            each task in tasks
+                say &quot;-&quot; task
+            .
+        .
+    otherwise
+        running is false
+    .
+.
+
+say &quot;Goodbye&quot;</div>
+</div>
+      <div id="b4" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Save it as tasks.ot and run otter tasks.ot. Choosing 2, then 1 and typing Write docs, then 2, then 3 prints:</div>
+      <div id="b5block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b5head" class="otter-row" style="width: 100%; max-width: 100%; background: #dde6f2; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b5label" class="otter-text" style="color: #4a5b75; font-size: 12px; font-weight: 600;">Output</div>
+      <button id="b5copy" class="otter-button" style="background: #c9d6e8; color: #0f1f36; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="b5" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">Task helper
+  1. Add a task
+  2. Show tasks
+  3. Quit
+Choose a number: 2
+No tasks yet.
+  1. Add a task
+  2. Show tasks
+  3. Quit
+Choose a number: 1
+Task name:  Write docs
+Added: Write docs
+  1. Add a task
+  2. Show tasks
+  3. Quit
+Choose a number: 2
+- Write docs
+  1. Add a task
+  2. Show tasks
+  3. Quit
+Choose a number: 3
+Goodbye</div>
+</div>
+      <div id="b6" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What to notice</div>
+      <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- running is true and while running keep the loop going until Quit sets it to false.</div>
+      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- choose from returns the item you picked, so the if compares words, not numbers.</div>
+      <div id="b9" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- length of tasks is 0 checks for an empty list.</div>
+      <div id="b10" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Challenges</div>
+      <div id="b11" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- Add a Remove a task choice using remove title from tasks.</div>
+      <div id="b12" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- Show progress with show progress N percent while you count the tasks.</div>
+      <div id="b13" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- Save the tasks to a file with write, and read them back at the start.</div>
+      <a id="b14" class="otter-link" href="/console/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Console programming</a>
+      <a id="b15" class="otter-link" href="/files/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Files and folders</a>
+</div>
+</div>
+      <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
+      <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+</div>
+    </main>
+  <div id="otter-live-output"></div>
+
+  <script>
+    // Otter Runtime helpers for the browser
+    const empty = "";
+    const gone = null;
+    function otterGetElement(id) { return document.getElementById(id); }
+
+
+// Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
+
+function _otterAssertWebCryptoSubtle() {
+  if (typeof globalThis === 'undefined' || !globalThis.crypto || !globalThis.crypto.subtle) {
+    throw new Error('Cryptography in the browser requires Web Crypto in a secure context (HTTPS or localhost).');
+  }
+}
+
+function _otterAssertWebCryptoRandom() {
+  if (typeof globalThis === 'undefined' || !globalThis.crypto || typeof globalThis.crypto.getRandomValues !== 'function') {
+    throw new Error('Cryptography in the browser requires Web Crypto in a secure context (HTTPS or localhost).');
+  }
+}
+
+function _otterCryptoFormatVal(v) {
+  if (v === null || v === undefined) return 'empty';
+  if (typeof v === 'string') return '"' + v + '"';
+  if (typeof v === 'number') return String(v);
+  if (typeof v === 'boolean') return v ? 'true' : 'false';
+  if (typeof v === 'object' && v.__otterBytes) return '<' + v.value.length + ' bytes>';
+  return String(v);
+}
+
+function _otterCryptoTypeName(v) {
+  if (v === null || v === undefined) return 'empty';
+  if (typeof v === 'string') return 'text';
+  if (typeof v === 'number') return 'a number';
+  if (typeof v === 'boolean') return 'a yes/no';
+  if (typeof v === 'object' && v.__otterBytes) return 'bytes';
+  if (typeof v === 'object' && v.__otterDate) return 'a date';
+  if (typeof v === 'object' && v.__otterXml) return 'xml';
+  if (Array.isArray(v)) return 'a list';
+  if (typeof v === 'object' && v.__otterThing) return 'a thing';
+  return typeof v;
+}
+
+function _otterAssertCryptoBytes(val, what) {
+  if (!val || typeof val !== 'object' || !val.__otterBytes || !(val.value instanceof Uint8Array)) {
+    throw new Error(what + ' must be bytes, but this is ' + _otterCryptoTypeName(val) + '. Otter never converts text to bytes silently.');
+  }
+}
+
+function _otterAssertEncryptionKey(key) {
+  _otterAssertCryptoBytes(key, 'An encryption key');
+  if (key.value.length !== 32) {
+    throw new Error('An encryption key must be exactly 32 bytes, but this one is ' + key.value.length + '.');
+  }
+}
+
+function otterSecureRandomBytes(count) {
+  _otterAssertWebCryptoRandom();
+  if (typeof count !== 'number' || !Number.isFinite(count) || Math.floor(count) !== count || count < 1 || count > 1048576) {
+    throw new Error('I need a whole number of random bytes between 1 and 1048576, but this is ' + _otterCryptoFormatVal(count) + '.');
+  }
+  const result = new Uint8Array(count);
+  const CHUNK_SIZE = 65536;
+  for (let offset = 0; offset < count; offset += CHUNK_SIZE) {
+    const chunkLength = Math.min(CHUNK_SIZE, count - offset);
+    const sub = result.subarray(offset, offset + chunkLength);
+    globalThis.crypto.getRandomValues(sub);
+  }
+  return { __otterBytes: true, value: result, toString() { return '<' + this.value.length + ' bytes>'; } };
+}
+
+function otterGenerateEncryptionKey() {
+  _otterAssertWebCryptoRandom();
+  const raw = new Uint8Array(32);
+  globalThis.crypto.getRandomValues(raw);
+  return { __otterBytes: true, value: raw, toString() { return '<' + this.value.length + ' bytes>'; } };
+}
+
+function otterSecurelyEquals(left, right) {
+  _otterAssertCryptoBytes(left, 'A secret compared with "securely equals"');
+  _otterAssertCryptoBytes(right, 'A secret compared with "securely equals"');
+  const a = left.value;
+  const b = right.value;
+  if (a.length !== b.length) {
+    return false;
+  }
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    diff |= (a[i] ^ b[i]);
+  }
+  return diff === 0;
+}
+
+async function otterCryptoHash(algo, data) {
+  _otterAssertWebCryptoSubtle();
+  _otterAssertCryptoBytes(data, 'The data to hash with ' + algo);
+  const subtleAlgo = algo.toUpperCase().replace('SHA', 'SHA-');
+  const digestBuffer = await globalThis.crypto.subtle.digest(subtleAlgo, data.value);
+  return { __otterBytes: true, value: new Uint8Array(digestBuffer), toString() { return '<' + this.value.length + ' bytes>'; } };
+}
+
+async function otterCryptoHmac(algo, data, key) {
+  _otterAssertWebCryptoSubtle();
+  _otterAssertCryptoBytes(data, 'The data to sign');
+  _otterAssertCryptoBytes(key, 'A signing key');
+  if (key.value.length === 0) {
+    throw new Error('A signing key cannot be empty.');
+  }
+  const subtleHash = algo.toUpperCase().replace('SHA', 'SHA-');
+  const cryptoKey = await globalThis.crypto.subtle.importKey(
+    'raw',
+    key.value,
+    { name: 'HMAC', hash: { name: subtleHash } },
+    false,
+    ['sign']
+  );
+  const sigBuffer = await globalThis.crypto.subtle.sign('HMAC', cryptoKey, data.value);
+  return { __otterBytes: true, value: new Uint8Array(sigBuffer), toString() { return '<' + this.value.length + ' bytes>'; } };
+}
+
+async function _otterDeriveSubkeys(rawKey) {
+  const encLabel = new TextEncoder().encode('otter-aead-v1-enc');
+  const macLabel = new TextEncoder().encode('otter-aead-v1-mac');
+  const hmacKey = await globalThis.crypto.subtle.importKey(
+    'raw',
+    rawKey,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const encKeyBytes = new Uint8Array(await globalThis.crypto.subtle.sign('HMAC', hmacKey, encLabel));
+  const macKeyBytes = new Uint8Array(await globalThis.crypto.subtle.sign('HMAC', hmacKey, macLabel));
+  return { encKeyBytes, macKeyBytes };
+}
+
+async function otterEncryptBytes(data, key) {
+  _otterAssertWebCryptoSubtle();
+  _otterAssertCryptoBytes(data, 'The data to encrypt');
+  _otterAssertEncryptionKey(key);
+  const { encKeyBytes, macKeyBytes } = await _otterDeriveSubkeys(key.value);
+  const iv = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(iv);
+  const aesKey = await globalThis.crypto.subtle.importKey(
+    'raw',
+    encKeyBytes,
+    { name: 'AES-CBC' },
+    false,
+    ['encrypt']
+  );
+  const cipherBuffer = await globalThis.crypto.subtle.encrypt(
+    { name: 'AES-CBC', iv: iv },
+    aesKey,
+    data.value
+  );
+  const cipherBytes = new Uint8Array(cipherBuffer);
+  const body = new Uint8Array(1 + 16 + cipherBytes.length);
+  body[0] = 1;
+  body.set(iv, 1);
+  body.set(cipherBytes, 17);
+  const macKey = await globalThis.crypto.subtle.importKey(
+    'raw',
+    macKeyBytes,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const tagBuffer = await globalThis.crypto.subtle.sign('HMAC', macKey, body);
+  const tagBytes = new Uint8Array(tagBuffer);
+  const payload = new Uint8Array(body.length + 32);
+  payload.set(body, 0);
+  payload.set(tagBytes, body.length);
+  return { __otterBytes: true, value: payload, toString() { return '<' + this.value.length + ' bytes>'; } };
+}
+
+async function otterDecryptBytes(data, key) {
+  _otterAssertWebCryptoSubtle();
+  _otterAssertCryptoBytes(data, 'The data to decrypt');
+  _otterAssertEncryptionKey(key);
+  const payload = data.value;
+  if (payload.length < 65 || payload[0] !== 1) {
+    throw new Error('I could not decrypt this data: it was changed, it is not encrypted data, or the key is wrong.');
+  }
+  const bodyLength = payload.length - 32;
+  const body = payload.subarray(0, bodyLength);
+  const tag = payload.subarray(bodyLength, payload.length);
+  const { encKeyBytes, macKeyBytes } = await _otterDeriveSubkeys(key.value);
+  const macKey = await globalThis.crypto.subtle.importKey(
+    'raw',
+    macKeyBytes,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const expectedTagBuffer = await globalThis.crypto.subtle.sign('HMAC', macKey, body);
+  const expectedTag = new Uint8Array(expectedTagBuffer);
+  let tagDiff = 0;
+  for (let i = 0; i < 32; i++) {
+    tagDiff |= (expectedTag[i] ^ tag[i]);
+  }
+  if (tagDiff !== 0) {
+    throw new Error('I could not decrypt this data: it was changed, it is not encrypted data, or the key is wrong.');
+  }
+  const cipherLength = bodyLength - 17;
+  if (cipherLength % 16 !== 0) {
+    throw new Error('I could not decrypt this data: it was changed, it is not encrypted data, or the key is wrong.');
+  }
+  const iv = body.subarray(1, 17);
+  const cipherBytes = body.subarray(17, bodyLength);
+  let plainBuffer;
+  try {
+    const aesKey = await globalThis.crypto.subtle.importKey(
+      'raw',
+      encKeyBytes,
+      { name: 'AES-CBC' },
+      false,
+      ['decrypt']
+    );
+    plainBuffer = await globalThis.crypto.subtle.decrypt(
+      { name: 'AES-CBC', iv: iv },
+      aesKey,
+      cipherBytes
+    );
+  } catch (e) {
+    throw new Error('I could not decrypt this data: it was changed, it is not encrypted data, or the key is wrong.');
+  }
+  return { __otterBytes: true, value: new Uint8Array(plainBuffer), toString() { return '<' + this.value.length + ' bytes>'; } };
+}
+
+async function _otterPbkdf2Derive(password, saltBytes, iterations) {
+  const enc = new TextEncoder();
+  const pwdKey = await globalThis.crypto.subtle.importKey(
+    'raw',
+    enc.encode(password),
+    'PBKDF2',
+    false,
+    ['deriveBits']
+  );
+  const derivedBits = await globalThis.crypto.subtle.deriveBits(
+    {
+      name: 'PBKDF2',
+      salt: saltBytes,
+      iterations: iterations,
+      hash: 'SHA-256'
+    },
+    pwdKey,
+    256
+  );
+  return new Uint8Array(derivedBits);
+}
+
+async function otterHashPassword(password) {
+  _otterAssertWebCryptoSubtle();
+  if (typeof password !== 'string' || password.length === 0) {
+    throw new Error('I need a password as non-empty text, but this is ' + _otterCryptoTypeName(password) + '.');
+  }
+  const salt = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(salt);
+  const iterations = 600000;
+  const derived = await _otterPbkdf2Derive(password, salt, iterations);
+  let saltBin = '';
+  for (let i = 0; i < salt.length; i++) saltBin += String.fromCharCode(salt[i]);
+  let derBin = '';
+  for (let i = 0; i < derived.length; i++) derBin += String.fromCharCode(derived[i]);
+  return 'otter-pbkdf2-sha256$' + iterations + '$' + btoa(saltBin) + '$' + btoa(derBin);
+}
+
+async function otterPasswordMatches(password, stored) {
+  _otterAssertWebCryptoSubtle();
+  if (typeof password !== 'string') {
+    throw new Error('I need a password as text, but this is ' + _otterCryptoTypeName(password) + '.');
+  }
+  if (typeof stored !== 'string') {
+    throw new Error('I need a stored password hash as text, but this is ' + _otterCryptoTypeName(stored) + '.');
+  }
+  const parts = stored.split('$');
+  if (parts.length !== 4 || parts[0] !== 'otter-pbkdf2-sha256') {
+    throw new Error('That text is not a password hash made by "hash password".');
+  }
+  const iterations = parseInt(parts[1], 10);
+  if (isNaN(iterations) || iterations < 1000 || String(iterations) !== parts[1]) {
+    throw new Error('That text is not a password hash made by "hash password".');
+  }
+  let saltBytes, expectedBytes;
+  try {
+    const saltBin = atob(parts[2]);
+    saltBytes = new Uint8Array(saltBin.length);
+    for (let i = 0; i < saltBin.length; i++) saltBytes[i] = saltBin.charCodeAt(i);
+    const expBin = atob(parts[3]);
+    expectedBytes = new Uint8Array(expBin.length);
+    for (let i = 0; i < expBin.length; i++) expectedBytes[i] = expBin.charCodeAt(i);
+  } catch (e) {
+    throw new Error('That text is not a password hash made by "hash password".');
+  }
+  if (saltBytes.length < 8 || expectedBytes.length !== 32) {
+    throw new Error('That text is not a password hash made by "hash password".');
+  }
+  const derived = await _otterPbkdf2Derive(password, saltBytes, iterations);
+  let diff = 0;
+  for (let i = 0; i < 32; i++) {
+    diff |= (derived[i] ^ expectedBytes[i]);
+  }
+  return diff === 0;
+}
+    function otterGetText(id) {
+      const el = otterGetElement(id);
+      if (!el) return '';
+      if (el.type === 'checkbox') return el.checked;
+      const tag = el.tagName ? el.tagName.toUpperCase() : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        return el.value;
+      }
+      return el.textContent || '';
+    }
+    function otterSetText(id, val) {
+      const el = otterGetElement(id);
+      if (!el) return;
+      if (el.type === 'checkbox') { el.checked = Boolean(val); return; }
+      const tag = el.tagName ? el.tagName.toUpperCase() : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        el.value = val;
+      } else {
+        el.textContent = val;
+      }
+      if ('value' in el) { el.value = val; }
+    }
+    function otterGetTitle(id) { return document.title; }
+    function otterSetTitle(id, val) { document.title = val; }
+    function otterSetStyle(id, prop, val) {
+      const el = otterGetElement(id);
+      if (el) el.style[prop] = val;
+    }
+    function otterGetStyle(id, prop) {
+      const el = otterGetElement(id);
+      return el ? el.style[prop] : '';
+    }
+    function otterSetProperty(id, prop, val) {
+      const el = otterGetElement(id);
+      if (el) {
+        if (prop === 'url' && el.tagName === 'A') { el.href = val; return; }
+        el[prop] = val;
+        if (el.dataset) el.dataset[prop] = val;
+      }
+    }
+    function otterGetProperty(id, prop) {
+      const el = otterGetElement(id);
+      return el ? el[prop] : '';
+    }
+    function otterSay(...args) {
+      console.log(...args);
+      const out = document.getElementById('otter-live-output');
+      if (out) {
+        out.style.display = 'block';
+        out.textContent = args.join(' ');
+      }
+    }
+    async function otterReadFile(filePath) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
+        return '';
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: filePath })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not read file "' + filePath + '": HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      return data.content || '';
+    }
+    async function otterWriteFile(filePath, content) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
+        return false;
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: filePath, content: content })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not write file "' + filePath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterWriteFile = otterWriteFile;
+
+    async function otterDownloadFile(url, filePath) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available for file download in this browser.');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ url: url, path: filePath })
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.error || ('Download failed with HTTP ' + resp.status));
+      }
+      return await resp.json();
+    }
+    window.otterDownloadFile = otterDownloadFile;
+
+    async function otterRunCommand(command) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available to run "' + command + '".');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/terminal/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ command: command })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not execute command "' + command + '": HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      const stdout = data.stdout || '';
+      const stderr = data.stderr || '';
+      return {
+        __otterThing: true,
+        typeName: 'command result',
+        props: {
+          output: stdout,
+          'error output': stderr,
+          'exit code': Number.isFinite(Number(data.exitCode)) ? Number(data.exitCode) : -1
+        },
+        order: ['output', 'error output', 'exit code']
+      };
+    }
+    window.otterRunCommand = otterRunCommand;
+
+    async function otterGetFiles(folderPath, includeSubfolders = false) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
+        return [];
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: folderPath, recursive: includeSubfolders })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not get files in "' + folderPath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterGetFiles = otterGetFiles;
+
+    async function otterGetFolders(folderPath, includeSubfolders = false) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
+        return [];
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify({ path: folderPath, recursive: includeSubfolders })
+      });
+      if (!resp.ok) {
+        throw new Error('Could not get folders in "' + folderPath + '": HTTP ' + resp.status);
+      }
+      return await resp.json();
+    }
+    window.otterGetFolders = otterGetFolders;
+
+    async function otterFileOperation(operation, payload) {
+      const bridge = window.__OTTER_DESKTOP_BRIDGE__;
+      if (!bridge || !bridge.port || !bridge.token) {
+        throw new Error('Desktop Bridge is not available for file operations.');
+      }
+      const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/operate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Otter-Token': bridge.token
+        },
+        body: JSON.stringify(Object.assign({ operation: operation }, payload || {}))
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        throw new Error(data.error || 'The filesystem operation could not be completed.');
+      }
+      return data;
+    }
+    async function otterFileExists(filePath) {
+      const result = await otterFileOperation('file-exists', { path: filePath });
+      return Boolean(result.exists);
+    }
+    function otterAppendFile(filePath, content) { return otterFileOperation('append-file', { path: filePath, content: content }); }
+    function otterCopyFile(source, destination) { return otterFileOperation('copy-file', { source: source, destination: destination }); }
+    function otterMoveFile(source, destination) { return otterFileOperation('move-file', { source: source, destination: destination }); }
+    function otterDeleteFile(filePath) { return otterFileOperation('delete-file', { path: filePath }); }
+    function otterCreateFolder(folderPath) { return otterFileOperation('create-folder', { path: folderPath }); }
+    function otterDeleteFolder(folderPath) { return otterFileOperation('delete-folder', { path: folderPath }); }
+    function otterCopyFolder(source, destination) { return otterFileOperation('copy-folder', { source: source, destination: destination }); }
+    function otterMoveFolder(source, destination) { return otterFileOperation('move-folder', { source: source, destination: destination }); }
+    window.otterFileExists = otterFileExists;
+    window.otterAppendFile = otterAppendFile;
+    window.otterCopyFile = otterCopyFile;
+    window.otterMoveFile = otterMoveFile;
+    window.otterDeleteFile = otterDeleteFile;
+    window.otterCreateFolder = otterCreateFolder;
+    window.otterDeleteFolder = otterDeleteFolder;
+    window.otterCopyFolder = otterCopyFolder;
+    window.otterMoveFolder = otterMoveFolder;
+    function otterWait(seconds) {
+      const ms = Math.max(0, Number(seconds) * 1000);
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    function otterDelay(ms) {
+      const delayMs = Math.max(0, Number(ms));
+      return new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+    window.otterWait = otterWait;
+    window.otterDelay = otterDelay;
+    window.wait = otterWait;
+    window.delay = otterDelay;
+    // D67: getDesktopBridge() was called by every system-integration hook
+    // below (clipboard/notify/env/systemPaths/chooseFile/chooseFolder/
+    // saveFileDialog) but never actually defined anywhere in this file -
+    // a real, confirmed "ReferenceError: getDesktopBridge is not
+    // defined" for every one of them on a plain otter web compile
+    // (found by loading a real compiled page in a real browser, not by
+    // reading the code). The desktop-bridge path itself was unaffected,
+    // since Otter.Desktop.psm1's own injection completely overrides
+    // window.otterClipboard/etc. before this file's definitions would
+    // ever run. Matches the exact window.__OTTER_DESKTOP_BRIDGE__
+    // check every other already-working hook (otterReadFile,
+    // otterGetFiles, etc.) already uses inline, just factored into the
+    // one shared helper name this file's own code already assumed existed.
+    function getDesktopBridge() {
+      return window.__OTTER_DESKTOP_BRIDGE__ || null;
+    }
+    window.otterClipboard = {
+      copy: async function(text) {
+        const bridge = getDesktopBridge();
+        if (bridge) {
+          const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/system/clipboard', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Otter-Token': bridge.token },
+            body: JSON.stringify({ text: text })
+          });
+          return await resp.json();
+        }
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+          return { completed: true };
+        }
+        return { completed: false };
+      },
+      paste: async function() {
+        const bridge = getDesktopBridge();
+        if (bridge) {
+          const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/system/clipboard', {
+            method: 'GET',
+            headers: { 'X-Otter-Token': bridge.token }
+          });
+          const data = await resp.json();
+          return data.text || '';
+        }
+        if (navigator.clipboard) {
+          return await navigator.clipboard.readText();
+        }
+        return '';
+      }
+    };
+    window.otterNotify = async function(title, message) {
+      const bridge = getDesktopBridge();
+      if (bridge) {
+        fetch('http://127.0.0.1:' + bridge.port + '/api/system/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Otter-Token': bridge.token },
+          body: JSON.stringify({ title: title, message: message })
+        }).catch(() => {});
+      }
+      let container = document.getElementById('otter-toast-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'otter-toast-container';
+        container.className = 'otter-toast-container';
+        document.body.appendChild(container);
+      }
+      const toast = document.createElement('div');
+      toast.className = 'otter-toast';
+      const toastTitle = document.createElement('strong');
+      toastTitle.textContent = title || 'Notification';
+      const toastMsg = document.createElement('div');
+      toastMsg.textContent = message || '';
+      toast.appendChild(toastTitle);
+      toast.appendChild(toastMsg);
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+      return { completed: true };
+    };
+    window.otterGetEnv = async function(name) {
+      const bridge = getDesktopBridge();
+      if (bridge) {
+        const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/system/env', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Otter-Token': bridge.token },
+          body: JSON.stringify({ name: name })
+        });
+        const data = await resp.json();
+        return data.value;
+      }
+      return null;
+    };
+    window.otterGetSystemPaths = async function() {
+      const bridge = getDesktopBridge();
+      if (bridge) {
+        const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/system/env', {
+          method: 'GET',
+          headers: { 'X-Otter-Token': bridge.token }
+        });
+        return await resp.json();
+      }
+      return {};
+    };
+    window.otterChooseFile = async function() {
+      const bridge = getDesktopBridge();
+      if (bridge) {
+        const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/dialog/open-file', {
+          method: 'POST',
+          headers: { 'X-Otter-Token': bridge.token }
+        });
+        const data = await resp.json();
+        return data.path || '';
+      }
+      return '';
+    };
+    window.otterChooseFolder = async function() {
+      const bridge = getDesktopBridge();
+      if (bridge) {
+        const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/dialog/folder', {
+          method: 'POST',
+          headers: { 'X-Otter-Token': bridge.token }
+        });
+        const data = await resp.json();
+        return data.path || '';
+      }
+      return '';
+    };
+    window.otterSaveFileDialog = async function() {
+      const bridge = getDesktopBridge();
+      if (bridge) {
+        const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/dialog/save-file', {
+          method: 'POST',
+          headers: { 'X-Otter-Token': bridge.token }
+        });
+        const data = await resp.json();
+        return data.path || '';
+      }
+      return '';
+    };
+    window.copyToClipboard = window.otterClipboard.copy;
+    window.getClipboard = window.otterClipboard.paste;
+    window.notify = window.otterNotify;
+    window.chooseFile = window.otterChooseFile;
+    window.chooseFolder = window.otterChooseFolder;
+    window.saveFileDialog = window.otterSaveFileDialog;
+    window.otterStorage = {
+      get: function(key, defaultVal = null) {
+        try {
+          const val = localStorage.getItem(key);
+          if (val === null) return defaultVal;
+          try { return JSON.parse(val); } catch(_) { return val; }
+        } catch(_) { return defaultVal; }
+      },
+      set: function(key, val) {
+        try {
+          const serialized = (typeof val === 'object' && val !== null) ? JSON.stringify(val) : String(val);
+          localStorage.setItem(key, serialized);
+          return true;
+        } catch(_) { return false; }
+      },
+      remove: function(key) {
+        try { localStorage.removeItem(key); return true; } catch(_) { return false; }
+      },
+      clear: function() {
+        try { localStorage.clear(); return true; } catch(_) { return false; }
+      },
+      session: {
+        get: function(key, defaultVal = null) {
+          try {
+            const val = sessionStorage.getItem(key);
+            if (val === null) return defaultVal;
+            try { return JSON.parse(val); } catch(_) { return val; }
+          } catch(_) { return defaultVal; }
+        },
+        set: function(key, val) {
+          try {
+            const serialized = (typeof val === 'object' && val !== null) ? JSON.stringify(val) : String(val);
+            sessionStorage.setItem(key, serialized);
+            return true;
+          } catch(_) { return false; }
+        },
+        remove: function(key) {
+          try { sessionStorage.removeItem(key); return true; } catch(_) { return false; }
+        }
+      }
+    };
+    window.getStorage = window.otterStorage.get;
+    window.setStorage = window.otterStorage.set;
+    window.removeStorage = window.otterStorage.remove;
+    window.otterFetch = async function(url, options = {}) {
+      const resp = await fetch(url, options);
+      const contentType = resp.headers.get('content-type') || '';
+      let data;
+      if (contentType.includes('application/json')) {
+        data = await resp.json();
+      } else {
+        data = await resp.text();
+      }
+      return {
+        ok: resp.ok,
+        status: resp.status,
+        statusText: resp.statusText,
+        data: data,
+        headers: Object.fromEntries(resp.headers.entries())
+      };
+    };
+    window.otterGetJson = async function(url, headers = {}) {
+      const res = await window.otterFetch(url, { method: 'GET', headers: Object.assign({ 'Accept': 'application/json' }, headers) });
+      return res.data;
+    };
+    window.otterPostJson = async function(url, body = {}, headers = {}) {
+      const res = await window.otterFetch(url, {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/json', 'Accept': 'application/json' }, headers),
+        body: JSON.stringify(body)
+      });
+      return res.data;
+    };
+    window.httpGet = window.otterGetJson;
+    window.httpPost = window.otterPostJson;
+
+    // D103: SPA routing. A generic capability (no app-specific IDs or
+    // behavior baked in here - every page id/path comes from the
+    // compiled program's own route statements), matching this
+    // project's own rule that shared runtime modules stay generic.
+    // Route patterns are validated here, at genuine RUNTIME, rather than
+    // only for literal-string paths at parse time - this way every path
+    // (literal or computed) goes through the exact same checks.
+    window.otterRouter = {
+      routes: [],
+      otherwiseId: null,
+      currentParams: {},
+      changeHandlers: [],
+      register: function(pathPattern, pageId) {
+        if (typeof pathPattern !== 'string' || pathPattern.length === 0 || pathPattern.charAt(0) !== '/') {
+          throw new Error('A route must begin with "/", but got "' + pathPattern + '".');
+        }
+        const segs = pathPattern.split('/').filter(function(s) { return s.length > 0; });
+        const paramNames = [];
+        const regexParts = segs.map(function(seg) {
+          if (seg.charAt(0) === ':') {
+            const name = seg.substring(1);
+            if (paramNames.indexOf(name) !== -1) {
+              throw new Error('Route "' + pathPattern + '" uses the parameter name "' + name + '" more than once.');
+            }
+            paramNames.push(name);
+            return '([^/]+)';
+          }
+          return seg.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        });
+        if (this.routes.some(function(r) { return r.pattern === pathPattern; })) {
+          throw new Error('Route "' + pathPattern + '" is already registered.');
+        }
+        const regex = new RegExp('^/' + regexParts.join('/') + '/?$');
+        this.routes.push({ pattern: pathPattern, paramNames: paramNames, regex: regex, pageId: pageId, isStatic: paramNames.length === 0 });
+        // Static routes must win over parameterized ones at the same
+        // depth (design spec item 16: /users/settings beats /users/:id) -
+        // keeping static routes sorted first makes "match" a plain
+        // first-match scan with no separate specificity pass.
+        this.routes.sort(function(a, b) { return (a.isStatic === b.isStatic) ? 0 : (a.isStatic ? -1 : 1); });
+      },
+      registerOtherwise: function(pageId) { this.otherwiseId = pageId; },
+      match: function(path) {
+        let p = path.length > 1 && path.charAt(path.length - 1) === '/' ? path.slice(0, -1) : path;
+        for (let i = 0; i < this.routes.length; i++) {
+          const r = this.routes[i];
+          const m = r.regex.exec(p);
+          if (m) {
+            const params = {};
+            r.paramNames.forEach(function(name, idx) { params[name] = decodeURIComponent(m[idx + 1]); });
+            return { pageId: r.pageId, params: params };
+          }
+        }
+        return this.otherwiseId ? { pageId: this.otherwiseId, params: {} } : null;
+      },
+      showForCurrentPath: function() {
+        const path = window.location.pathname;
+        const matched = this.match(path);
+        if (!matched) {
+          throw new Error('No route matches "' + path + '" and no "route otherwise" fallback was declared.');
+        }
+        this.currentParams = matched.params;
+        this.routes.forEach((r) => { const el = document.getElementById(r.pageId); if (el) el.style.display = 'none'; });
+        if (this.otherwiseId) { const el = document.getElementById(this.otherwiseId); if (el) el.style.display = 'none'; }
+        const target = document.getElementById(matched.pageId);
+        if (target) target.style.display = '';
+        this.changeHandlers.forEach((h) => h());
+      },
+      goTo: function(path) {
+        window.history.pushState({}, '', path);
+        this.showForCurrentPath();
+      },
+      replaceRoute: function(path) {
+        window.history.replaceState({}, '', path);
+        this.showForCurrentPath();
+      },
+      param: function(name) { return Object.prototype.hasOwnProperty.call(this.currentParams, name) ? this.currentParams[name] : null; },
+      queryParam: function(name) { return new URLSearchParams(window.location.search).get(name); }
+    };
+    window.addEventListener('popstate', function() { window.otterRouter.showForCurrentPath(); });
+
+    // Otter Declarative Reactivity Engine
+    const otterState = {};
+    const otterDerived = {};
+    const otterWatchers = [];
+
+
+
+
+
+
+
+    function otterEvaluateExpr(expr) {
+      try {
+        const fn = new Function('state', 'derived', 'with(state) { with(derived) { return (' + expr + '); } }');
+        return fn(otterState, otterDerived);
+      } catch(err) {
+        console.warn('Otter eval error in expr:', expr, err);
+        return '';
+      }
+    }
+
+    function otterUpdateReactivity() {
+      document.querySelectorAll('[data-otter-bind]').forEach(el => {
+        const expr = el.getAttribute('data-otter-bind');
+        if (!expr) return;
+        const val = otterEvaluateExpr(expr);
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          if (el.type === 'checkbox') el.checked = Boolean(val);
+          else el.value = val;
+        } else {
+          el.textContent = (val === null || val === undefined) ? '' : String(val);
+        }
+      });
+
+      document.querySelectorAll('[data-otter-if]').forEach(el => {
+        const cond = el.getAttribute('data-otter-if');
+        if (!cond) return;
+        const show = Boolean(otterEvaluateExpr(cond));
+        el.style.display = show ? '' : 'none';
+      });
+    }
+
+    function otterNotifyWatchers(name) {
+      for (const w of otterWatchers) {
+        if (w.target === name && typeof w.callback === 'function') {
+          try { w.callback(); } catch(e) { console.error('Watcher callback error:', e); }
+        }
+      }
+    }
+
+    function otterSetState(name, value) {
+      otterState[name] = value;
+      window[name] = value;
+      otterUpdateReactivity();
+      otterNotifyWatchers(name);
+    }
+
+    // Automatic 3D Canvas and Animation Runner
+    document.querySelectorAll('canvas.otter-canvas').forEach((canvas) => {
+      const mode = canvas.getAttribute('data-mode') || '2d';
+      const anim = canvas.getAttribute('data-animation') || '';
+      if (mode === '3d' || anim === 'spin' || anim === '3d') {
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        let angleX = 0;
+        let angleY = 0;
+        const vertices = [
+          [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+          [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
+        ];
+        const edges = [
+          [0,1],[1,2],[2,3],[3,0],
+          [4,5],[5,6],[6,7],[7,4],
+          [0,4],[1,5],[2,6],[3,7]
+        ];
+        function render3D() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // Dynamic speed calculation from slider or canvas property
+          let spd = 1.0;
+          const liveSlider = document.getElementById('speedSlider') || document.querySelector('input[type="range"]');
+          if (canvas.speed !== undefined && canvas.speed !== null && canvas.speed !== '') {
+            spd = Number(canvas.speed) / 25;
+          } else if (canvas.dataset.speed) {
+            spd = Number(canvas.dataset.speed) / 25;
+          } else if (liveSlider) {
+            spd = Number(liveSlider.value) / 25;
+          }
+          const turbo = document.getElementById('agreeCheckbox');
+          if (turbo && turbo.checked) {
+            spd *= 2.0;
+          }
+          if (isNaN(spd) || spd < 0) spd = 0;
+
+          angleX += 0.015 * spd;
+          angleY += 0.02 * spd;
+          const cx = canvas.width / 2;
+          const cy = canvas.height / 2;
+          const scale = Math.min(cx, cy) * 0.55;
+          const projected = vertices.map(([x, y, z]) => {
+            let cosY = Math.cos(angleY), sinY = Math.sin(angleY);
+            let x1 = x * cosY - z * sinY;
+            let z1 = x * sinY + z * cosY;
+            let cosX = Math.cos(angleX), sinX = Math.sin(angleX);
+            let y2 = y * cosX - z1 * sinX;
+            let z2 = y * sinX + z1 * cosX;
+            const distance = 3.2;
+            const p = distance / (distance + z2);
+            return [cx + x1 * scale * p, cy + y2 * scale * p];
+          });
+          const themeSel = document.getElementById('themeDropdown');
+          let strokeCol = canvas.color || canvas.dataset.color || '#38bdf8';
+          let glowCol = canvas.glow || canvas.dataset.glow || '#0284c7';
+          if (themeSel) {
+            if (themeSel.value === 'Electric Indigo') {
+              strokeCol = '#c084fc'; glowCol = '#a855f7';
+            } else if (themeSel.value === 'Cyberpunk Emerald') {
+              strokeCol = '#34d399'; glowCol = '#059669';
+            }
+          }
+          ctx.strokeStyle = strokeCol;
+          ctx.lineWidth = 2.5;
+          ctx.shadowColor = glowCol;
+          ctx.shadowBlur = 8;
+          edges.forEach(([i, j]) => {
+            ctx.beginPath();
+            ctx.moveTo(projected[i][0], projected[i][1]);
+            ctx.lineTo(projected[j][0], projected[j][1]);
+            ctx.stroke();
+          });
+          requestAnimationFrame(render3D);
+        }
+        render3D();
+
+        const liveSlider = document.getElementById('speedSlider') || document.querySelector('input[type="range"]');
+        if (liveSlider) {
+          const updateSpeedLabel = () => {
+            const lbl = document.getElementById('speedLabel');
+            if (lbl) {
+              lbl.textContent = 'Animation Speed: ' + liveSlider.value + '%';
+            }
+          };
+          liveSlider.addEventListener('input', updateSpeedLabel);
+          updateSpeedLabel();
+        }
+      }
+    });
+
+    // Top-level application initialization
+    (async function() {
+
+
+    // D103: show the page matching the URL the browser actually loaded -
+    // the programmer never calls go-to at startup (design spec item
+    // 13). Guarded so a program with no route statements at all pays
+    // nothing and behaves exactly as before D103.
+    if (window.otterRouter.routes.length > 0 || window.otterRouter.otherwiseId) {
+      window.otterRouter.showForCurrentPath();
+    }
+
+    // Register event listeners
+    const el_b3copy = document.getElementById('b3copy');
+    if (el_b3copy) {
+      el_b3copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b3') ? (otterGetText('b3')) : (() => { const _owner = b3; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b3copy');
+        if (_el) { otterSetText('b3copy', "Copied"); }
+        else {
+          const _owner = b3copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    const el_b5copy = document.getElementById('b5copy');
+    if (el_b5copy) {
+      el_b5copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b5') ? (otterGetText('b5')) : (() => { const _owner = b5; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b5copy');
+        if (_el) { otterSetText('b5copy', "Copied"); }
+        else {
+          const _owner = b5copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+
+
+
+    if (typeof otterUpdateReactivity === 'function') {
+      otterUpdateReactivity();
+    }
+    })();
+  </script>
+</body>
+</html>
+
