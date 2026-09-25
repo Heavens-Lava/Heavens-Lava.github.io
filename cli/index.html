@@ -406,6 +406,8 @@
     }
 
   </style>
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<script defer src="/static/docs-enhancements.js"></script>
 </head>
 <body class="otter-has-page otter-doc-scroll">
     <main id="app" class="otter-page" style="width: 100%; max-width: 100%; background: #f4f7fb; color: #0f1f36; padding: 0px; gap: 0px;">
@@ -416,13 +418,13 @@
       <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
       <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
 </div>
-      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 32px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="navDocs" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
-      <a id="navReference" class="otter-link" href="/reference/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Reference</a>
-      <a id="navExamples" class="otter-link" href="/examples/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Examples</a>
-      <a id="navDownload" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
-      <a id="navRelease" class="otter-link" href="/release/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Release</a>
-      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 25px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 206px; text-align: left;;">Search documentation...   Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
 </div>
 </div>
       <div id="docsBody" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 0px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
@@ -513,15 +515,19 @@
       <a id="sideExampleErrors" class="otter-link" href="/example-errors/" style="color: #4a5b75; font-size: 14px; display: none;;">Handling errors</a>
 </div>
       <div id="sideGroup7" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead7" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
+      <a id="sideGroupHead7" class="otter-link" href="/task-manager/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tutorials</a>
+      <a id="sideTaskManager" class="otter-link" href="/task-manager/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Build a Task Manager</a>
+</div>
+      <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead8" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
       <a id="sideDesignReadable" class="otter-link" href="/design-readable/" style="color: #4a5b75; font-size: 14px; display: none;;">Readable like English</a>
       <a id="sideStructuralWords" class="otter-link" href="/structural-words/" style="color: #4a5b75; font-size: 14px; display: none;;">Structural words</a>
       <a id="sidePropertiesOperations" class="otter-link" href="/properties-operations/" style="color: #4a5b75; font-size: 14px; display: none;;">Properties vs operations</a>
       <a id="sidePeriods" class="otter-link" href="/periods/" style="color: #4a5b75; font-size: 14px; display: none;;">Period and block rules</a>
       <a id="sidePhilosophy" class="otter-link" href="/philosophy/" style="color: #4a5b75; font-size: 14px; display: none;;">Philosophy</a>
 </div>
-      <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead8" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
+      <div id="sideGroup9" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead9" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
       <a id="sideTopics" class="otter-link" href="/topics/" style="color: #4a5b75; font-size: 14px; display: none;;">All topics</a>
       <a id="sideDownload" class="otter-link" href="/download/" style="color: #4a5b75; font-size: 14px; display: none;;">Download</a>
       <a id="sideRelease" class="otter-link" href="/release/" style="color: #4a5b75; font-size: 14px; display: none;;">Release status</a>
@@ -1728,3 +1734,4 @@ async function otterPasswordMatches(password, stored) {
   </script>
 </body>
 </html>
+

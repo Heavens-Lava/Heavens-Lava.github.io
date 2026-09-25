@@ -413,6 +413,8 @@
     }
 
   </style>
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<script defer src="/static/docs-enhancements.js"></script>
 </head>
 <body class="otter-has-page otter-doc-scroll">
     <main id="app" class="otter-page" style="width: 100%; max-width: 100%; background: #f4f7fb; color: #0f1f36; padding: 0px; gap: 0px;">
@@ -423,13 +425,13 @@
       <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
       <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
 </div>
-      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 32px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="navDocs" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
-      <a id="navReference" class="otter-link" href="/reference/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Reference</a>
-      <a id="navExamples" class="otter-link" href="/examples/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Examples</a>
-      <a id="navDownload" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
-      <a id="navRelease" class="otter-link" href="/release/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Release</a>
-      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 25px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 206px; text-align: left;;">Search documentation...   Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
 </div>
 </div>
       <div id="docsBody" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 0px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
@@ -520,15 +522,19 @@
       <a id="sideExampleErrors" class="otter-link" href="/example-errors/" style="color: #4a5b75; font-size: 14px; display: none;;">Handling errors</a>
 </div>
       <div id="sideGroup7" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead7" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
+      <a id="sideGroupHead7" class="otter-link" href="/task-manager/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tutorials</a>
+      <a id="sideTaskManager" class="otter-link" href="/task-manager/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Build a Task Manager</a>
+</div>
+      <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead8" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
       <a id="sideDesignReadable" class="otter-link" href="/design-readable/" style="color: #4a5b75; font-size: 14px; display: none;;">Readable like English</a>
       <a id="sideStructuralWords" class="otter-link" href="/structural-words/" style="color: #4a5b75; font-size: 14px; display: none;;">Structural words</a>
       <a id="sidePropertiesOperations" class="otter-link" href="/properties-operations/" style="color: #4a5b75; font-size: 14px; display: none;;">Properties vs operations</a>
       <a id="sidePeriods" class="otter-link" href="/periods/" style="color: #4a5b75; font-size: 14px; display: none;;">Period and block rules</a>
       <a id="sidePhilosophy" class="otter-link" href="/philosophy/" style="color: #4a5b75; font-size: 14px; display: none;;">Philosophy</a>
 </div>
-      <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead8" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
+      <div id="sideGroup9" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead9" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
       <a id="sideTopics" class="otter-link" href="/topics/" style="color: #4a5b75; font-size: 14px; display: none;;">All topics</a>
       <a id="sideDownload" class="otter-link" href="/download/" style="color: #4a5b75; font-size: 14px; display: none;;">Download</a>
       <a id="sideRelease" class="otter-link" href="/release/" style="color: #4a5b75; font-size: 14px; display: none;;">Release status</a>
@@ -544,18 +550,19 @@
 </div>
 </div>
       <div id="homeMain" class="otter-column" style="flex: 1; min-width: 0; min-width: 0;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="hero" class="otter-row" style="width: 100%; max-width: 100%; background: #e4edf9; padding: 28px 56px; text-align: middle; box-sizing: border-box;; display: flex; flex-direction: row; gap: 32px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="hero" class="otter-row" style="width: 100%; max-width: 100%; background: #e4edf9; padding: 32px 48px 28px; text-align: middle; box-sizing: border-box; background-image: linear-gradient(90deg, rgba(248,251,255,.97) 0%, rgba(248,251,255,.84) 47%, rgba(248,251,255,.08) 100%), url('/static/images/otter-docs-mountain-backdrop.png'); background-size: cover; background-position: center right; overflow: hidden;; display: flex; flex-direction: row; gap: 32px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="heroCopy" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="heroTitle" class="otter-text" style="color: #0b1d36; font-size: 60px; font-weight: 800; line-height: 1; letter-spacing: -0.03em;">Documentation</div>
-      <div id="heroLead" class="otter-text" style="color: #3a4d6b; font-size: 19px; line-height: 1.5; max-width: 520px;;">Readable like English. Precise like code. Learn Otter from the ground up, on a runtime that needs nothing installed.</div>
+      <div id="heroTitle" class="otter-text" style="color: #0b1d36; font-size: 48px; font-weight: 800; line-height: 1; letter-spacing: -0.035em;">Documentation</div>
+      <div id="heroLead" class="otter-text" style="color: #31496b; font-size: 18px; line-height: 1.5; max-width: 500px;;">Learn Otter from the ground up. Simple, powerful, and built for real projects.</div>
 </div>
-      <img id="heroMascot" class="otter-image" src="/static/images/otter-docs-hero-mascot.png" alt="The Otter mascot sitting on a rock" style="height: 230px;" />
+      <img id="heroMascot" class="otter-image" src="/static/images/otter-docs-hero-mascot.png" alt="The Otter mascot sitting on a rock" style="height: 258px;" />
 </div>
-      <div id="homeBody" class="otter-column" style="width: 100%; max-width: 100%; padding: 32px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0;; display: flex; flex-direction: column; gap: 40px; align-items: stretch; justify-content: flex-start;">
+      <div id="homeBody" class="otter-column" style="width: 100%; max-width: 100%; padding: 28px 48px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0;; display: flex; flex-direction: column; gap: 32px; align-items: stretch; justify-content: flex-start;">
       <div id="entryCards" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; display: flex; flex-direction: row; gap: 20px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
       <div id="cardOne" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 10px;">
         
         
+      <div id="cardOneIcon" class="otter-text" style="background: #e6efff; color: #2563eb; border-radius: 10px; font-size: 25px; font-weight: 700; width: 42px; height: 42px; text-align: center; line-height: 42px;;">▣</div>
       <a id="cardOneTitle" class="otter-link" href="/installation/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Get Started</a>
       <div id="cardOneBody" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.45;">Install Otter and run your first program.</div>
 
@@ -563,6 +570,7 @@
       <div id="cardTwo" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 10px;">
         
         
+      <div id="cardTwoIcon" class="otter-text" style="background: #dff7ee; color: #047857; border-radius: 10px; font-size: 16px; font-weight: 800; width: 42px; height: 42px; text-align: center; line-height: 42px;;">&lt;/&gt;</div>
       <a id="cardTwoTitle" class="otter-link" href="/values/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Language Guide</a>
       <div id="cardTwoBody" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.45;">Learn the core ideas, one at a time.</div>
 
@@ -570,6 +578,7 @@
       <div id="cardThree" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 10px;">
         
         
+      <div id="cardThreeIcon" class="otter-text" style="background: #ede4ff; color: #7c3aed; border-radius: 10px; font-size: 28px; font-weight: 700; width: 42px; height: 42px; text-align: center; line-height: 42px;;">◇</div>
       <a id="cardThreeTitle" class="otter-link" href="/reference/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Reference</a>
       <div id="cardThreeBody" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.45;">What Otter V1 supports, in one index.</div>
 
@@ -577,6 +586,7 @@
       <div id="cardFour" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 10px;">
         
         
+      <div id="cardFourIcon" class="otter-text" style="background: #fff0d8; color: #b45309; border-radius: 10px; font-size: 23px; font-weight: 700; width: 42px; height: 42px; text-align: center; line-height: 42px;;">▤</div>
       <a id="cardFourTitle" class="otter-link" href="/examples/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Examples</a>
       <div id="cardFourBody" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.45;">Real programs to open, change, and run.</div>
 
@@ -1772,3 +1782,4 @@ async function otterPasswordMatches(password, stored) {
   </script>
 </body>
 </html>
+

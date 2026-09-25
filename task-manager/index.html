@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Property Access - Otter Documentation</title>
+  <title>Build a Task Manager - Otter Documentation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
@@ -45,14 +45,7 @@
       box-sizing: border-box;
       overflow: hidden;
     }
-    .otter-runnable { display: flex; flex-direction: column; gap: 0; min-width: 0; }
-    .otter-runnable > .otter-text { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-    .otter-run-bar { display: flex; justify-content: flex-end; padding: 8px 12px; background: #16263f; border-radius: 0 0 12px 12px; }
-    .otter-run-btn { font: inherit; font-size: 13px; font-weight: 700; color: #ffffff; background: #2563eb; border: 0; border-radius: 8px; padding: 6px 16px; cursor: pointer; }
-    .otter-run-btn:hover { background: #1d4ed8; }
-    .otter-run-btn:disabled { opacity: 0.6; cursor: progress; }
-    .otter-run-output { margin: 8px 0 0; padding: 14px 18px; background: #e8eef7; color: #0f1f36; border-radius: 12px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-x: auto; }
-    .otter-run-output.otter-run-error { background: #fdecec; color: #8a1c1c; }
+
     body.otter-has-page.otter-doc-scroll {
       height: auto;
       max-height: none;
@@ -426,7 +419,7 @@
       <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
 </div>
       <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 25px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
       <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
       <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
       <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
@@ -438,49 +431,49 @@
       <div id="docsSidebar" class="otter-column" style="background: #ffffff; padding: 24px 12px 24px 20px; box-sizing: border-box; width: 248px; flex: 0 0 248px; border-right: 1px solid #e3e9f2; position: sticky; top: 64px; align-self: flex-start; height: calc(100vh - 64px); overflow-y: auto;; display: flex; flex-direction: column; gap: 22px; align-items: stretch; justify-content: flex-start;">
       <div id="sideGroup1" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead1" class="otter-link" href="/docs/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Getting Started</a>
-      <a id="sideDocs" class="otter-link" href="/docs/" style="color: #4a5b75; font-size: 14px; display: none;;">Overview</a>
-      <a id="sideWelcome" class="otter-link" href="/welcome/" style="color: #4a5b75; font-size: 14px; display: none;;">Introduction</a>
-      <a id="sideWhatIsOtter" class="otter-link" href="/what-is-otter/" style="color: #4a5b75; font-size: 14px; display: none;;">What is Otter?</a>
-      <a id="sideWhoIsOtterFor" class="otter-link" href="/who-is-otter-for/" style="color: #4a5b75; font-size: 14px; display: none;;">Who is Otter for?</a>
-      <a id="sideWhatCanYouBuild" class="otter-link" href="/what-can-you-build/" style="color: #4a5b75; font-size: 14px; display: none;;">What can you build?</a>
-      <a id="sideInstallation" class="otter-link" href="/installation/" style="color: #4a5b75; font-size: 14px; display: none;;">Installation</a>
-      <a id="sideVerify" class="otter-link" href="/verify/" style="color: #4a5b75; font-size: 14px; display: none;;">Verify your installation</a>
-      <a id="sideFirstProgram" class="otter-link" href="/first-program/" style="color: #4a5b75; font-size: 14px; display: none;;">Your first program</a>
-      <a id="sideHello" class="otter-link" href="/hello/" style="color: #4a5b75; font-size: 14px; display: none;;">Hello, Otter!</a>
-      <a id="sideRepl" class="otter-link" href="/repl/" style="color: #4a5b75; font-size: 14px; display: none;;">The REPL</a>
-      <a id="sideRunningFiles" class="otter-link" href="/running-files/" style="color: #4a5b75; font-size: 14px; display: none;;">Running .ot files</a>
-      <a id="sideTinyApp" class="otter-link" href="/tiny-app/" style="color: #4a5b75; font-size: 14px; display: none;;">Build a tiny application</a>
+      <a id="sideDocs" class="otter-link" href="/docs/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Overview</a>
+      <a id="sideWelcome" class="otter-link" href="/welcome/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Introduction</a>
+      <a id="sideWhatIsOtter" class="otter-link" href="/what-is-otter/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">What is Otter?</a>
+      <a id="sideWhoIsOtterFor" class="otter-link" href="/who-is-otter-for/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Who is Otter for?</a>
+      <a id="sideWhatCanYouBuild" class="otter-link" href="/what-can-you-build/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">What can you build?</a>
+      <a id="sideInstallation" class="otter-link" href="/installation/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Installation</a>
+      <a id="sideVerify" class="otter-link" href="/verify/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Verify your installation</a>
+      <a id="sideFirstProgram" class="otter-link" href="/first-program/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Your first program</a>
+      <a id="sideHello" class="otter-link" href="/hello/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Hello, Otter!</a>
+      <a id="sideRepl" class="otter-link" href="/repl/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">The REPL</a>
+      <a id="sideRunningFiles" class="otter-link" href="/running-files/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Running .ot files</a>
+      <a id="sideTinyApp" class="otter-link" href="/tiny-app/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Build a tiny application</a>
 </div>
       <div id="sideGroup2" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead2" class="otter-link" href="/cli/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tools</a>
-      <a id="sideCli" class="otter-link" href="/cli/" style="color: #4a5b75; font-size: 14px; display: none;;">The otter command</a>
-      <a id="sideProjects" class="otter-link" href="/projects/" style="color: #4a5b75; font-size: 14px; display: none;;">Projects</a>
-      <a id="sideTroubleshooting" class="otter-link" href="/troubleshooting/" style="color: #4a5b75; font-size: 14px; display: none;;">Troubleshooting</a>
+      <a id="sideCli" class="otter-link" href="/cli/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">The otter command</a>
+      <a id="sideProjects" class="otter-link" href="/projects/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Projects</a>
+      <a id="sideTroubleshooting" class="otter-link" href="/troubleshooting/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Troubleshooting</a>
 </div>
       <div id="sideGroup3" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead3" class="otter-link" href="/values/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Guide</a>
-      <a id="sideValues" class="otter-link" href="/values/" style="color: #4a5b75; font-size: 14px; display: none;;">Values and variables</a>
-      <a id="sideInputOutput" class="otter-link" href="/input-output/" style="color: #4a5b75; font-size: 14px; display: none;;">Input and output</a>
-      <a id="sideConditions" class="otter-link" href="/conditions/" style="color: #4a5b75; font-size: 14px; display: none;;">Conditions</a>
-      <a id="sideLoops" class="otter-link" href="/loops/" style="color: #4a5b75; font-size: 14px; display: none;;">Loops</a>
-      <a id="sideLists" class="otter-link" href="/lists/" style="color: #4a5b75; font-size: 14px; display: none;;">Lists</a>
-      <a id="sideFunctions" class="otter-link" href="/functions/" style="color: #4a5b75; font-size: 14px; display: none;;">Functions</a>
-      <a id="sideObjects" class="otter-link" href="/objects/" style="color: #4a5b75; font-size: 14px; display: none;;">Objects and properties</a>
-      <a id="sideFiles" class="otter-link" href="/files/" style="color: #4a5b75; font-size: 14px; display: none;;">Files and folders</a>
-      <a id="sideData" class="otter-link" href="/data/" style="color: #4a5b75; font-size: 14px; display: none;;">CSV and downloads</a>
-      <a id="sideErrorHandling" class="otter-link" href="/error-handling/" style="color: #4a5b75; font-size: 14px; display: none;;">Error handling</a>
-      <a id="sideMath" class="otter-link" href="/math/" style="color: #4a5b75; font-size: 14px; display: none;;">Math</a>
-      <a id="sideNestedConditions" class="otter-link" href="/nested-conditions/" style="color: #4a5b75; font-size: 14px; display: none;;">Nested conditions</a>
-      <a id="sideModules" class="otter-link" href="/modules/" style="color: #4a5b75; font-size: 14px; display: none;;">Modules</a>
-      <a id="sideRunningPrograms" class="otter-link" href="/running-programs/" style="color: #4a5b75; font-size: 14px; display: none;;">Running programs</a>
-      <a id="sideLoggingDebugging" class="otter-link" href="/logging-debugging/" style="color: #4a5b75; font-size: 14px; display: none;;">Logging and debugging</a>
-      <a id="sideEnvironment" class="otter-link" href="/environment/" style="color: #4a5b75; font-size: 14px; display: none;;">Arguments and environment</a>
+      <a id="sideValues" class="otter-link" href="/values/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Values and variables</a>
+      <a id="sideInputOutput" class="otter-link" href="/input-output/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Input and output</a>
+      <a id="sideConditions" class="otter-link" href="/conditions/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Conditions</a>
+      <a id="sideLoops" class="otter-link" href="/loops/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Loops</a>
+      <a id="sideLists" class="otter-link" href="/lists/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Lists</a>
+      <a id="sideFunctions" class="otter-link" href="/functions/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Functions</a>
+      <a id="sideObjects" class="otter-link" href="/objects/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Objects and properties</a>
+      <a id="sideFiles" class="otter-link" href="/files/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Files and folders</a>
+      <a id="sideData" class="otter-link" href="/data/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">CSV and downloads</a>
+      <a id="sideErrorHandling" class="otter-link" href="/error-handling/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Error handling</a>
+      <a id="sideMath" class="otter-link" href="/math/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Math</a>
+      <a id="sideNestedConditions" class="otter-link" href="/nested-conditions/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Nested conditions</a>
+      <a id="sideModules" class="otter-link" href="/modules/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Modules</a>
+      <a id="sideRunningPrograms" class="otter-link" href="/running-programs/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Running programs</a>
+      <a id="sideLoggingDebugging" class="otter-link" href="/logging-debugging/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Logging and debugging</a>
+      <a id="sideEnvironment" class="otter-link" href="/environment/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Arguments and environment</a>
 </div>
       <div id="sideGroup4" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead4" class="otter-link" href="/gone/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Reference</a>
       <a id="sideGone" class="otter-link" href="/gone/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">gone</a>
       <a id="sideOperators" class="otter-link" href="/operators/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Operators</a>
-      <a id="sidePropertyAccess" class="otter-link" href="/property-access/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid #2563eb; border-radius: 4px; display: block; background: #e6efff; color: #1d4ed8; font-weight: 600;;">Property access</a>
+      <a id="sidePropertyAccess" class="otter-link" href="/property-access/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Property access</a>
       <a id="sideStrings" class="otter-link" href="/strings/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Text</a>
       <a id="sideCollections" class="otter-link" href="/collections/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Collections</a>
       <a id="sideDiscovery" class="otter-link" href="/discovery/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Finding files and folders</a>
@@ -497,51 +490,51 @@
 </div>
       <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead5" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
-      <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; display: none;;">Databases</a>
-      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language</a>
-      <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; display: none;;">HTTP requests</a>
-      <a id="sideWebServer" class="otter-link" href="/web-server/" style="color: #4a5b75; font-size: 14px; display: none;;">Web servers</a>
-      <a id="sideXml" class="otter-link" href="/xml/" style="color: #4a5b75; font-size: 14px; display: none;;">XML</a>
-      <a id="sideWebApps" class="otter-link" href="/web-apps/" style="color: #4a5b75; font-size: 14px; display: none;;">Web applications</a>
-      <a id="sideReactivity" class="otter-link" href="/reactivity/" style="color: #4a5b75; font-size: 14px; display: none;;">State and reactivity</a>
-      <a id="sideWindowsApps" class="otter-link" href="/windows-apps/" style="color: #4a5b75; font-size: 14px; display: none;;">Windows applications</a>
-      <a id="sideNetworking" class="otter-link" href="/networking/" style="color: #4a5b75; font-size: 14px; display: none;;">Networking</a>
-      <a id="sideSecurity" class="otter-link" href="/security/" style="color: #4a5b75; font-size: 14px; display: none;;">Cryptography and secrets</a>
+      <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Databases</a>
+      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">The query language</a>
+      <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">HTTP requests</a>
+      <a id="sideWebServer" class="otter-link" href="/web-server/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Web servers</a>
+      <a id="sideXml" class="otter-link" href="/xml/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">XML</a>
+      <a id="sideWebApps" class="otter-link" href="/web-apps/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Web applications</a>
+      <a id="sideReactivity" class="otter-link" href="/reactivity/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">State and reactivity</a>
+      <a id="sideWindowsApps" class="otter-link" href="/windows-apps/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Windows applications</a>
+      <a id="sideNetworking" class="otter-link" href="/networking/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Networking</a>
+      <a id="sideSecurity" class="otter-link" href="/security/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Cryptography and secrets</a>
 </div>
       <div id="sideGroup6" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead6" class="otter-link" href="/examples/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Examples</a>
-      <a id="sideExamples" class="otter-link" href="/examples/" style="color: #4a5b75; font-size: 14px; display: none;;">All examples</a>
-      <a id="sideExampleHello" class="otter-link" href="/example-hello/" style="color: #4a5b75; font-size: 14px; display: none;;">Hello World</a>
-      <a id="sideExampleInput" class="otter-link" href="/example-input/" style="color: #4a5b75; font-size: 14px; display: none;;">User input</a>
-      <a id="sideExampleConditions" class="otter-link" href="/example-conditions/" style="color: #4a5b75; font-size: 14px; display: none;;">Conditions</a>
-      <a id="sideExampleCounting" class="otter-link" href="/example-counting/" style="color: #4a5b75; font-size: 14px; display: none;;">Counting</a>
-      <a id="sideExampleLists" class="otter-link" href="/example-lists/" style="color: #4a5b75; font-size: 14px; display: none;;">Lists</a>
-      <a id="sideExampleDiscovery" class="otter-link" href="/example-discovery/" style="color: #4a5b75; font-size: 14px; display: none;;">File discovery</a>
-      <a id="sideExampleOrganizer" class="otter-link" href="/example-organizer/" style="color: #4a5b75; font-size: 14px; display: none;;">File organizer</a>
-      <a id="sideExampleFinding" class="otter-link" href="/example-finding/" style="color: #4a5b75; font-size: 14px; display: none;;">Finding files</a>
-      <a id="sideExampleErrors" class="otter-link" href="/example-errors/" style="color: #4a5b75; font-size: 14px; display: none;;">Handling errors</a>
+      <a id="sideExamples" class="otter-link" href="/examples/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">All examples</a>
+      <a id="sideExampleHello" class="otter-link" href="/example-hello/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Hello World</a>
+      <a id="sideExampleInput" class="otter-link" href="/example-input/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">User input</a>
+      <a id="sideExampleConditions" class="otter-link" href="/example-conditions/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Conditions</a>
+      <a id="sideExampleCounting" class="otter-link" href="/example-counting/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Counting</a>
+      <a id="sideExampleLists" class="otter-link" href="/example-lists/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Lists</a>
+      <a id="sideExampleDiscovery" class="otter-link" href="/example-discovery/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">File discovery</a>
+      <a id="sideExampleOrganizer" class="otter-link" href="/example-organizer/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">File organizer</a>
+      <a id="sideExampleFinding" class="otter-link" href="/example-finding/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Finding files</a>
+      <a id="sideExampleErrors" class="otter-link" href="/example-errors/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Handling errors</a>
 </div>
       <div id="sideGroup7" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead7" class="otter-link" href="/task-manager/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tutorials</a>
-      <a id="sideTaskManager" class="otter-link" href="/task-manager/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Build a Task Manager</a>
+      <a id="sideTaskManager" class="otter-link" href="/task-manager/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid #2563eb; border-radius: 4px; display: block; background: #e6efff; color: #1d4ed8; font-weight: 600;;">Build a Task Manager</a>
 </div>
       <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead8" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
-      <a id="sideDesignReadable" class="otter-link" href="/design-readable/" style="color: #4a5b75; font-size: 14px; display: none;;">Readable like English</a>
-      <a id="sideStructuralWords" class="otter-link" href="/structural-words/" style="color: #4a5b75; font-size: 14px; display: none;;">Structural words</a>
-      <a id="sidePropertiesOperations" class="otter-link" href="/properties-operations/" style="color: #4a5b75; font-size: 14px; display: none;;">Properties vs operations</a>
-      <a id="sidePeriods" class="otter-link" href="/periods/" style="color: #4a5b75; font-size: 14px; display: none;;">Period and block rules</a>
-      <a id="sidePhilosophy" class="otter-link" href="/philosophy/" style="color: #4a5b75; font-size: 14px; display: none;;">Philosophy</a>
+      <a id="sideDesignReadable" class="otter-link" href="/design-readable/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Readable like English</a>
+      <a id="sideStructuralWords" class="otter-link" href="/structural-words/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Structural words</a>
+      <a id="sidePropertiesOperations" class="otter-link" href="/properties-operations/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Properties vs operations</a>
+      <a id="sidePeriods" class="otter-link" href="/periods/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Period and block rules</a>
+      <a id="sidePhilosophy" class="otter-link" href="/philosophy/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Philosophy</a>
 </div>
       <div id="sideGroup9" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead9" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
-      <a id="sideTopics" class="otter-link" href="/topics/" style="color: #4a5b75; font-size: 14px; display: none;;">All topics</a>
-      <a id="sideDownload" class="otter-link" href="/download/" style="color: #4a5b75; font-size: 14px; display: none;;">Download</a>
-      <a id="sideRelease" class="otter-link" href="/release/" style="color: #4a5b75; font-size: 14px; display: none;;">Release status</a>
-      <a id="sideStudio" class="otter-link" href="/studio/" style="color: #4a5b75; font-size: 14px; display: none;;">Studio preview</a>
-      <a id="sideSupport" class="otter-link" href="/support/" style="color: #4a5b75; font-size: 14px; display: none;;">Support</a>
-      <a id="sideAbout" class="otter-link" href="/about/" style="color: #4a5b75; font-size: 14px; display: none;;">About Otter</a>
-      <a id="sideLicense" class="otter-link" href="/license/" style="color: #4a5b75; font-size: 14px; display: none;;">License</a>
+      <a id="sideTopics" class="otter-link" href="/topics/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">All topics</a>
+      <a id="sideDownload" class="otter-link" href="/download/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Download</a>
+      <a id="sideRelease" class="otter-link" href="/release/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Release status</a>
+      <a id="sideStudio" class="otter-link" href="/studio/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Studio preview</a>
+      <a id="sideSupport" class="otter-link" href="/support/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Support</a>
+      <a id="sideAbout" class="otter-link" href="/about/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">About Otter</a>
+      <a id="sideLicense" class="otter-link" href="/license/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">License</a>
 </div>
       <div id="helpCard" class="otter-column" style="background: #f4f7fb; border-radius: 12px; border: 1px solid #e3e9f2; padding: 16px; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
       <div id="helpTitle" class="otter-text" style="color: #0f1f36; font-size: 14px; font-weight: 700;">Need help?</div>
@@ -550,57 +543,86 @@
 </div>
 </div>
       <div id="docsMain" class="otter-column" style="padding: 40px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0; max-width: 940px;; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">Property Access</div>
-      <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">Properties are written property-first: name of person. A period is not property access.</div>
-      <div id="b3block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="b3head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="b3label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
-      <button id="b3copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+      <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">Build a Task Manager</div>
+      <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">Build a small Windows task manager that accepts a task, adds it to a live list, and clears the box for the next one.</div>
+      <div id="b3" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What you will learn</div>
+      <div id="b4" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">You will create a window, lay out rows and a column, configure a text box and button, handle a click, and create a new text control at runtime.</div>
+      <div id="b5" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Before you start</div>
+      <div id="b6" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">You need Otter on Windows and a folder where you can save a .ot file. This is a native Windows application, so run it with otter tasks.ot rather than the browser Run button.</div>
+      <a id="b7" class="otter-link" href="/verify/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Verify your installation</a>
+      <div id="b8" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">1. Create the window and the input area</div>
+      <div id="b9" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Start a new file named tasks.ot. A window holds the whole application. The header and input rows keep related controls together. The empty column below them becomes the live task list.</div>
+      <div id="b10block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b10head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b10label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b10copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div class="otter-runnable">
-        <div id="b3" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">person has
-    name is &quot;Ada&quot;
-.
-say name of person</div>
-        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b3">&#9654; Run</button></div>
-        <pre id="b3-output" class="otter-run-output" hidden></pre>
-      </div>
+      <div id="b10" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">create window into app
+app has title &quot;Otter Tasks&quot;
+app has width 420
+app has height 520
+padding of app is 20
+spacing of app is 12
+
+create row into header
+header has width full
+create text into titleText
+titleText has text &quot;My Tasks&quot;
+put titleText in header
+put header in app
+
+create row into inputRow
+inputRow has width full
+inputRow has spacing 8
+
+create text box into taskInput
+placeholder of taskInput is &quot;What needs to be done?&quot;
+taskInput has width 280
+
+create button into addButton
+addButton has text &quot;Add&quot;
+
+put taskInput in inputRow
+put addButton in inputRow
+put inputRow in app
+
+create column into taskList
+taskList has width full
+taskList has spacing 8
+put taskList in app</div>
 </div>
-      <div id="b4" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Property access nests, reading right to left. This is the city of the address of the user:</div>
-      <div id="b5block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="b5head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="b5label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
-      <button id="b5copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+      <div id="b11" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">2. Add a task when the button is clicked</div>
+      <div id="b12" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">The event reads the text box. It ignores an empty submission. For a real task, it creates a text control, places it in the list, and clears the input ready for another task.</div>
+      <div id="b13block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b13head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b13label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b13copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div class="otter-runnable">
-        <div id="b5" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">address has
-    city is &quot;London&quot;
-.
-user has
-    address is address
-.
-say city of address of user</div>
-        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b5">&#9654; Run</button></div>
-        <pre id="b5-output" class="otter-run-output" hidden></pre>
-      </div>
+      <div id="b13" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">when addButton clicked
+    task is text of taskInput
+    if task is not &quot;&quot;
+        create text into item
+        item has text task
+        put item in taskList
+        text of taskInput is &quot;&quot;
+    .
+.</div>
 </div>
-      <div id="b6" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">A property can also be assigned:</div>
-      <div id="b7block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="b7head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="b7label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
-      <button id="b7copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+      <div id="b14" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">3. Show the window</div>
+      <div id="b15" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Finish with show app. Save the file, open PowerShell in that folder, and run otter tasks.ot. Type a task and select Add; a new line should appear in the list.</div>
+      <div id="b16block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b16head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b16label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b16copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div class="otter-runnable">
-        <div id="b7" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">person has
-    age is 29
-.
-age of person is 30
-say age of person</div>
-        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b7">&#9654; Run</button></div>
-        <pre id="b7-output" class="otter-run-output" hidden></pre>
-      </div>
+      <div id="b16" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">show app</div>
 </div>
-      <div id="b8" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Write name of person, never person.name. Otter reserves the period for closing a block.</div>
+      <div id="b17" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Common problems</div>
+      <div id="b18" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">If Otter cannot find tasks.ot, use cd to move PowerShell into the folder containing the file. If no task appears, make sure the event starts with when addButton clicked and the two periods close the if block and the event.</div>
+      <div id="b19" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Try next</div>
+      <div id="b20" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Add a second heading, change the button text, or give each new task a prefix such as - . Once that feels comfortable, try a counter or another input example.</div>
+      <a id="b21" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/examples/v1/tasks.ot" style="color: #2563eb; font-size: 15px; font-weight: 600;" target="_blank" rel="noopener noreferrer">Download the complete tasks.ot source</a>
+      <a id="b22" class="otter-link" href="/examples/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Explore more examples</a>
 </div>
 </div>
       <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
@@ -624,98 +646,7 @@ say age of person</div>
     const gone = null;
     function otterGetElement(id) { return document.getElementById(id); }
 
-    window.otterRunnables = {};
-    window.otterRunOrder = ["b3","b5","b7"];
-    function otterFormatSaid(value) {
-      if (value === null || value === undefined) { return 'gone'; }
-      if (Array.isArray(value)) { return value.map(otterFormatSaid).join(', '); }
-      if (typeof value === 'object' && value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
-      return String(value);
-    }
-    document.addEventListener('click', async (e) => {
-      const button = e.target && e.target.closest ? e.target.closest('[data-otter-run]') : null;
-      if (!button || button.disabled) { return; }
-      const id = button.getAttribute('data-otter-run');
-      const output = document.getElementById(id + '-output');
-      if (!output || !window.otterRunnables[id]) { return; }
-      // A page's samples read as one story ("games are ..." then "each game in games"),
-      // so a sample runs after the samples above it - silently - and only its own
-      // output is shown. Every run starts and ends with no variables left behind.
-      const chain = window.otterRunOrder.slice(0, window.otterRunOrder.indexOf(id) + 1);
-      const touched = new Set();
-      for (const step of chain) { for (const v of window.otterRunnables[step].vars) { touched.add(v); } }
-      const saved = Array.from(touched).map((v) => [v, Object.getOwnPropertyDescriptor(window, v)]);
-      const clean = () => { for (const v of touched) { try { delete window[v]; } catch (err) { /* keep going */ } if (v === 'name') { window.name = ''; } } };
-      const lines = [];
-      output.hidden = false;
-      output.classList.remove('otter-run-error');
-      output.textContent = '';
-      button.disabled = true;
-      clean();
-      try {
-        for (const step of chain.slice(0, -1)) {
-          try { await window.otterRunnables[step].run(() => {}); } catch (err) { /* an earlier sample that cannot run is skipped */ }
-        }
-        const say = (...parts) => { lines.push(parts.map(otterFormatSaid).join(' ')); output.textContent = lines.join('\n'); };
-        await window.otterRunnables[id].run(say);
-        if (lines.length === 0) { output.textContent = '(nothing to show - this sample only sets things up for the ones below)'; }
-      } catch (err) {
-        output.classList.add('otter-run-error');
-        lines.push('Otter stopped: ' + (err && err.message ? err.message : String(err)));
-        output.textContent = lines.join('\n');
-      } finally {
-        clean();
-        for (const [v, descriptor] of saved) { if (descriptor) { try { Object.defineProperty(window, v, descriptor); } catch (err) { /* keep going */ } } }
-        button.disabled = false;
-      }
-    });
-    window.otterRunnables["b3"] = { vars: ["person"], run: async (otterSay) => {
-    {
-      const _props = {};
-      const _order = [];
-      if (!(('name') in _props)) { _order.push('name'); } _props['name'] = "Ada";
-      const _thing = { __otterThing: true, typeName: 'thing', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('person' in otterState)) { otterSetState('person', _thing); } else { window.person = _thing; }
-    }
-    otterSay((otterGetElement('person') ? (otterGetProperty('person', 'name')) : (() => { const _owner = person; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('name' === 'state') return _owner.state; if ('name' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('name' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('name' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "name". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (_owner.node.nodeType === 1 ? _owner.node.nodeName : (() => { throw new Error('I can only read the name of on an xml element, but this is an xml document.'); })()); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "name".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('name' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('name' === 'url') return _owner.url; if ('name' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "name".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('name') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "name".'); } return _owner.props['name']; })()));
-} };
-    window.otterRunnables["b5"] = { vars: ["address","user"], run: async (otterSay) => {
-    {
-      const _props = {};
-      const _order = [];
-      if (!(('city') in _props)) { _order.push('city'); } _props['city'] = "London";
-      const _thing = { __otterThing: true, typeName: 'thing', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('address' in otterState)) { otterSetState('address', _thing); } else { window.address = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (!(('address') in _props)) { _order.push('address'); } _props['address'] = address;
-      const _thing = { __otterThing: true, typeName: 'thing', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('user' in otterState)) { otterSetState('user', _thing); } else { window.user = _thing; }
-    }
-    otterSay(((() => { const _owner = ((otterGetElement('user') ? (otterGetProperty('user', 'address')) : (() => { const _owner = user; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('address' === 'state') return _owner.state; if ('address' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('address' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('address' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "address". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (() => { throw new Error('This xml value has no property called "address". Try name, root, text, or attributes.'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "address".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('address' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('address' === 'url') return _owner.url; if ('address' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "address".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('address') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "address".'); } return _owner.props['address']; })())); if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('city' === 'state') return _owner.state; if ('city' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('city' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('city' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "city". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (() => { throw new Error('This xml value has no property called "city". Try name, root, text, or attributes.'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "city".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('city' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('city' === 'url') return _owner.url; if ('city' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "city".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('city') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "city".'); } return _owner.props['city']; })()));
-} };
-    window.otterRunnables["b7"] = { vars: ["person"], run: async (otterSay) => {
-    {
-      const _props = {};
-      const _order = [];
-      if (!(('age') in _props)) { _order.push('age'); } _props['age'] = 29;
-      const _thing = { __otterThing: true, typeName: 'thing', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('person' in otterState)) { otterSetState('person', _thing); } else { window.person = _thing; }
-    }
-    {
-      const _el = otterGetElement('person');
-      if (_el) { otterSetProperty('person', 'age', 30); }
-      else {
-        const _owner = person;
-        if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
-        if (!(('age') in _owner.props)) { _owner.order.push('age'); }
-        _owner.props['age'] = 30;
-      }
-    }
-    otterSay((otterGetElement('person') ? (otterGetProperty('person', 'age')) : (() => { const _owner = person; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('age' === 'state') return _owner.state; if ('age' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('age' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('age' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "age". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (() => { throw new Error('This xml value has no property called "age". Try name, root, text, or attributes.'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "age".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('age' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('age' === 'url') return _owner.url; if ('age' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "age".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('age') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "age".'); } return _owner.props['age']; })()));
-} };
+
 // Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
 
 function _otterAssertWebCryptoSubtle() {
@@ -1716,15 +1647,15 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
-    const el_b3copy = document.getElementById('b3copy');
-    if (el_b3copy) {
-      el_b3copy.addEventListener('click', async (event) => {
-      await otterClipboard.copy(String((otterGetElement('b3') ? (otterGetText('b3')) : (() => { const _owner = b3; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+    const el_b10copy = document.getElementById('b10copy');
+    if (el_b10copy) {
+      el_b10copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b10') ? (otterGetText('b10')) : (() => { const _owner = b10; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
       {
-        const _el = otterGetElement('b3copy');
-        if (_el) { otterSetText('b3copy', "Copied"); }
+        const _el = otterGetElement('b10copy');
+        if (_el) { otterSetText('b10copy', "Copied"); }
         else {
-          const _owner = b3copy;
+          const _owner = b10copy;
           if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
           if (!(('text') in _owner.props)) { _owner.order.push('text'); }
           _owner.props['text'] = "Copied";
@@ -1732,15 +1663,15 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
-    const el_b5copy = document.getElementById('b5copy');
-    if (el_b5copy) {
-      el_b5copy.addEventListener('click', async (event) => {
-      await otterClipboard.copy(String((otterGetElement('b5') ? (otterGetText('b5')) : (() => { const _owner = b5; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+    const el_b13copy = document.getElementById('b13copy');
+    if (el_b13copy) {
+      el_b13copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b13') ? (otterGetText('b13')) : (() => { const _owner = b13; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
       {
-        const _el = otterGetElement('b5copy');
-        if (_el) { otterSetText('b5copy', "Copied"); }
+        const _el = otterGetElement('b13copy');
+        if (_el) { otterSetText('b13copy', "Copied"); }
         else {
-          const _owner = b5copy;
+          const _owner = b13copy;
           if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
           if (!(('text') in _owner.props)) { _owner.order.push('text'); }
           _owner.props['text'] = "Copied";
@@ -1748,15 +1679,15 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
-    const el_b7copy = document.getElementById('b7copy');
-    if (el_b7copy) {
-      el_b7copy.addEventListener('click', async (event) => {
-      await otterClipboard.copy(String((otterGetElement('b7') ? (otterGetText('b7')) : (() => { const _owner = b7; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+    const el_b16copy = document.getElementById('b16copy');
+    if (el_b16copy) {
+      el_b16copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b16') ? (otterGetText('b16')) : (() => { const _owner = b16; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
       {
-        const _el = otterGetElement('b7copy');
-        if (_el) { otterSetText('b7copy', "Copied"); }
+        const _el = otterGetElement('b16copy');
+        if (_el) { otterSetText('b16copy', "Copied"); }
         else {
-          const _owner = b7copy;
+          const _owner = b16copy;
           if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
           if (!(('text') in _owner.props)) { _owner.order.push('text'); }
           _owner.props['text'] = "Copied";
