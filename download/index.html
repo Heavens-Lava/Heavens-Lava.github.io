@@ -45,6 +45,7 @@
       box-sizing: border-box;
       overflow: hidden;
     }
+
     body.otter-has-page.otter-doc-scroll {
       height: auto;
       max-height: none;
@@ -417,7 +418,7 @@
       <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
 </div>
       <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 32px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="navDocs" class="otter-link" href="/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
       <a id="navReference" class="otter-link" href="/reference/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Reference</a>
       <a id="navExamples" class="otter-link" href="/examples/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Examples</a>
       <a id="navDownload" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Download</a>
@@ -427,7 +428,7 @@
 </div>
       <div id="heroBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 48px 56px 84px; text-align: middle; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: row; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="heroCopy" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
-      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Release candidate 1.0.0-rc.1</div>
+      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Pre-release 0.9.0</div>
       <div id="heroTitle" class="otter-text" style="color: #ffffff; font-size: 60px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;">Download Otter</div>
       <div id="heroLead" class="otter-text" style="color: #dbe6f5; font-size: 20px;">Get Otter and start building today.</div>
       <div id="heroNote" class="otter-text" style="color: #b7c4d8; font-size: 15px;">Free to use, on Windows, with the PowerShell that is already on your machine.</div>
@@ -436,7 +437,7 @@
       <div id="heroInstaller" class="otter-text" style="color: #f5c46b; font-size: 13px;">Windows installer: Installer not published yet</div>
 </div>
 </div>
-      <img id="heroMascot" class="otter-image" src="/static/images/otter-explorer-mascot.png" alt="The Otter mascot" style="height: 250px;" />
+      <img id="heroMascot" class="otter-image" src="/static/images/otter-download-hero-mascot.png" alt="The Otter mascot standing on a rock" style="height: 300px;" />
 </div>
 </div>
       <div id="content" class="otter-column" style="width: 100%; max-width: 100%; padding: 0 56px; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: column; gap: 24px; align-items: stretch; justify-content: flex-start;">
@@ -450,12 +451,17 @@
       <div id="dlCard" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 28px; flex: 1.55; min-width: 0; gap: 14px;">
         
         
+      <div id="dlRow" class="otter-row" style="width: 100%; max-width: 100%; text-align: middle; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="dlText" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
       <div id="dlTitle" class="otter-text" style="color: #0f1f36; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Windows download</div>
       <div id="dlStatus" class="otter-text" style="color: #b45309; font-size: 18px; font-weight: 700;">Installer not published yet</div>
       <div id="dlBody" class="otter-text" style="color: #4a5b75; font-size: 15px; line-height: 1.55;">A signed installer will appear here when it is published. Until then, run Otter straight from the project folder - it needs nothing else installed.</div>
       <div id="dlLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <a id="dlGuide" class="otter-link" href="/installation/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Read the installation guide</a>
       <a id="dlRelease" class="otter-link" href="/release/" style="color: #2563eb; font-size: 15px; font-weight: 600;">View release readiness</a>
+</div>
+</div>
+      <img id="winMascot" class="otter-image" src="/static/images/otter-windows-download-mascot.png" alt="The Otter mascot holding a Windows logo" style="height: 170px;" />
 </div>
 
       </div>
@@ -478,7 +484,7 @@
         
         
       <div id="relTitle" class="otter-text" style="color: #0f1f36; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Release details</div>
-      <div id="relVersion" class="otter-text" style="color: #4a5b75; font-size: 15px;">Version: 1.0.0-rc.1 (Release candidate)</div>
+      <div id="relVersion" class="otter-text" style="color: #4a5b75; font-size: 15px;">Version: 0.9.0 (Pre-release)</div>
       <div id="relSize" class="otter-text" style="color: #4a5b75; font-size: 15px;">Installer size: Published with the installer</div>
       <div id="relDate" class="otter-text" style="color: #4a5b75; font-size: 15px;">Release date: Published with the installer</div>
       <div id="relSha" class="otter-text" style="color: #4a5b75; font-size: 15px;">SHA-256: Published with the installer</div>
@@ -491,8 +497,20 @@
         
       <div id="runTitle" class="otter-text" style="color: #0f1f36; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Run from the project folder</div>
       <div id="runBody" class="otter-text" style="color: #4a5b75; font-size: 15px;">Open Windows PowerShell in the folder that contains otter.cmd, then run an example:</div>
-      <div id="runCommand" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px;;">.\otter.cmd examples\hello.ot</div>
-      <div id="runResult" class="otter-text" style="background: #0f1b2e; color: #a5e3b5; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px;;">Hello, Otter!</div>
+      <div id="runCommandblock" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="runCommandhead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="runCommandlabel" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">PowerShell</div>
+      <button id="runCommandcopy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="runCommand" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; border-top-left-radius: 0; border-top-right-radius: 0;;">.\otter.cmd examples\hello.ot</div>
+</div>
+      <div id="runResultblock" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="runResulthead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="runResultlabel" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Output</div>
+      <button id="runResultcopy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="runResult" class="otter-text" style="background: #0f1b2e; color: #a5e3b5; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; border-top-left-radius: 0; border-top-right-radius: 0;;">Hello, Otter!</div>
+</div>
 
       </div>
       <div id="nextCard" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 28px; flex: 1; min-width: 0; gap: 12px;">
@@ -508,10 +526,14 @@
 </div>
 </div>
       <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to download, use, and build commercial applications with. Created by Jeffrey Macy.</div>
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
       <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="footerLicense" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/LICENSE" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">License</a>
-      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">Source</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
 </div>
 </div>
 </div>
@@ -523,6 +545,7 @@
     const empty = "";
     const gone = null;
     function otterGetElement(id) { return document.getElementById(id); }
+
 
 // Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
 
@@ -1524,7 +1547,38 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
-
+    const el_runCommandcopy = document.getElementById('runCommandcopy');
+    if (el_runCommandcopy) {
+      el_runCommandcopy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('runCommand') ? (otterGetText('runCommand')) : (() => { const _owner = runCommand; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('runCommandcopy');
+        if (_el) { otterSetText('runCommandcopy', "Copied"); }
+        else {
+          const _owner = runCommandcopy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    const el_runResultcopy = document.getElementById('runResultcopy');
+    if (el_runResultcopy) {
+      el_runResultcopy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('runResult') ? (otterGetText('runResult')) : (() => { const _owner = runResult; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('runResultcopy');
+        if (_el) { otterSetText('runResultcopy', "Copied"); }
+        else {
+          const _owner = runResultcopy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
 
 
 

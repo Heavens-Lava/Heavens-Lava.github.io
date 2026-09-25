@@ -45,6 +45,14 @@
       box-sizing: border-box;
       overflow: hidden;
     }
+    .otter-runnable { display: flex; flex-direction: column; gap: 0; min-width: 0; }
+    .otter-runnable > .otter-text { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .otter-run-bar { display: flex; justify-content: flex-end; padding: 8px 12px; background: #16263f; border-radius: 0 0 12px 12px; }
+    .otter-run-btn { font: inherit; font-size: 13px; font-weight: 700; color: #ffffff; background: #2563eb; border: 0; border-radius: 8px; padding: 6px 16px; cursor: pointer; }
+    .otter-run-btn:hover { background: #1d4ed8; }
+    .otter-run-btn:disabled { opacity: 0.6; cursor: progress; }
+    .otter-run-output { margin: 8px 0 0; padding: 14px 18px; background: #e8eef7; color: #0f1f36; border-radius: 12px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-x: auto; }
+    .otter-run-output.otter-run-error { background: #fdecec; color: #8a1c1c; }
     body.otter-has-page.otter-doc-scroll {
       height: auto;
       max-height: none;
@@ -416,7 +424,7 @@
       <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
 </div>
       <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 32px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="navDocs" class="otter-link" href="/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Documentation</a>
       <a id="navReference" class="otter-link" href="/reference/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Reference</a>
       <a id="navExamples" class="otter-link" href="/examples/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Examples</a>
       <a id="navDownload" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
@@ -427,18 +435,28 @@
       <div id="docsBody" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 0px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
       <div id="docsSidebar" class="otter-column" style="background: #ffffff; padding: 24px 12px 24px 20px; box-sizing: border-box; width: 248px; flex: 0 0 248px; border-right: 1px solid #e3e9f2; position: sticky; top: 64px; align-self: flex-start; height: calc(100vh - 64px); overflow-y: auto;; display: flex; flex-direction: column; gap: 22px; align-items: stretch; justify-content: flex-start;">
       <div id="sideGroup1" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead1" class="otter-link" href="/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Getting Started</a>
-      <a id="sideHome" class="otter-link" href="/" style="color: #4a5b75; font-size: 14px; display: none;;">Overview</a>
+      <a id="sideGroupHead1" class="otter-link" href="/docs/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Getting Started</a>
+      <a id="sideDocs" class="otter-link" href="/docs/" style="color: #4a5b75; font-size: 14px; display: none;;">Overview</a>
       <a id="sideWelcome" class="otter-link" href="/welcome/" style="color: #4a5b75; font-size: 14px; display: none;;">Introduction</a>
+      <a id="sideWhatIsOtter" class="otter-link" href="/what-is-otter/" style="color: #4a5b75; font-size: 14px; display: none;;">What is Otter?</a>
+      <a id="sideWhoIsOtterFor" class="otter-link" href="/who-is-otter-for/" style="color: #4a5b75; font-size: 14px; display: none;;">Who is Otter for?</a>
+      <a id="sideWhatCanYouBuild" class="otter-link" href="/what-can-you-build/" style="color: #4a5b75; font-size: 14px; display: none;;">What can you build?</a>
       <a id="sideInstallation" class="otter-link" href="/installation/" style="color: #4a5b75; font-size: 14px; display: none;;">Installation</a>
+      <a id="sideVerify" class="otter-link" href="/verify/" style="color: #4a5b75; font-size: 14px; display: none;;">Verify your installation</a>
       <a id="sideFirstProgram" class="otter-link" href="/first-program/" style="color: #4a5b75; font-size: 14px; display: none;;">Your first program</a>
       <a id="sideHello" class="otter-link" href="/hello/" style="color: #4a5b75; font-size: 14px; display: none;;">Hello, Otter!</a>
-      <a id="sideRunningFiles" class="otter-link" href="/running-files/" style="color: #4a5b75; font-size: 14px; display: none;;">Running .ot files</a>
       <a id="sideRepl" class="otter-link" href="/repl/" style="color: #4a5b75; font-size: 14px; display: none;;">The REPL</a>
-      <a id="sideCli" class="otter-link" href="/cli/" style="color: #4a5b75; font-size: 14px; display: none;;">Command line</a>
+      <a id="sideRunningFiles" class="otter-link" href="/running-files/" style="color: #4a5b75; font-size: 14px; display: none;;">Running .ot files</a>
+      <a id="sideTinyApp" class="otter-link" href="/tiny-app/" style="color: #4a5b75; font-size: 14px; display: none;;">Build a tiny application</a>
 </div>
       <div id="sideGroup2" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead2" class="otter-link" href="/values/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Guide</a>
+      <a id="sideGroupHead2" class="otter-link" href="/cli/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Tools</a>
+      <a id="sideCli" class="otter-link" href="/cli/" style="color: #4a5b75; font-size: 14px; display: none;;">The otter command</a>
+      <a id="sideProjects" class="otter-link" href="/projects/" style="color: #4a5b75; font-size: 14px; display: none;;">Projects</a>
+      <a id="sideTroubleshooting" class="otter-link" href="/troubleshooting/" style="color: #4a5b75; font-size: 14px; display: none;;">Troubleshooting</a>
+</div>
+      <div id="sideGroup3" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead3" class="otter-link" href="/values/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Guide</a>
       <a id="sideValues" class="otter-link" href="/values/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Values and variables</a>
       <a id="sideInputOutput" class="otter-link" href="/input-output/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Input and output</a>
       <a id="sideConditions" class="otter-link" href="/conditions/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Conditions</a>
@@ -456,8 +474,8 @@
       <a id="sideLoggingDebugging" class="otter-link" href="/logging-debugging/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Logging and debugging</a>
       <a id="sideEnvironment" class="otter-link" href="/environment/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Arguments and environment</a>
 </div>
-      <div id="sideGroup3" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead3" class="otter-link" href="/gone/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Reference</a>
+      <div id="sideGroup4" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead4" class="otter-link" href="/gone/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Reference</a>
       <a id="sideGone" class="otter-link" href="/gone/" style="color: #4a5b75; font-size: 14px; display: none;;">gone</a>
       <a id="sideOperators" class="otter-link" href="/operators/" style="color: #4a5b75; font-size: 14px; display: none;;">Operators</a>
       <a id="sidePropertyAccess" class="otter-link" href="/property-access/" style="color: #4a5b75; font-size: 14px; display: none;;">Property access</a>
@@ -475,8 +493,8 @@
       <a id="sideDiagnostics" class="otter-link" href="/diagnostics/" style="color: #4a5b75; font-size: 14px; display: none;;">Diagnostic output</a>
       <a id="sideReference" class="otter-link" href="/reference/" style="color: #4a5b75; font-size: 14px; display: none;;">Reference index</a>
 </div>
-      <div id="sideGroup4" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead4" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
+      <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead5" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
       <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; display: none;;">Databases</a>
       <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language</a>
       <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; display: none;;">HTTP requests</a>
@@ -488,8 +506,8 @@
       <a id="sideNetworking" class="otter-link" href="/networking/" style="color: #4a5b75; font-size: 14px; display: none;;">Networking</a>
       <a id="sideSecurity" class="otter-link" href="/security/" style="color: #4a5b75; font-size: 14px; display: none;;">Cryptography and secrets</a>
 </div>
-      <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead5" class="otter-link" href="/examples/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Examples</a>
+      <div id="sideGroup6" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead6" class="otter-link" href="/examples/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Examples</a>
       <a id="sideExamples" class="otter-link" href="/examples/" style="color: #4a5b75; font-size: 14px; display: none;;">All examples</a>
       <a id="sideExampleHello" class="otter-link" href="/example-hello/" style="color: #4a5b75; font-size: 14px; display: none;;">Hello World</a>
       <a id="sideExampleInput" class="otter-link" href="/example-input/" style="color: #4a5b75; font-size: 14px; display: none;;">User input</a>
@@ -501,20 +519,23 @@
       <a id="sideExampleFinding" class="otter-link" href="/example-finding/" style="color: #4a5b75; font-size: 14px; display: none;;">Finding files</a>
       <a id="sideExampleErrors" class="otter-link" href="/example-errors/" style="color: #4a5b75; font-size: 14px; display: none;;">Handling errors</a>
 </div>
-      <div id="sideGroup6" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead6" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
+      <div id="sideGroup7" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead7" class="otter-link" href="/design-readable/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Language Design</a>
       <a id="sideDesignReadable" class="otter-link" href="/design-readable/" style="color: #4a5b75; font-size: 14px; display: none;;">Readable like English</a>
       <a id="sideStructuralWords" class="otter-link" href="/structural-words/" style="color: #4a5b75; font-size: 14px; display: none;;">Structural words</a>
       <a id="sidePropertiesOperations" class="otter-link" href="/properties-operations/" style="color: #4a5b75; font-size: 14px; display: none;;">Properties vs operations</a>
       <a id="sidePeriods" class="otter-link" href="/periods/" style="color: #4a5b75; font-size: 14px; display: none;;">Period and block rules</a>
       <a id="sidePhilosophy" class="otter-link" href="/philosophy/" style="color: #4a5b75; font-size: 14px; display: none;;">Philosophy</a>
 </div>
-      <div id="sideGroup7" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
-      <a id="sideGroupHead7" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
+      <div id="sideGroup8" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
+      <a id="sideGroupHead8" class="otter-link" href="/topics/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">More</a>
       <a id="sideTopics" class="otter-link" href="/topics/" style="color: #4a5b75; font-size: 14px; display: none;;">All topics</a>
       <a id="sideDownload" class="otter-link" href="/download/" style="color: #4a5b75; font-size: 14px; display: none;;">Download</a>
       <a id="sideRelease" class="otter-link" href="/release/" style="color: #4a5b75; font-size: 14px; display: none;;">Release status</a>
       <a id="sideStudio" class="otter-link" href="/studio/" style="color: #4a5b75; font-size: 14px; display: none;;">Studio preview</a>
+      <a id="sideSupport" class="otter-link" href="/support/" style="color: #4a5b75; font-size: 14px; display: none;;">Support</a>
+      <a id="sideAbout" class="otter-link" href="/about/" style="color: #4a5b75; font-size: 14px; display: none;;">About Otter</a>
+      <a id="sideLicense" class="otter-link" href="/license/" style="color: #4a5b75; font-size: 14px; display: none;;">License</a>
 </div>
       <div id="helpCard" class="otter-column" style="background: #f4f7fb; border-radius: 12px; border: 1px solid #e3e9f2; padding: 16px; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
       <div id="helpTitle" class="otter-text" style="color: #0f1f36; font-size: 14px; font-weight: 700;">Need help?</div>
@@ -525,7 +546,13 @@
       <div id="docsMain" class="otter-column" style="padding: 40px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0; max-width: 940px;; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
       <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">Objects and properties</div>
       <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">An object groups named values. Create one with has, and read its properties with the everyday word of.</div>
-      <div id="b3" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto;;">developer has
+      <div id="b3block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b3head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b3label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b3copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div class="otter-runnable">
+        <div id="b3" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">developer has
     name is &quot;Alice&quot;
     role is &quot;Architect&quot;
     level is 3
@@ -534,32 +561,72 @@
 say &quot;Developer:&quot; name of developer
 say &quot;Role:&quot; role of developer
 say &quot;Level:&quot; level of developer</div>
-      <div id="b4" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto;;">Developer: Alice
+        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b3">&#9654; Run</button></div>
+        <pre id="b3-output" class="otter-run-output" hidden></pre>
+      </div>
+</div>
+      <div id="b4block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b4head" class="otter-row" style="width: 100%; max-width: 100%; background: #dde6f2; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b4label" class="otter-text" style="color: #4a5b75; font-size: 12px; font-weight: 600;">Output</div>
+      <button id="b4copy" class="otter-button" style="background: #c9d6e8; color: #0f1f36; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="b4" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">Developer: Alice
 Role: Architect
 Level: 3</div>
+</div>
       <div id="b5" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Why of instead of a dot? In many languages the dot means decimals, method calls, namespaces, and property access all at once. In Otter the period has one meaning - finish a block - and properties are always property of object.</div>
       <div id="b6" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Changing a property</div>
-      <div id="b7" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto;;">level of developer is 4
+      <div id="b7block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b7head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b7label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b7copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div class="otter-runnable">
+        <div id="b7" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">level of developer is 4
 say &quot;Updated level:&quot; level of developer</div>
-      <div id="b8" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto;;">Updated level: 4</div>
+        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b7">&#9654; Run</button></div>
+        <pre id="b7-output" class="otter-run-output" hidden></pre>
+      </div>
+</div>
+      <div id="b8block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b8head" class="otter-row" style="width: 100%; max-width: 100%; background: #dde6f2; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b8label" class="otter-text" style="color: #4a5b75; font-size: 12px; font-weight: 600;">Output</div>
+      <button id="b8copy" class="otter-button" style="background: #c9d6e8; color: #0f1f36; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="b8" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">Updated level: 4</div>
+</div>
       <div id="b9" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Custom types</div>
       <div id="b10" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Declare a type once with has, then create values of it:</div>
-      <div id="b11" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto;;">a Person has
+      <div id="b11block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b11head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b11label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <button id="b11copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div class="otter-runnable">
+        <div id="b11" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">a Person has
     name
     age
 .
 
 jeff is a Person with name &quot;Jeff&quot;, age 29
 say name of jeff</div>
+        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b11">&#9654; Run</button></div>
+        <pre id="b11-output" class="otter-run-output" hidden></pre>
+      </div>
+</div>
       <div id="b12" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">developer is a thing remains supported for older programs; has is the canonical form.</div>
       <a id="b13" class="otter-link" href="/files/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Next: files and folders</a>
 </div>
 </div>
       <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to download, use, and build commercial applications with. Created by Jeffrey Macy.</div>
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
       <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="footerLicense" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/LICENSE" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">License</a>
-      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">Source</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
 </div>
 </div>
 </div>
@@ -572,6 +639,91 @@ say name of jeff</div>
     const gone = null;
     function otterGetElement(id) { return document.getElementById(id); }
 
+    window.otterRunnables = {};
+    window.otterRunOrder = ["b3","b7","b11"];
+    function otterFormatSaid(value) {
+      if (value === null || value === undefined) { return 'gone'; }
+      if (Array.isArray(value)) { return value.map(otterFormatSaid).join(', '); }
+      if (typeof value === 'object' && value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
+      return String(value);
+    }
+    document.addEventListener('click', async (e) => {
+      const button = e.target && e.target.closest ? e.target.closest('[data-otter-run]') : null;
+      if (!button || button.disabled) { return; }
+      const id = button.getAttribute('data-otter-run');
+      const output = document.getElementById(id + '-output');
+      if (!output || !window.otterRunnables[id]) { return; }
+      // A page's samples read as one story ("games are ..." then "each game in games"),
+      // so a sample runs after the samples above it - silently - and only its own
+      // output is shown. Every run starts and ends with no variables left behind.
+      const chain = window.otterRunOrder.slice(0, window.otterRunOrder.indexOf(id) + 1);
+      const touched = new Set();
+      for (const step of chain) { for (const v of window.otterRunnables[step].vars) { touched.add(v); } }
+      const saved = Array.from(touched).map((v) => [v, Object.getOwnPropertyDescriptor(window, v)]);
+      const clean = () => { for (const v of touched) { try { delete window[v]; } catch (err) { /* keep going */ } if (v === 'name') { window.name = ''; } } };
+      const lines = [];
+      output.hidden = false;
+      output.classList.remove('otter-run-error');
+      output.textContent = '';
+      button.disabled = true;
+      clean();
+      try {
+        for (const step of chain.slice(0, -1)) {
+          try { await window.otterRunnables[step].run(() => {}); } catch (err) { /* an earlier sample that cannot run is skipped */ }
+        }
+        const say = (...parts) => { lines.push(parts.map(otterFormatSaid).join(' ')); output.textContent = lines.join('\n'); };
+        await window.otterRunnables[id].run(say);
+        if (lines.length === 0) { output.textContent = '(nothing to show - this sample only sets things up for the ones below)'; }
+      } catch (err) {
+        output.classList.add('otter-run-error');
+        lines.push('Otter stopped: ' + (err && err.message ? err.message : String(err)));
+        output.textContent = lines.join('\n');
+      } finally {
+        clean();
+        for (const [v, descriptor] of saved) { if (descriptor) { try { Object.defineProperty(window, v, descriptor); } catch (err) { /* keep going */ } } }
+        button.disabled = false;
+      }
+    });
+    window.otterRunnables["b3"] = { vars: ["developer"], run: async (otterSay) => {
+    {
+      const _props = {};
+      const _order = [];
+      if (!(('name') in _props)) { _order.push('name'); } _props['name'] = "Alice";
+      if (!(('role') in _props)) { _order.push('role'); } _props['role'] = "Architect";
+      if (!(('level') in _props)) { _order.push('level'); } _props['level'] = 3;
+      const _thing = { __otterThing: true, typeName: 'thing', props: _props, order: _order };
+      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('developer' in otterState)) { otterSetState('developer', _thing); } else { window.developer = _thing; }
+    }
+    otterSay("Developer:" + " " + (otterGetElement('developer') ? (otterGetProperty('developer', 'name')) : (() => { const _owner = developer; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('name' === 'state') return _owner.state; if ('name' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('name' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('name' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "name". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (_owner.node.nodeType === 1 ? _owner.node.nodeName : (() => { throw new Error('I can only read the name of on an xml element, but this is an xml document.'); })()); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "name".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('name' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('name' === 'url') return _owner.url; if ('name' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "name".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('name') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "name".'); } return _owner.props['name']; })()));
+    otterSay("Role:" + " " + (otterGetElement('developer') ? (otterGetProperty('developer', 'role')) : (() => { const _owner = developer; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('role' === 'state') return _owner.state; if ('role' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('role' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('role' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "role". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (() => { throw new Error('This xml value has no property called "role". Try name, root, text, or attributes.'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "role".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('role' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('role' === 'url') return _owner.url; if ('role' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "role".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('role') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "role".'); } return _owner.props['role']; })()));
+    otterSay("Level:" + " " + (otterGetElement('developer') ? (otterGetProperty('developer', 'level')) : (() => { const _owner = developer; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('level' === 'state') return _owner.state; if ('level' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('level' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('level' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "level". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (() => { throw new Error('This xml value has no property called "level". Try name, root, text, or attributes.'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "level".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('level' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('level' === 'url') return _owner.url; if ('level' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "level".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('level') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "level".'); } return _owner.props['level']; })()));
+} };
+    window.otterRunnables["b7"] = { vars: [], run: async (otterSay) => {
+    {
+      const _el = otterGetElement('developer');
+      if (_el) { otterSetProperty('developer', 'level', 4); }
+      else {
+        const _owner = developer;
+        if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+        if (!(('level') in _owner.props)) { _owner.order.push('level'); }
+        _owner.props['level'] = 4;
+      }
+    }
+    otterSay("Updated level:" + " " + (otterGetElement('developer') ? (otterGetProperty('developer', 'level')) : (() => { const _owner = developer; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('level' === 'state') return _owner.state; if ('level' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('level' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('level' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "level". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (() => { throw new Error('This xml value has no property called "level". Try name, root, text, or attributes.'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "level".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('level' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('level' === 'url') return _owner.url; if ('level' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "level".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('level') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "level".'); } return _owner.props['level']; })()));
+} };
+    window.otterRunnables["b11"] = { vars: ["Person","jeff"], run: async (otterSay) => {
+    if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('Person' in otterState)) { otterSetState('Person', { __otterType: true, typeName: 'Person', fieldNames: ['name', 'age'] }); } else { window.Person = { __otterType: true, typeName: 'Person', fieldNames: ['name', 'age'] }; }
+    {
+      const _props = {};
+      const _order = [];
+      if (typeof Person !== 'undefined' && Person && typeof Person === 'object' && Person.__otterType) { for (const _f of Person.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
+      if (!(('name') in _props)) { _order.push('name'); } _props['name'] = "Jeff";
+      if (!(('age') in _props)) { _order.push('age'); } _props['age'] = 29;
+      const _thing = { __otterThing: true, typeName: 'Person', props: _props, order: _order };
+      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('jeff' in otterState)) { otterSetState('jeff', _thing); } else { window.jeff = _thing; }
+    }
+    otterSay((otterGetElement('jeff') ? (otterGetProperty('jeff', 'name')) : (() => { const _owner = jeff; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('name' === 'state') return _owner.state; if ('name' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('name' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('name' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "name". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (_owner.node.nodeType === 1 ? _owner.node.nodeName : (() => { throw new Error('I can only read the name of on an xml element, but this is an xml document.'); })()); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "name".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('name' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('name' === 'url') return _owner.url; if ('name' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "name".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('name') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "name".'); } return _owner.props['name']; })()));
+} };
 // Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
 
 function _otterAssertWebCryptoSubtle() {
@@ -1572,7 +1724,86 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
-
+    const el_b3copy = document.getElementById('b3copy');
+    if (el_b3copy) {
+      el_b3copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b3') ? (otterGetText('b3')) : (() => { const _owner = b3; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b3copy');
+        if (_el) { otterSetText('b3copy', "Copied"); }
+        else {
+          const _owner = b3copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    const el_b4copy = document.getElementById('b4copy');
+    if (el_b4copy) {
+      el_b4copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b4') ? (otterGetText('b4')) : (() => { const _owner = b4; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b4copy');
+        if (_el) { otterSetText('b4copy', "Copied"); }
+        else {
+          const _owner = b4copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    const el_b7copy = document.getElementById('b7copy');
+    if (el_b7copy) {
+      el_b7copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b7') ? (otterGetText('b7')) : (() => { const _owner = b7; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b7copy');
+        if (_el) { otterSetText('b7copy', "Copied"); }
+        else {
+          const _owner = b7copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    const el_b8copy = document.getElementById('b8copy');
+    if (el_b8copy) {
+      el_b8copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b8') ? (otterGetText('b8')) : (() => { const _owner = b8; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b8copy');
+        if (_el) { otterSetText('b8copy', "Copied"); }
+        else {
+          const _owner = b8copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    const el_b11copy = document.getElementById('b11copy');
+    if (el_b11copy) {
+      el_b11copy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b11') ? (otterGetText('b11')) : (() => { const _owner = b11; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b11copy');
+        if (_el) { otterSetText('b11copy', "Copied"); }
+        else {
+          const _owner = b11copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
 
 
 
