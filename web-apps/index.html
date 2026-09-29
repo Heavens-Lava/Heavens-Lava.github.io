@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web applications - Otter Documentation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --otter-bg: #f4f7fb;
@@ -21,7 +18,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; padding: 0; }
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
       background: #f4f7fb;
       color: #0f1f36;
       min-height: 100vh;
@@ -45,14 +42,7 @@
       box-sizing: border-box;
       overflow: hidden;
     }
-    .otter-runnable { display: flex; flex-direction: column; gap: 0; min-width: 0; }
-    .otter-runnable > .otter-text { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-    .otter-run-bar { display: flex; justify-content: flex-end; padding: 8px 12px; background: #16263f; border-radius: 0 0 12px 12px; }
-    .otter-run-btn { font: inherit; font-size: 13px; font-weight: 700; color: #ffffff; background: #2563eb; border: 0; border-radius: 8px; padding: 6px 16px; cursor: pointer; }
-    .otter-run-btn:hover { background: #1d4ed8; }
-    .otter-run-btn:disabled { opacity: 0.6; cursor: progress; }
-    .otter-run-output { margin: 8px 0 0; padding: 14px 18px; background: #e8eef7; color: #0f1f36; border-radius: 12px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-x: auto; }
-    .otter-run-output.otter-run-error { background: #fdecec; color: #8a1c1c; }
+
     body.otter-has-page.otter-doc-scroll {
       height: auto;
       max-height: none;
@@ -500,7 +490,7 @@
       <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead5" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
       <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Databases</a>
-      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">The query language</a>
+      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">The query language (1.1 preview)</a>
       <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">HTTP requests</a>
       <a id="sideWebServer" class="otter-link" href="/web-server/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">Web servers</a>
       <a id="sideXml" class="otter-link" href="/xml/" style="color: #4a5b75; font-size: 14px; padding: 8px 12px; border-left: 3px solid transparent; border-radius: 4px; display: block;;">XML</a>
@@ -592,8 +582,7 @@
       <div id="b6label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
       <button id="b6copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div class="otter-runnable">
-        <div id="b6" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">app is a page with title &quot;Greeter&quot;, width 560, background &quot;#0f172a&quot;, spacing 14
+      <div id="b6" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">app is a page with title &quot;Greeter&quot;, width 560, background &quot;#0f172a&quot;, spacing 14
 
 nameBox is a text box with placeholder &quot;Your name&quot;
 helloButton is a button with text &quot;Say hello&quot;, background &quot;#6366f1&quot;, foreground &quot;white&quot;
@@ -606,19 +595,18 @@ when helloButton is clicked
 
 put nameBox, helloButton, message in app
 show app</div>
-        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b6">&#9654; Run</button></div>
-        <pre id="b6-output" class="otter-run-output" hidden></pre>
-      </div>
 </div>
       <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Resources include page, text, text box, button, image, link, card, row, column, badge and more. Layout words such as spread, align middle and spacing arrange rows and columns. customstyle passes raw CSS for anything else. scroll true on a page lets it scroll like an ordinary website.</div>
+      <div id="b7a" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Stylesheets and projects</div>
+      <div id="b7b" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">To style a page with your own CSS, put a stylesheet named after the program beside it: app.css for app.ot, or main.css for a project's main.ot. otter web, otter build and otter publish include it in the page; otter new web creates main.css for you. It is the only stylesheet Otter 1.0 picks up. The generated page uses the computer's own fonts and needs no internet connection or other service.</div>
+      <div id="b7c" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">A web or game project runs with otter web . (console and automation projects use otter run .). Keep the entry point at the project root: when it is in a subfolder, relative paths to images and other assets break after otter build (to be fixed after 1.0).</div>
       <div id="b8" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Several pages and routes</div>
       <div id="b9block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
       <div id="b9head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="b9label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
       <button id="b9copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div class="otter-runnable">
-        <div id="b9" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">homePage is a page with title &quot;Home&quot;
+      <div id="b9" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">homePage is a page with title &quot;Home&quot;
 aboutPage is a page with title &quot;About&quot;
 notFoundPage is a page with title &quot;Not Found&quot;
 
@@ -629,9 +617,6 @@ route otherwise shows notFoundPage
 
 go to &quot;/about&quot;
 go back</div>
-        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b9">&#9654; Run</button></div>
-        <pre id="b9-output" class="otter-run-output" hidden></pre>
-      </div>
 </div>
       <div id="b10" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Drag and drop</div>
       <div id="b11" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Make things draggable, mark where they can be dropped, and react:</div>
@@ -640,8 +625,7 @@ go back</div>
       <div id="b12label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
       <button id="b12copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div class="otter-runnable">
-        <div id="b12" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">card is panel with draggable is true
+      <div id="b12" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">card is panel with draggable is true
 board is panel with accepts drops is true
 
 on drag of card
@@ -653,13 +637,11 @@ on drop on board
     say drop x
     say drop y
 .</div>
-        <div class="otter-run-bar"><button type="button" class="otter-run-btn" data-otter-run="b12">&#9654; Run</button></div>
-        <pre id="b12-output" class="otter-run-output" hidden></pre>
-      </div>
 </div>
       <div id="b13" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">on files dropped on board gives you dropped files, a list of file values. Drag and drop is available in web applications.</div>
       <div id="b14" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What the web target leaves out</div>
       <div id="b15" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Raw sockets (TCP, UDP, TLS), file watching, the credential vault, cryptography, databases and direct file access need the operating system, so the web target reports them as unsupported rather than pretending.</div>
+      <div id="b15a" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Everything else works the same way as in the console, and say formats values the same way on both. A few results still differ: comparing two lists with is (the console compares their items, the web only whether they are the same list), the layout of convert ... to json text, contains on a list of numbers given a number written as text, ordering comparisons on text, repeat with a fractional count, when x changes, if x is empty, stop at the top of a program, and the wording of some error messages.</div>
       <a id="b16" class="otter-link" href="/reactivity/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Next: state and reactivity</a>
 </div>
 </div>
@@ -682,149 +664,9 @@ on drop on board
     // Otter Runtime helpers for the browser
     const empty = "";
     const gone = null;
-    function otterGetElement(id) { return document.getElementById(id); }
-
-    window.otterRunnables = {};
-    window.otterRunOrder = ["b6","b9","b12"];
-    function otterFormatSaid(value) {
-      if (value === null || value === undefined) { return 'gone'; }
-      if (Array.isArray(value)) { return value.map(otterFormatSaid).join(', '); }
-      if (typeof value === 'object' && value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
-      return String(value);
-    }
-    document.addEventListener('click', async (e) => {
-      const button = e.target && e.target.closest ? e.target.closest('[data-otter-run]') : null;
-      if (!button || button.disabled) { return; }
-      const id = button.getAttribute('data-otter-run');
-      const output = document.getElementById(id + '-output');
-      if (!output || !window.otterRunnables[id]) { return; }
-      // A page's samples read as one story ("games are ..." then "each game in games"),
-      // so a sample runs after the samples above it - silently - and only its own
-      // output is shown. Every run starts and ends with no variables left behind.
-      const chain = window.otterRunOrder.slice(0, window.otterRunOrder.indexOf(id) + 1);
-      const touched = new Set();
-      for (const step of chain) { for (const v of window.otterRunnables[step].vars) { touched.add(v); } }
-      const saved = Array.from(touched).map((v) => [v, Object.getOwnPropertyDescriptor(window, v)]);
-      const clean = () => { for (const v of touched) { try { delete window[v]; } catch (err) { /* keep going */ } if (v === 'name') { window.name = ''; } } };
-      const lines = [];
-      output.hidden = false;
-      output.classList.remove('otter-run-error');
-      output.textContent = '';
-      button.disabled = true;
-      clean();
-      try {
-        for (const step of chain.slice(0, -1)) {
-          try { await window.otterRunnables[step].run(() => {}); } catch (err) { /* an earlier sample that cannot run is skipped */ }
-        }
-        const say = (...parts) => { lines.push(parts.map(otterFormatSaid).join(' ')); output.textContent = lines.join('\n'); };
-        await window.otterRunnables[id].run(say);
-        if (lines.length === 0) { output.textContent = '(nothing to show - this sample only sets things up for the ones below)'; }
-      } catch (err) {
-        output.classList.add('otter-run-error');
-        lines.push('Otter stopped: ' + (err && err.message ? err.message : String(err)));
-        output.textContent = lines.join('\n');
-      } finally {
-        clean();
-        for (const [v, descriptor] of saved) { if (descriptor) { try { Object.defineProperty(window, v, descriptor); } catch (err) { /* keep going */ } } }
-        button.disabled = false;
-      }
-    });
-    window.otterRunnables["b6"] = { vars: ["app","nameBox","helloButton","message"], run: async (otterSay) => {
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof page !== 'undefined' && page && typeof page === 'object' && page.__otterType) { for (const _f of page.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('title') in _props)) { _order.push('title'); } _props['title'] = "Greeter";
-      if (!(('width') in _props)) { _order.push('width'); } _props['width'] = 560;
-      if (!(('background') in _props)) { _order.push('background'); } _props['background'] = "#0f172a";
-      if (!(('spacing') in _props)) { _order.push('spacing'); } _props['spacing'] = 14;
-      const _thing = { __otterThing: true, typeName: 'page', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('app' in otterState)) { otterSetState('app', _thing); } else { window.app = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (!(('placeholder') in _props)) { _order.push('placeholder'); } _props['placeholder'] = "Your name";
-      const _thing = { __otterThing: true, typeName: 'text box', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('nameBox' in otterState)) { otterSetState('nameBox', _thing); } else { window.nameBox = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof button !== 'undefined' && button && typeof button === 'object' && button.__otterType) { for (const _f of button.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('text') in _props)) { _order.push('text'); } _props['text'] = "Say hello";
-      if (!(('background') in _props)) { _order.push('background'); } _props['background'] = "#6366f1";
-      if (!(('foreground') in _props)) { _order.push('foreground'); } _props['foreground'] = "white";
-      const _thing = { __otterThing: true, typeName: 'button', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('helloButton' in otterState)) { otterSetState('helloButton', _thing); } else { window.helloButton = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof text !== 'undefined' && text && typeof text === 'object' && text.__otterType) { for (const _f of text.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('value') in _props)) { _order.push('value'); } _props['value'] = "Waiting...";
-      if (!(('foreground') in _props)) { _order.push('foreground'); } _props['foreground'] = "#a7f3d0";
-      const _thing = { __otterThing: true, typeName: 'text', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('message' in otterState)) { otterSetState('message', _thing); } else { window.message = _thing; }
-    }
+    function otterGetElement(id) { if (id && typeof id === 'object' && id.__otterUi) { return id.el; } return document.getElementById(id); }
 
 
-
-
-
-} };
-    window.otterRunnables["b9"] = { vars: ["homePage","aboutPage","notFoundPage"], run: async (otterSay) => {
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof page !== 'undefined' && page && typeof page === 'object' && page.__otterType) { for (const _f of page.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('title') in _props)) { _order.push('title'); } _props['title'] = "Home";
-      const _thing = { __otterThing: true, typeName: 'page', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('homePage' in otterState)) { otterSetState('homePage', _thing); } else { window.homePage = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof page !== 'undefined' && page && typeof page === 'object' && page.__otterType) { for (const _f of page.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('title') in _props)) { _order.push('title'); } _props['title'] = "About";
-      const _thing = { __otterThing: true, typeName: 'page', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('aboutPage' in otterState)) { otterSetState('aboutPage', _thing); } else { window.aboutPage = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof page !== 'undefined' && page && typeof page === 'object' && page.__otterType) { for (const _f of page.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('title') in _props)) { _order.push('title'); } _props['title'] = "Not Found";
-      const _thing = { __otterThing: true, typeName: 'page', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('notFoundPage' in otterState)) { otterSetState('notFoundPage', _thing); } else { window.notFoundPage = _thing; }
-    }
-    window.otterRouter.register("/", 'homePage');
-    window.otterRouter.register("/about", 'aboutPage');
-    window.otterRouter.register("/users/:id", 'userPage');
-    window.otterRouter.registerOtherwise('notFoundPage');
-    window.otterRouter.goTo("/about");
-    window.history.back();
-} };
-    window.otterRunnables["b12"] = { vars: ["card","board"], run: async (otterSay) => {
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof panel !== 'undefined' && panel && typeof panel === 'object' && panel.__otterType) { for (const _f of panel.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('draggable') in _props)) { _order.push('draggable'); } _props['draggable'] = true;
-      const _thing = { __otterThing: true, typeName: 'panel', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('card' in otterState)) { otterSetState('card', _thing); } else { window.card = _thing; }
-    }
-    {
-      const _props = {};
-      const _order = [];
-      if (typeof panel !== 'undefined' && panel && typeof panel === 'object' && panel.__otterType) { for (const _f of panel.fieldNames) { if (!(_f in _props)) { _order.push(_f); } _props[_f] = null; } }
-      if (!(('accepts drops') in _props)) { _order.push('accepts drops'); } _props['accepts drops'] = true;
-      const _thing = { __otterThing: true, typeName: 'panel', props: _props, order: _order };
-      if (typeof otterSetState === 'function' && typeof otterState !== 'undefined' && ('board' in otterState)) { otterSetState('board', _thing); } else { window.board = _thing; }
-    }
-
-
-} };
 // Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
 
 function _otterAssertWebCryptoSubtle() {
@@ -1165,13 +1007,77 @@ async function otterPasswordMatches(password, stored) {
       const el = otterGetElement(id);
       return el ? el[prop] : '';
     }
+
+    // D-4 / D8: say compiles to otterSay(part, part, ...) and every part
+    // goes through otterFormatValue, the one web formatter that mirrors the
+    // console's Format-OtterValue (Otter.Runtime.psm1). Before, the parts
+    // were glued with JS +, so a list printed "a,b", gone printed an empty
+    // string or "null", a thing printed "[object Object]" and 0.1 plus 0.2
+    // printed 0.30000000000000004 - all different from the console.
     function otterSay(...args) {
-      console.log(...args);
+      const line = args.map(otterFormatValue).join(' ');
+      console.log(line);
       const out = document.getElementById('otter-live-output');
       if (out) {
         out.style.display = 'block';
-        out.textContent = args.join(' ');
+        out.textContent = line;
       }
+    }
+    // Numbers exactly as .NET's ToString('0.##########') prints a double,
+    // which is what the console uses: first 15 significant digits, then at
+    // most 10 decimals (rounded half away from zero, on those digits),
+    // trailing zeros dropped, never an exponent. So 0.1 plus 0.2 is 0.3,
+    // 10 divided by 3 is 3.3333333333 and 1e20 is written out in full.
+    function otterFormatNumber(n) {
+      if (Number.isNaN(n)) { return 'NaN'; }
+      if (n === Infinity) { return 'Infinity'; }
+      if (n === -Infinity) { return '-Infinity'; }
+      const parts = Math.abs(n).toPrecision(15).split('e');
+      const mantissa = parts[0];
+      const exponent = parts.length > 1 ? parseInt(parts[1], 10) : 0;
+      const dot = mantissa.indexOf('.');
+      let digits = mantissa.replace('.', '');
+      let intLength = (dot === -1 ? mantissa.length : dot) + exponent;
+      if (intLength <= 0) { digits = '0'.repeat(1 - intLength) + digits; intLength = 1; }
+      if (intLength > digits.length) { digits = digits + '0'.repeat(intLength - digits.length); }
+      let whole = digits.slice(0, intLength);
+      let fraction = digits.slice(intLength);
+      if (fraction.length > 10) {
+        const roundUp = fraction.charAt(10) >= '5';
+        fraction = fraction.slice(0, 10);
+        if (roundUp) {
+          const all = (whole + fraction).split('');
+          let i = all.length - 1;
+          while (i >= 0 && all[i] === '9') { all[i] = '0'; i--; }
+          if (i >= 0) { all[i] = String(Number(all[i]) + 1); } else { all.unshift('1'); }
+          whole = all.slice(0, all.length - 10).join('');
+          fraction = all.slice(all.length - 10).join('');
+        }
+      }
+      fraction = fraction.replace(/0+$/, '');
+      whole = whole.replace(/^0+(?=\d)/, '');
+      const text = fraction ? whole + '.' + fraction : whole;
+      // Like .NET, a negative value keeps its sign even when it rounds to
+      // zero (0 minus 0.00000000001 prints -0). A true negative zero prints
+      // 0, as Windows PowerShell 5.1 does (PowerShell 7 prints -0 there).
+      return n < 0 ? '-' + text : text;
+    }
+    function otterFormatValue(value) {
+      if (value === null || value === undefined) { return 'gone'; }
+      if (typeof value === 'boolean') { return value ? 'true' : 'false'; }
+      if (typeof value === 'number') { return otterFormatNumber(value); }
+      if (typeof value === 'string') { return value; }
+      if (Array.isArray(value)) { return value.map(otterFormatValue).join(', '); }
+      if (typeof value === 'function') { return '<' + (value.name || 'function') + ', something Otter can do>'; }
+      if (typeof value === 'object') {
+        if (value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
+        if (value.__otterType) { return 'the type ' + value.typeName; }
+        if (value.__otterHttpRequest) { return '<an http request to ' + value.url + '>'; }
+        // Dates, bytes, xml and websockets carry their own console-shaped
+        // toString(); any other plain object is a thing to Otter.
+        if (Object.getPrototypeOf(value) === Object.prototype && value.toString === Object.prototype.toString) { return 'a thing'; }
+      }
+      return String(value);
     }
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
@@ -1825,6 +1731,7 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
+    {
     const el_b3copy = document.getElementById('b3copy');
     if (el_b3copy) {
       el_b3copy.addEventListener('click', async (event) => {
@@ -1841,6 +1748,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b6copy = document.getElementById('b6copy');
     if (el_b6copy) {
       el_b6copy.addEventListener('click', async (event) => {
@@ -1857,6 +1766,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b9copy = document.getElementById('b9copy');
     if (el_b9copy) {
       el_b9copy.addEventListener('click', async (event) => {
@@ -1873,6 +1784,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b12copy = document.getElementById('b12copy');
     if (el_b12copy) {
       el_b12copy.addEventListener('click', async (event) => {
@@ -1888,6 +1801,7 @@ async function otterPasswordMatches(password, stored) {
         }
       }
       });
+    }
     }
 
 

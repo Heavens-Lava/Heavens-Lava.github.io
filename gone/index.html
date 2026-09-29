@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>gone: the absence of a value - Otter Documentation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --otter-bg: #f4f7fb;
@@ -21,7 +18,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; padding: 0; }
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
       background: #f4f7fb;
       color: #0f1f36;
       min-height: 100vh;
@@ -500,7 +497,7 @@
       <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead5" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
       <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; display: none;;">Databases</a>
-      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language</a>
+      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language (1.1 preview)</a>
       <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; display: none;;">HTTP requests</a>
       <a id="sideWebServer" class="otter-link" href="/web-server/" style="color: #4a5b75; font-size: 14px; display: none;;">Web servers</a>
       <a id="sideXml" class="otter-link" href="/xml/" style="color: #4a5b75; font-size: 14px; display: none;;">XML</a>
@@ -728,16 +725,12 @@ NA</div>
     // Otter Runtime helpers for the browser
     const empty = "";
     const gone = null;
-    function otterGetElement(id) { return document.getElementById(id); }
+    function otterGetElement(id) { if (id && typeof id === 'object' && id.__otterUi) { return id.el; } return document.getElementById(id); }
 
     window.otterRunnables = {};
     window.otterRunOrder = ["b9","b11","b13","b16","b18","b21"];
-    function otterFormatSaid(value) {
-      if (value === null || value === undefined) { return 'gone'; }
-      if (Array.isArray(value)) { return value.map(otterFormatSaid).join(', '); }
-      if (typeof value === 'object' && value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
-      return String(value);
-    }
+    // Runnable samples print through the same D8 formatter as `say`.
+    function otterFormatSaid(value) { return otterFormatValue(value); }
     document.addEventListener('click', async (e) => {
       const button = e.target && e.target.closest ? e.target.closest('[data-otter-run]') : null;
       if (!button || button.disabled) { return; }
@@ -785,7 +778,7 @@ NA</div>
 } };
     window.otterRunnables["b13"] = { vars: [], run: async (otterSay) => {
     if ((() => { const _lD = user !== null && typeof (user) === 'object' && (user).__otterDate === true; const _rD = null !== null && typeof (null) === 'object' && (null).__otterDate === true; const _lB = user !== null && typeof (user) === 'object' && (user).__otterBytes === true; const _rB = null !== null && typeof (null) === 'object' && (null).__otterBytes === true; const _bytesEq = (a, b) => { if (a.length !== b.length) return false; for (let _i = 0; _i < a.length; _i++) { if (a[_i] !== b[_i]) return false; } return true; }; if (_lD || _rD) { return !((_lD && _rD) && ((user).value.getTime() === (null).value.getTime())); } if (_lB || _rB) { return !((_lB && _rB) && _bytesEq((user).value, (null).value)); } return (user !== null); })()) {
-      otterSay("Welcome" + " " + (otterGetElement('user') ? (otterGetProperty('user', 'name')) : (() => { const _owner = user; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('name' === 'state') return _owner.state; if ('name' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('name' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('name' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "name". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (_owner.node.nodeType === 1 ? _owner.node.nodeName : (() => { throw new Error('I can only read the name of on an xml element, but this is an xml document.'); })()); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "name".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('name' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('name' === 'url') return _owner.url; if ('name' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "name".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('name') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "name".'); } return _owner.props['name']; })()));
+      otterSay("Welcome", (otterGetElement('user') ? (otterGetProperty('user', 'name')) : (() => { const _owner = user; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('name' === 'state') return _owner.state; if ('name' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('name' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('name' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "name". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return (_owner.node.nodeType === 1 ? _owner.node.nodeName : (() => { throw new Error('I can only read the name of on an xml element, but this is an xml document.'); })()); } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "name".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('name' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('name' === 'url') return _owner.url; if ('name' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "name".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('name') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "name".'); } return _owner.props['name']; })()));
     }
 } };
     window.otterRunnables["b16"] = { vars: ["user"], run: async (otterSay) => {
@@ -1144,13 +1137,77 @@ async function otterPasswordMatches(password, stored) {
       const el = otterGetElement(id);
       return el ? el[prop] : '';
     }
+
+    // D-4 / D8: say compiles to otterSay(part, part, ...) and every part
+    // goes through otterFormatValue, the one web formatter that mirrors the
+    // console's Format-OtterValue (Otter.Runtime.psm1). Before, the parts
+    // were glued with JS +, so a list printed "a,b", gone printed an empty
+    // string or "null", a thing printed "[object Object]" and 0.1 plus 0.2
+    // printed 0.30000000000000004 - all different from the console.
     function otterSay(...args) {
-      console.log(...args);
+      const line = args.map(otterFormatValue).join(' ');
+      console.log(line);
       const out = document.getElementById('otter-live-output');
       if (out) {
         out.style.display = 'block';
-        out.textContent = args.join(' ');
+        out.textContent = line;
       }
+    }
+    // Numbers exactly as .NET's ToString('0.##########') prints a double,
+    // which is what the console uses: first 15 significant digits, then at
+    // most 10 decimals (rounded half away from zero, on those digits),
+    // trailing zeros dropped, never an exponent. So 0.1 plus 0.2 is 0.3,
+    // 10 divided by 3 is 3.3333333333 and 1e20 is written out in full.
+    function otterFormatNumber(n) {
+      if (Number.isNaN(n)) { return 'NaN'; }
+      if (n === Infinity) { return 'Infinity'; }
+      if (n === -Infinity) { return '-Infinity'; }
+      const parts = Math.abs(n).toPrecision(15).split('e');
+      const mantissa = parts[0];
+      const exponent = parts.length > 1 ? parseInt(parts[1], 10) : 0;
+      const dot = mantissa.indexOf('.');
+      let digits = mantissa.replace('.', '');
+      let intLength = (dot === -1 ? mantissa.length : dot) + exponent;
+      if (intLength <= 0) { digits = '0'.repeat(1 - intLength) + digits; intLength = 1; }
+      if (intLength > digits.length) { digits = digits + '0'.repeat(intLength - digits.length); }
+      let whole = digits.slice(0, intLength);
+      let fraction = digits.slice(intLength);
+      if (fraction.length > 10) {
+        const roundUp = fraction.charAt(10) >= '5';
+        fraction = fraction.slice(0, 10);
+        if (roundUp) {
+          const all = (whole + fraction).split('');
+          let i = all.length - 1;
+          while (i >= 0 && all[i] === '9') { all[i] = '0'; i--; }
+          if (i >= 0) { all[i] = String(Number(all[i]) + 1); } else { all.unshift('1'); }
+          whole = all.slice(0, all.length - 10).join('');
+          fraction = all.slice(all.length - 10).join('');
+        }
+      }
+      fraction = fraction.replace(/0+$/, '');
+      whole = whole.replace(/^0+(?=\d)/, '');
+      const text = fraction ? whole + '.' + fraction : whole;
+      // Like .NET, a negative value keeps its sign even when it rounds to
+      // zero (0 minus 0.00000000001 prints -0). A true negative zero prints
+      // 0, as Windows PowerShell 5.1 does (PowerShell 7 prints -0 there).
+      return n < 0 ? '-' + text : text;
+    }
+    function otterFormatValue(value) {
+      if (value === null || value === undefined) { return 'gone'; }
+      if (typeof value === 'boolean') { return value ? 'true' : 'false'; }
+      if (typeof value === 'number') { return otterFormatNumber(value); }
+      if (typeof value === 'string') { return value; }
+      if (Array.isArray(value)) { return value.map(otterFormatValue).join(', '); }
+      if (typeof value === 'function') { return '<' + (value.name || 'function') + ', something Otter can do>'; }
+      if (typeof value === 'object') {
+        if (value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
+        if (value.__otterType) { return 'the type ' + value.typeName; }
+        if (value.__otterHttpRequest) { return '<an http request to ' + value.url + '>'; }
+        // Dates, bytes, xml and websockets carry their own console-shaped
+        // toString(); any other plain object is a thing to Otter.
+        if (Object.getPrototypeOf(value) === Object.prototype && value.toString === Object.prototype.toString) { return 'a thing'; }
+      }
+      return String(value);
     }
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
@@ -1804,6 +1861,7 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
+    {
     const el_b5copy = document.getElementById('b5copy');
     if (el_b5copy) {
       el_b5copy.addEventListener('click', async (event) => {
@@ -1820,6 +1878,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b9copy = document.getElementById('b9copy');
     if (el_b9copy) {
       el_b9copy.addEventListener('click', async (event) => {
@@ -1836,6 +1896,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b11copy = document.getElementById('b11copy');
     if (el_b11copy) {
       el_b11copy.addEventListener('click', async (event) => {
@@ -1852,6 +1914,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b13copy = document.getElementById('b13copy');
     if (el_b13copy) {
       el_b13copy.addEventListener('click', async (event) => {
@@ -1868,6 +1932,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b16copy = document.getElementById('b16copy');
     if (el_b16copy) {
       el_b16copy.addEventListener('click', async (event) => {
@@ -1884,6 +1950,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b18copy = document.getElementById('b18copy');
     if (el_b18copy) {
       el_b18copy.addEventListener('click', async (event) => {
@@ -1900,6 +1968,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b21copy = document.getElementById('b21copy');
     if (el_b21copy) {
       el_b21copy.addEventListener('click', async (event) => {
@@ -1916,6 +1986,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b23copy = document.getElementById('b23copy');
     if (el_b23copy) {
       el_b23copy.addEventListener('click', async (event) => {
@@ -1932,6 +2004,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b27copy = document.getElementById('b27copy');
     if (el_b27copy) {
       el_b27copy.addEventListener('click', async (event) => {
@@ -1948,6 +2022,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b30copy = document.getElementById('b30copy');
     if (el_b30copy) {
       el_b30copy.addEventListener('click', async (event) => {
@@ -1963,6 +2039,7 @@ async function otterPasswordMatches(password, stored) {
         }
       }
       });
+    }
     }
 
 

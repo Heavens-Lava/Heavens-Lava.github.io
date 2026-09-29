@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A complete console program - Otter Documentation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --otter-bg: #f4f7fb;
@@ -21,7 +18,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; padding: 0; }
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
       background: #f4f7fb;
       color: #0f1f36;
       min-height: 100vh;
@@ -493,7 +490,7 @@
       <div id="sideGroup5" class="otter-column" style="display: flex; flex-direction: column; gap: 2px; align-items: stretch; justify-content: flex-start;">
       <a id="sideGroupHead5" class="otter-link" href="/databases/" style="color: #0f1f36; font-size: 13px; font-weight: 700; padding: 6px 12px; display: block;;">Platform</a>
       <a id="sideDatabases" class="otter-link" href="/databases/" style="color: #4a5b75; font-size: 14px; display: none;;">Databases</a>
-      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language</a>
+      <a id="sideQueries" class="otter-link" href="/queries/" style="color: #4a5b75; font-size: 14px; display: none;;">The query language (1.1 preview)</a>
       <a id="sideHttp" class="otter-link" href="/http/" style="color: #4a5b75; font-size: 14px; display: none;;">HTTP requests</a>
       <a id="sideWebServer" class="otter-link" href="/web-server/" style="color: #4a5b75; font-size: 14px; display: none;;">Web servers</a>
       <a id="sideXml" class="otter-link" href="/xml/" style="color: #4a5b75; font-size: 14px; display: none;;">XML</a>
@@ -579,9 +576,9 @@
       <div id="b3" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">say &quot;Task helper&quot; in color &quot;cyan&quot;
 
 tasks are empty
-running is true
+keepGoing is true
 
-while running
+while keepGoing
     actions are
         &quot;Add a task&quot;
         &quot;Show tasks&quot;
@@ -602,7 +599,7 @@ while running
             .
         .
     otherwise
-        running is false
+        keepGoing is false
     .
 .
 
@@ -638,7 +635,7 @@ Choose a number: 3
 Goodbye</div>
 </div>
       <div id="b6" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What to notice</div>
-      <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- running is true and while running keep the loop going until Quit sets it to false.</div>
+      <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- keepGoing is true and while keepGoing keep the loop going until Quit sets it to false.</div>
       <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- choose from returns the item you picked, so the if compares words, not numbers.</div>
       <div id="b9" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">- length of tasks is 0 checks for an empty list.</div>
       <div id="b10" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Challenges</div>
@@ -668,7 +665,7 @@ Goodbye</div>
     // Otter Runtime helpers for the browser
     const empty = "";
     const gone = null;
-    function otterGetElement(id) { return document.getElementById(id); }
+    function otterGetElement(id) { if (id && typeof id === 'object' && id.__otterUi) { return id.el; } return document.getElementById(id); }
 
 
 // Otter D114: Browser-side Cryptography (Web Crypto) Runtime Helpers
@@ -1011,13 +1008,77 @@ async function otterPasswordMatches(password, stored) {
       const el = otterGetElement(id);
       return el ? el[prop] : '';
     }
+
+    // D-4 / D8: say compiles to otterSay(part, part, ...) and every part
+    // goes through otterFormatValue, the one web formatter that mirrors the
+    // console's Format-OtterValue (Otter.Runtime.psm1). Before, the parts
+    // were glued with JS +, so a list printed "a,b", gone printed an empty
+    // string or "null", a thing printed "[object Object]" and 0.1 plus 0.2
+    // printed 0.30000000000000004 - all different from the console.
     function otterSay(...args) {
-      console.log(...args);
+      const line = args.map(otterFormatValue).join(' ');
+      console.log(line);
       const out = document.getElementById('otter-live-output');
       if (out) {
         out.style.display = 'block';
-        out.textContent = args.join(' ');
+        out.textContent = line;
       }
+    }
+    // Numbers exactly as .NET's ToString('0.##########') prints a double,
+    // which is what the console uses: first 15 significant digits, then at
+    // most 10 decimals (rounded half away from zero, on those digits),
+    // trailing zeros dropped, never an exponent. So 0.1 plus 0.2 is 0.3,
+    // 10 divided by 3 is 3.3333333333 and 1e20 is written out in full.
+    function otterFormatNumber(n) {
+      if (Number.isNaN(n)) { return 'NaN'; }
+      if (n === Infinity) { return 'Infinity'; }
+      if (n === -Infinity) { return '-Infinity'; }
+      const parts = Math.abs(n).toPrecision(15).split('e');
+      const mantissa = parts[0];
+      const exponent = parts.length > 1 ? parseInt(parts[1], 10) : 0;
+      const dot = mantissa.indexOf('.');
+      let digits = mantissa.replace('.', '');
+      let intLength = (dot === -1 ? mantissa.length : dot) + exponent;
+      if (intLength <= 0) { digits = '0'.repeat(1 - intLength) + digits; intLength = 1; }
+      if (intLength > digits.length) { digits = digits + '0'.repeat(intLength - digits.length); }
+      let whole = digits.slice(0, intLength);
+      let fraction = digits.slice(intLength);
+      if (fraction.length > 10) {
+        const roundUp = fraction.charAt(10) >= '5';
+        fraction = fraction.slice(0, 10);
+        if (roundUp) {
+          const all = (whole + fraction).split('');
+          let i = all.length - 1;
+          while (i >= 0 && all[i] === '9') { all[i] = '0'; i--; }
+          if (i >= 0) { all[i] = String(Number(all[i]) + 1); } else { all.unshift('1'); }
+          whole = all.slice(0, all.length - 10).join('');
+          fraction = all.slice(all.length - 10).join('');
+        }
+      }
+      fraction = fraction.replace(/0+$/, '');
+      whole = whole.replace(/^0+(?=\d)/, '');
+      const text = fraction ? whole + '.' + fraction : whole;
+      // Like .NET, a negative value keeps its sign even when it rounds to
+      // zero (0 minus 0.00000000001 prints -0). A true negative zero prints
+      // 0, as Windows PowerShell 5.1 does (PowerShell 7 prints -0 there).
+      return n < 0 ? '-' + text : text;
+    }
+    function otterFormatValue(value) {
+      if (value === null || value === undefined) { return 'gone'; }
+      if (typeof value === 'boolean') { return value ? 'true' : 'false'; }
+      if (typeof value === 'number') { return otterFormatNumber(value); }
+      if (typeof value === 'string') { return value; }
+      if (Array.isArray(value)) { return value.map(otterFormatValue).join(', '); }
+      if (typeof value === 'function') { return '<' + (value.name || 'function') + ', something Otter can do>'; }
+      if (typeof value === 'object') {
+        if (value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
+        if (value.__otterType) { return 'the type ' + value.typeName; }
+        if (value.__otterHttpRequest) { return '<an http request to ' + value.url + '>'; }
+        // Dates, bytes, xml and websockets carry their own console-shaped
+        // toString(); any other plain object is a thing to Otter.
+        if (Object.getPrototypeOf(value) === Object.prototype && value.toString === Object.prototype.toString) { return 'a thing'; }
+      }
+      return String(value);
     }
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
@@ -1671,6 +1732,7 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
+    {
     const el_b3copy = document.getElementById('b3copy');
     if (el_b3copy) {
       el_b3copy.addEventListener('click', async (event) => {
@@ -1687,6 +1749,8 @@ async function otterPasswordMatches(password, stored) {
       }
       });
     }
+    }
+    {
     const el_b5copy = document.getElementById('b5copy');
     if (el_b5copy) {
       el_b5copy.addEventListener('click', async (event) => {
@@ -1702,6 +1766,7 @@ async function otterPasswordMatches(password, stored) {
         }
       }
       });
+    }
     }
 
 

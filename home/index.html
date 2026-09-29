@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Otter - Programming that reads like English</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --otter-bg: #f4f7fb;
@@ -21,7 +18,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; padding: 0; }
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
       background: #f4f7fb;
       color: #0f1f36;
       min-height: 100vh;
@@ -439,7 +436,7 @@
 </div>
       <div id="heroBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 40px 56px 72px; text-align: middle; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: row; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="heroCopy" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Pre-release 0.9.0 - for Windows</div>
+      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Release candidate 1.0.0-rc.4 - for Windows</div>
       <div id="heroTitle" class="otter-text" style="color: #ffffff; font-size: 56px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;">Programming that reads like English.</div>
       <div id="heroLead" class="otter-text" style="color: #dbe6f5; font-size: 19px; line-height: 1.5; max-width: 560px;;">Otter is a programming language you can read aloud. Write scripts, desktop apps and web apps in plain words, with nothing extra to install.</div>
       <div id="heroCodeblock" class="otter-column" style="width: 100%; max-width: 100%; max-width: 560px;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
@@ -465,7 +462,7 @@ greet &quot;Ada&quot;</div>
       <a id="heroStart" class="otter-link" href="/what-is-otter/" style="color: #ffffff; border-radius: 12px; border: 2px solid #4d8dff; font-size: 16px; font-weight: 700; padding: 12px 24px; display: inline-block;;">Get Started</a>
       <a id="heroDocs" class="otter-link" href="/docs/" style="color: #b7d3ff; font-size: 16px; font-weight: 700; padding: 14px 8px; display: inline-block;;">Read the Docs</a>
 </div>
-      <div id="heroVersion" class="otter-text" style="color: #f5c46b; font-size: 13px;">Version 0.9.0 - Windows installer: Installer not published yet</div>
+      <div id="heroVersion" class="otter-text" style="color: #f5c46b; font-size: 13px;">Version 1.0.0-rc.4 - Windows installer: Installer not published yet</div>
 </div>
       <img id="heroMascot" class="otter-image" src="/static/images/otter-docs-hero-mascot.png" alt="The Otter mascot sitting on a rock" style="height: 340px;" />
 </div>
@@ -637,16 +634,12 @@ def greet(person):
     // Otter Runtime helpers for the browser
     const empty = "";
     const gone = null;
-    function otterGetElement(id) { return document.getElementById(id); }
+    function otterGetElement(id) { if (id && typeof id === 'object' && id.__otterUi) { return id.el; } return document.getElementById(id); }
 
     window.otterRunnables = {};
     window.otterRunOrder = ["heroCode","cmpOtter"];
-    function otterFormatSaid(value) {
-      if (value === null || value === undefined) { return 'gone'; }
-      if (Array.isArray(value)) { return value.map(otterFormatSaid).join(', '); }
-      if (typeof value === 'object' && value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
-      return String(value);
-    }
+    // Runnable samples print through the same D8 formatter as `say`.
+    function otterFormatSaid(value) { return otterFormatValue(value); }
     document.addEventListener('click', async (e) => {
       const button = e.target && e.target.closest ? e.target.closest('[data-otter-run]') : null;
       if (!button || button.disabled) { return; }
@@ -1045,13 +1038,77 @@ async function otterPasswordMatches(password, stored) {
       const el = otterGetElement(id);
       return el ? el[prop] : '';
     }
+
+    // D-4 / D8: say compiles to otterSay(part, part, ...) and every part
+    // goes through otterFormatValue, the one web formatter that mirrors the
+    // console's Format-OtterValue (Otter.Runtime.psm1). Before, the parts
+    // were glued with JS +, so a list printed "a,b", gone printed an empty
+    // string or "null", a thing printed "[object Object]" and 0.1 plus 0.2
+    // printed 0.30000000000000004 - all different from the console.
     function otterSay(...args) {
-      console.log(...args);
+      const line = args.map(otterFormatValue).join(' ');
+      console.log(line);
       const out = document.getElementById('otter-live-output');
       if (out) {
         out.style.display = 'block';
-        out.textContent = args.join(' ');
+        out.textContent = line;
       }
+    }
+    // Numbers exactly as .NET's ToString('0.##########') prints a double,
+    // which is what the console uses: first 15 significant digits, then at
+    // most 10 decimals (rounded half away from zero, on those digits),
+    // trailing zeros dropped, never an exponent. So 0.1 plus 0.2 is 0.3,
+    // 10 divided by 3 is 3.3333333333 and 1e20 is written out in full.
+    function otterFormatNumber(n) {
+      if (Number.isNaN(n)) { return 'NaN'; }
+      if (n === Infinity) { return 'Infinity'; }
+      if (n === -Infinity) { return '-Infinity'; }
+      const parts = Math.abs(n).toPrecision(15).split('e');
+      const mantissa = parts[0];
+      const exponent = parts.length > 1 ? parseInt(parts[1], 10) : 0;
+      const dot = mantissa.indexOf('.');
+      let digits = mantissa.replace('.', '');
+      let intLength = (dot === -1 ? mantissa.length : dot) + exponent;
+      if (intLength <= 0) { digits = '0'.repeat(1 - intLength) + digits; intLength = 1; }
+      if (intLength > digits.length) { digits = digits + '0'.repeat(intLength - digits.length); }
+      let whole = digits.slice(0, intLength);
+      let fraction = digits.slice(intLength);
+      if (fraction.length > 10) {
+        const roundUp = fraction.charAt(10) >= '5';
+        fraction = fraction.slice(0, 10);
+        if (roundUp) {
+          const all = (whole + fraction).split('');
+          let i = all.length - 1;
+          while (i >= 0 && all[i] === '9') { all[i] = '0'; i--; }
+          if (i >= 0) { all[i] = String(Number(all[i]) + 1); } else { all.unshift('1'); }
+          whole = all.slice(0, all.length - 10).join('');
+          fraction = all.slice(all.length - 10).join('');
+        }
+      }
+      fraction = fraction.replace(/0+$/, '');
+      whole = whole.replace(/^0+(?=\d)/, '');
+      const text = fraction ? whole + '.' + fraction : whole;
+      // Like .NET, a negative value keeps its sign even when it rounds to
+      // zero (0 minus 0.00000000001 prints -0). A true negative zero prints
+      // 0, as Windows PowerShell 5.1 does (PowerShell 7 prints -0 there).
+      return n < 0 ? '-' + text : text;
+    }
+    function otterFormatValue(value) {
+      if (value === null || value === undefined) { return 'gone'; }
+      if (typeof value === 'boolean') { return value ? 'true' : 'false'; }
+      if (typeof value === 'number') { return otterFormatNumber(value); }
+      if (typeof value === 'string') { return value; }
+      if (Array.isArray(value)) { return value.map(otterFormatValue).join(', '); }
+      if (typeof value === 'function') { return '<' + (value.name || 'function') + ', something Otter can do>'; }
+      if (typeof value === 'object') {
+        if (value.__otterThing) { return 'a ' + (value.typeName || 'thing'); }
+        if (value.__otterType) { return 'the type ' + value.typeName; }
+        if (value.__otterHttpRequest) { return '<an http request to ' + value.url + '>'; }
+        // Dates, bytes, xml and websockets carry their own console-shaped
+        // toString(); any other plain object is a thing to Otter.
+        if (Object.getPrototypeOf(value) === Object.prototype && value.toString === Object.prototype.toString) { return 'a thing'; }
+      }
+      return String(value);
     }
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
@@ -1705,6 +1762,7 @@ async function otterPasswordMatches(password, stored) {
     }
 
     // Register event listeners
+    {
     const el_heroCodecopy = document.getElementById('heroCodecopy');
     if (el_heroCodecopy) {
       el_heroCodecopy.addEventListener('click', async (event) => {
@@ -1720,6 +1778,7 @@ async function otterPasswordMatches(password, stored) {
         }
       }
       });
+    }
     }
 
 
