@@ -582,11 +582,11 @@
       <div id="b14" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">A page that is wrong, unclear, or shows an example that does not work is a bug. Say which page, and what you expected.</div>
       <a id="b15" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/issues" style="color: #2563eb; font-size: 15px; font-weight: 600;" target="_blank" rel="noopener noreferrer">Report a documentation issue</a>
       <div id="b16" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Frequently asked questions</div>
-      <div id="b17" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Does Otter run on macOS or Linux? Not yet. Otter runs on Windows 10 and 11 with Windows PowerShell 5.1.</div>
+      <div id="b17" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Does Otter run on macOS or Linux? Yes. Install PowerShell 7, then install Otter from the same download (see Installation). Console programs and web applications work there; desktop windows and a few other features built on Windows itself need Windows, and say so clearly.</div>
       <div id="b18" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Do I need PowerShell 7? No. Otter runs on the Windows PowerShell 5.1 that comes with Windows. The otter.cmd launcher finds it for you, even from PowerShell 7.</div>
       <div id="b19" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Is Otter free? Yes, including for commercial use. It is not open source: see the license.</div>
       <div id="b20" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Can I sell programs I write in Otter? Yes. Programs you create remain yours.</div>
-      <div id="b21" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Where is the installer? Not published yet. Until then, run Otter from the project folder - see Installation.</div>
+      <div id="b21" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Where is the download? On the Download page, and on GitHub under Releases. See Installation for the steps.</div>
       <a id="b22" class="otter-link" href="/license/" style="color: #2563eb; font-size: 15px; font-weight: 600;">The license</a>
       <a id="b23" class="otter-link" href="/installation/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Installation</a>
 </div>
@@ -1028,8 +1028,9 @@ async function otterPasswordMatches(password, stored) {
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
-        return '';
+        // A browser page cannot read files: a clear error, not "" (which
+        // looked like an empty file and skipped the program's otherwise).
+        throw new Error('Reading "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot read files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -1048,8 +1049,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
-        return false;
+        throw new Error('Writing "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot write files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -1122,8 +1122,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the files in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -1143,8 +1142,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the folders in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',

@@ -575,7 +575,7 @@
       <div id="docsMain" class="otter-column" style="padding: 40px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0; max-width: 940px;; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
       <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">About Otter</div>
       <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">Otter is a programming language designed so that a program can be understood when it is read aloud.</div>
-      <div id="b3" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter was created by Jeffrey Macy. It is written in Windows PowerShell 5.1, and it runs on the PowerShell that is already part of Windows 10 and Windows 11.</div>
+      <div id="b3" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter was created by Jeffrey Macy. It is written in PowerShell. On Windows 10 and Windows 11 it runs on the Windows PowerShell 5.1 that is already there, and on macOS and Linux on PowerShell 7.</div>
       <div id="b4" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">The idea</div>
       <div id="b5" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Most languages ask you to learn punctuation before you can express an idea. Otter asks for the idea. Statements read as sentences, blocks end with a period, and each statement has exactly one meaning, so a beginner can read a program aloud and know what it does - and the computer can read it exactly one way.</div>
       <div id="b6block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
@@ -593,7 +593,7 @@ if age is at least 18
       </div>
 </div>
       <div id="b7" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What Otter is today</div>
-      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter is a pre-release, version 1.0.0-rc.4. The language, the command-line tools, desktop and web application support, and the standard library are all in active use. Otter runs on Windows only for now.</div>
+      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">This is Otter 1.0.0 (Stable release). The language, the command-line tools, desktop and web application support, and the standard library are all in active use. Otter runs on Windows, macOS and Linux; desktop windows and a few Windows features need Windows.</div>
       <div id="b9" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Design philosophy</div>
       <div id="b10" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">The reasoning behind the language - why properties use of, why a period only ever ends a block, why one canonical spelling beats many - is written down.</div>
       <a id="b11" class="otter-link" href="/design-readable/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Readable like English</a>
@@ -1089,8 +1089,9 @@ async function otterPasswordMatches(password, stored) {
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
-        return '';
+        // A browser page cannot read files: a clear error, not "" (which
+        // looked like an empty file and skipped the program's otherwise).
+        throw new Error('Reading "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot read files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -1109,8 +1110,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
-        return false;
+        throw new Error('Writing "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot write files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -1183,8 +1183,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the files in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -1204,8 +1203,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the folders in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',

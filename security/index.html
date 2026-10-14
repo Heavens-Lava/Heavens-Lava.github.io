@@ -575,7 +575,7 @@
       <div id="docsMain" class="otter-column" style="padding: 40px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0; max-width: 940px;; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
       <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">Cryptography and secrets</div>
       <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">Safe algorithms and parameters are the runtime's job. You say what you want - encrypt, hash a password, generate random bytes - not which cipher to use.</div>
-      <div id="b3" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Availability: included in the current release candidate (1.0.0-rc.4). Whether it is part of the supported Otter 1.0 surface has not been decided yet, so details may change.</div>
+      <div id="b3" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Availability: included in the current release candidate (1.0.0). Whether it is part of the supported Otter 1.0 surface has not been decided yet, so details may change.</div>
       <div id="b4" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Bytes</div>
       <div id="b5" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Everything here works on bytes, Otter's binary type. Text and bytes are never converted silently; ask for the conversion you mean:</div>
       <div id="b6block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
@@ -684,7 +684,7 @@ if password password matches hash storedHash
 .</div>
 </div>
       <div id="b24" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">The credential vault</div>
-      <div id="b25" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Store secrets such as API tokens in the operating system's credential store instead of a file. Secrets are scoped to your program: two different Otter programs storing &quot;api-token&quot; never see each other's value.</div>
+      <div id="b25" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Store secrets such as API tokens in the operating system's credential store instead of a file. Secrets are scoped to your program: two different Otter programs storing &quot;api-token&quot; never see each other's value. The vault uses Windows Credential Manager, so it works on Windows only; on macOS and Linux it stops with a clear message.</div>
       <div id="b26block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
       <div id="b26head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="b26label" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
@@ -700,7 +700,7 @@ otherwise
 delete secret &quot;api-token&quot;</div>
 </div>
       <div id="b27" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">A secret holds text or bytes and comes back as the same kind. Reading a secret that does not exist is an error, never an empty string. On Windows the vault is the Windows Credential Manager.</div>
-      <div id="b28" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Cryptography and the vault are console features. The web target reports them as unsupported - browser storage is not a secure credential store.</div>
+      <div id="b28" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Cryptography also works in web applications, through the browser's Web Crypto API, with results that match the console. The credential vault does not: browser storage is not a secure credential store, so the web target reports it as unsupported.</div>
       <a id="b29" class="otter-link" href="/reference/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Back to the reference</a>
 </div>
 </div>
@@ -1246,8 +1246,9 @@ async function otterPasswordMatches(password, stored) {
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
-        return '';
+        // A browser page cannot read files: a clear error, not "" (which
+        // looked like an empty file and skipped the program's otherwise).
+        throw new Error('Reading "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot read files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -1266,8 +1267,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
-        return false;
+        throw new Error('Writing "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot write files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -1340,8 +1340,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the files in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -1361,8 +1360,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the folders in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',

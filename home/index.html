@@ -436,7 +436,7 @@
 </div>
       <div id="heroBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 40px 56px 72px; text-align: middle; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: row; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="heroCopy" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Release candidate 1.0.0-rc.4 - for Windows</div>
+      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Stable release 1.0.0 - for Windows, macOS and Linux</div>
       <div id="heroTitle" class="otter-text" style="color: #ffffff; font-size: 56px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;">Programming that reads like English.</div>
       <div id="heroLead" class="otter-text" style="color: #dbe6f5; font-size: 19px; line-height: 1.5; max-width: 560px;;">Otter is a programming language you can read aloud. Write scripts, desktop apps and web apps in plain words, with nothing extra to install.</div>
       <div id="heroCodeblock" class="otter-column" style="width: 100%; max-width: 100%; max-width: 560px;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
@@ -462,7 +462,7 @@ greet &quot;Ada&quot;</div>
       <a id="heroStart" class="otter-link" href="/what-is-otter/" style="color: #ffffff; border-radius: 12px; border: 2px solid #4d8dff; font-size: 16px; font-weight: 700; padding: 12px 24px; display: inline-block;;">Get Started</a>
       <a id="heroDocs" class="otter-link" href="/docs/" style="color: #b7d3ff; font-size: 16px; font-weight: 700; padding: 14px 8px; display: inline-block;;">Read the Docs</a>
 </div>
-      <div id="heroVersion" class="otter-text" style="color: #f5c46b; font-size: 13px;">Version 1.0.0-rc.4 - Windows installer: Installer not published yet</div>
+      <div id="heroVersion" class="otter-text" style="color: #f5c46b; font-size: 13px;">Version 1.0.0 - Download: Available</div>
 </div>
       <img id="heroMascot" class="otter-image" src="/static/images/otter-docs-hero-mascot.png" alt="The Otter mascot sitting on a rock" style="height: 340px;" />
 </div>
@@ -1113,8 +1113,9 @@ async function otterPasswordMatches(password, stored) {
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
-        return '';
+        // A browser page cannot read files: a clear error, not "" (which
+        // looked like an empty file and skipped the program's otherwise).
+        throw new Error('Reading "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot read files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -1133,8 +1134,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
-        return false;
+        throw new Error('Writing "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot write files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -1207,8 +1207,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the files in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -1228,8 +1227,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the folders in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',

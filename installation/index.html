@@ -567,10 +567,10 @@
 </div>
       <div id="docsMain" class="otter-column" style="padding: 40px 56px 24px; flex: 1; min-width: 0; box-sizing: border-box; min-width: 0; max-width: 940px;; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
       <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">Installation</div>
-      <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">On Windows, Otter needs Windows PowerShell 5.1 and nothing else. There are no administrator rights, services, or registry changes. On Linux and macOS it runs on PowerShell 7.</div>
-      <div id="b3" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Release status: Release candidate 1.0.0-rc.4. Windows installer: Installer not published yet. Until an installer is published, run Otter from the project folder (below).</div>
+      <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">Otter runs on Windows, Linux and macOS. On Windows it needs Windows PowerShell 5.1 and nothing else; on Linux and macOS it needs PowerShell 7. There are no administrator rights, services, or system changes.</div>
+      <div id="b3" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">Release status: Stable release 1.0.0. Download: Available - get the zip from the Download page. You can also run Otter straight from a copy of the repository (below).</div>
       <div id="b4" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">System requirements</div>
-      <div id="b5" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Windows 10 or Windows 11 (64-bit) with Windows PowerShell 5.1 (powershell.exe, built into Windows). A standard user account is enough. A web browser is only needed for web applications. Otter runs on Windows PowerShell 5.1; the otter.cmd launcher finds it for you, so you can start Otter from Command Prompt, Windows Terminal, or PowerShell 7 alike.</div>
+      <div id="b5" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Windows: Windows 10 or Windows 11 (64-bit) with Windows PowerShell 5.1 (powershell.exe, built into Windows). The otter.cmd launcher finds it for you, so you can start Otter from Command Prompt, Windows Terminal, or PowerShell 7 alike. Linux and macOS: PowerShell 7 (pwsh). A standard user account is enough everywhere, and a web browser is only needed for web applications.</div>
       <div id="b6" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Run from the project folder</div>
       <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Get the Otter project folder from GitHub, open Windows PowerShell in it, and run a program with otter.cmd:</div>
       <div id="b8block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
@@ -607,10 +607,20 @@ cd otterPS
       <div id="b15label" class="otter-text" style="color: #4a5b75; font-size: 12px; font-weight: 600;">Output</div>
       <button id="b15copy" class="otter-button" style="background: #c9d6e8; color: #0f1f36; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
-      <div id="b15" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">Otter 1.0.0-rc.4</div>
+      <div id="b15" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">Otter 1.0.0</div>
 </div>
       <div id="b15x" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Linux and macOS</div>
-      <div id="b15y" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">The Otter engine is certified on PowerShell 7 (pwsh) on Linux and macOS. There is no installer there and no otter command on your PATH. Install PowerShell 7, extract the release archive (or clone the project folder) to a folder such as ~/otter, and run otter.ps1 with pwsh from any folder: pwsh -NoProfile -File ~/otter/otter.ps1 run hello.ot. Everything after otter.ps1 is the same as after otter on Windows. To type just otter, add alias otter='pwsh -NoProfile -File ~/otter/otter.ps1' to your shell profile. otter.cmd and the installer scripts are for Windows only, and desktop applications need Windows.</div>
+      <div id="b15y" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter runs on Linux and macOS with PowerShell 7 (pwsh). The release archive is the same one Windows uses: next to otter.cmd it carries an otter command for Linux and macOS. Install PowerShell 7 from https://aka.ms/install-powershell, extract the archive, open a terminal in the extracted folder, and run the installer with pwsh:</div>
+      <div id="b15zblock" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="b15zhead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="b15zlabel" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Shell</div>
+      <button id="b15zcopy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
+</div>
+      <div id="b15z" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">pwsh -NoProfile -File ./Install-Otter.ps1 -AddToUserPath
+otter --version</div>
+</div>
+      <div id="b15w" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">The installer copies Otter to ~/.local/share/otter/1.0.0 and writes an otter command to ~/.local/bin. If that folder is not on your PATH yet, it prints the export line to add to ~/.zshrc or ~/.bashrc; open a new terminal afterwards. To run Otter without installing it, use ./otter in the extracted folder or the project folder, for example ./otter run hello.ot.</div>
+      <div id="b15v" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Console programs, files, JSON, dates, HTTP, running commands, modules, projects, tests and web applications work on Linux and macOS. Desktop windows (otter desktop), the registry, the event log, stored credentials, printing, notifications, file dialogs, file owners and power actions need Windows: on Linux and macOS they stop with a clear &quot;only available on Windows&quot; message. Build a desktop program as a web application instead with otter web. The clipboard needs a clipboard program (pbcopy on macOS; xclip, xsel or wl-copy on Linux).</div>
       <div id="b16" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Verify your installation</div>
       <div id="b17block" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
       <div id="b17head" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
@@ -630,8 +640,9 @@ otter check hello.ot   # validates a program without running it</div>
       <button id="b22copy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
       <div id="b22" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">Set-ExecutionPolicy -Scope Process Bypass
-&amp; &quot;$env:LOCALAPPDATA\Otter\1.0.0-rc.4\Uninstall-Otter.ps1&quot;</div>
+&amp; &quot;$env:LOCALAPPDATA\Otter\1.0.0\Uninstall-Otter.ps1&quot;</div>
 </div>
+      <div id="b22u" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">On Linux and macOS: pwsh -NoProfile -File ~/.local/share/otter/1.0.0/Uninstall-Otter.ps1. It also removes the otter command from ~/.local/bin.</div>
       <a id="b23" class="otter-link" href="/first-program/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Next: write your first program</a>
 </div>
 </div>
@@ -1072,8 +1083,9 @@ async function otterPasswordMatches(password, stored) {
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
-        return '';
+        // A browser page cannot read files: a clear error, not "" (which
+        // looked like an empty file and skipped the program's otherwise).
+        throw new Error('Reading "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot read files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -1092,8 +1104,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
-        return false;
+        throw new Error('Writing "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot write files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -1166,8 +1177,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the files in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -1187,8 +1197,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the folders in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',
@@ -1785,6 +1794,24 @@ async function otterPasswordMatches(password, stored) {
         if (_el) { otterSetText('b15copy', "Copied"); }
         else {
           const _owner = b15copy;
+          if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
+          if (!(('text') in _owner.props)) { _owner.order.push('text'); }
+          _owner.props['text'] = "Copied";
+        }
+      }
+      });
+    }
+    }
+    {
+    const el_b15zcopy = document.getElementById('b15zcopy');
+    if (el_b15zcopy) {
+      el_b15zcopy.addEventListener('click', async (event) => {
+      await otterClipboard.copy(String((otterGetElement('b15z') ? (otterGetText('b15z')) : (() => { const _owner = b15z; if (_owner && typeof _owner === 'object' && _owner.__otterHttpRequest) { if ('text' === 'state') return _owner.state; if ('text' === 'response') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); if (_owner.state === 'cancelled') throw new Error('The HTTP request was cancelled.'); if (_owner.state === 'failed') throw new Error('The HTTP request failed: ' + _owner.error); return _owner.response; } if ('text' === 'error') { return (_owner.state === 'failed' ? _owner.error : null); } if ('text' === 'status') { if (_owner.state === 'pending') throw new Error('The HTTP request has not completed yet.'); return _owner.status; } throw new Error('This http request has no property called "text". Try state, response, error, or status.'); } if (_owner && typeof _owner === 'object' && _owner.__otterXml) { return _owner.node.textContent; } if (_owner && typeof _owner === 'object' && _owner.__otterDate) { return (() => { throw new Error('A date has no part called "text".'); })(); } if (_owner && typeof _owner === 'object' && _owner.__otterWebSocket) { if ('text' === 'state') return (_owner.ws.readyState === 0 ? 'connecting' : _owner.ws.readyState === 1 ? 'open' : _owner.ws.readyState === 2 ? 'closing' : 'closed'); if ('text' === 'url') return _owner.url; if ('text' === 'protocol') return _owner.ws.protocol || _owner.protocol || ''; throw new Error('A websocket has no property called "text".'); } if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only read properties of a thing, but this is something else.'); } if (!(('text') in _owner.props)) { throw new Error('This ' + (_owner.typeName || 'thing') + ' has no property called "text".'); } return _owner.props['text']; })())));
+      {
+        const _el = otterGetElement('b15zcopy');
+        if (_el) { otterSetText('b15zcopy', "Copied"); }
+        else {
+          const _owner = b15zcopy;
           if (!_owner || typeof _owner !== 'object' || !_owner.__otterThing) { throw new Error('I can only set properties on a thing, but this is something else.'); }
           if (!(('text') in _owner.props)) { _owner.order.push('text'); }
           _owner.props['text'] = "Copied";

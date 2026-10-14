@@ -614,7 +614,7 @@ if age is at least 18
       <div id="b9" class="otter-text" style="background: #eaf2ff; color: #1e3a6b; border-radius: 12px; border: 1px solid #cfe0ff; font-size: 15px; line-height: 1.55; padding: 14px 18px;;">The period has exactly one structural meaning in Otter: it finishes a block or process. It is never used for property access.</div>
       <div id="b10" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What Otter does today</div>
       <div id="b11" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Variables and readable arithmetic, conditions and loops, lists, functions, objects, file operations that are safe by default, CSV and JSON, command-line arguments, safe web downloads, TCP/UDP/TLS networking, cryptography, and compilation of programs into standalone web applications.</div>
-      <div id="b12" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter runs on 64-bit Windows 10 and Windows 11 using Windows PowerShell 5.1, which is already installed. There is nothing else to set up.</div>
+      <div id="b12" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter runs on 64-bit Windows 10 and Windows 11 using Windows PowerShell 5.1, which is already installed, and on macOS and Linux with PowerShell 7.</div>
       <div id="b13" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Where to go next</div>
       <a id="b14" class="otter-link" href="/installation/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Install Otter</a>
       <a id="b15" class="otter-link" href="/first-program/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Write your first program</a>
@@ -1108,8 +1108,9 @@ async function otterPasswordMatches(password, stored) {
     async function otterReadFile(filePath) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to read "' + filePath + '".');
-        return '';
+        // A browser page cannot read files: a clear error, not "" (which
+        // looked like an empty file and skipped the program's otherwise).
+        throw new Error('Reading "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot read files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/read', {
         method: 'POST',
@@ -1128,8 +1129,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterWriteFile(filePath, content) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to write "' + filePath + '".');
-        return false;
+        throw new Error('Writing "' + filePath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot write files.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/write', {
         method: 'POST',
@@ -1202,8 +1202,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFiles(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get files in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the files in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/files', {
         method: 'POST',
@@ -1223,8 +1222,7 @@ async function otterPasswordMatches(password, stored) {
     async function otterGetFolders(folderPath, includeSubfolders = false) {
       const bridge = window.__OTTER_DESKTOP_BRIDGE__;
       if (!bridge || !bridge.port || !bridge.token) {
-        console.warn('Desktop Bridge is not available to get folders in "' + folderPath + '".');
-        return [];
+        throw new Error('Listing the folders in "' + folderPath + '" needs the Otter desktop application (otter desktop). A web page in a browser cannot see folders.');
       }
       const resp = await fetch('http://127.0.0.1:' + bridge.port + '/api/fs/folders', {
         method: 'POST',
