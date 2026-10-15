@@ -419,7 +419,7 @@
     <main id="app" class="otter-page" style="width: 100%; max-width: 100%; background: #f4f7fb; color: #0f1f36; padding: 0px; gap: 0px;">
       
       <div class="otter-page-content" style="display: flex; flex-direction: column; gap: 0px; width: 100%; min-width: 0; flex: 1 1 0%; min-height: 0; height: 100%;">
-      <div id="hero" class="otter-column" style="width: 100%; max-width: 100%; background: linear-gradient(180deg, #0b1d36 0%, #10305a 100%); display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="homeHero" class="otter-column" style="width: 100%; max-width: 100%; background: #0b1d36; background-image: linear-gradient(90deg, rgba(7,24,50,.96) 0%, rgba(7,24,50,.82) 45%, rgba(7,24,50,.25) 100%), url('/static/images/otter-download-mountain-backdrop.png'); background-size: cover; background-position: center; overflow: hidden;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
       <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
@@ -434,18 +434,31 @@
       <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
 </div>
 </div>
-      <div id="heroBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 40px 56px 72px; text-align: middle; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: row; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="heroBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 72px 40px 104px; text-align: middle; box-sizing: border-box; max-width: 1180px; margin: 0 auto;; display: flex; flex-direction: row; gap: 48px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="heroCopy" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="heroEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;">Stable release 1.0.0 - for Windows, macOS and Linux</div>
-      <div id="heroTitle" class="otter-text" style="color: #ffffff; font-size: 56px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;">Programming that reads like English.</div>
-      <div id="heroLead" class="otter-text" style="color: #dbe6f5; font-size: 19px; line-height: 1.5; max-width: 560px;;">Otter is a programming language you can read aloud. Write scripts, desktop apps and web apps in plain words, with nothing extra to install.</div>
-      <div id="heroCodeblock" class="otter-column" style="width: 100%; max-width: 100%; max-width: 560px;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="heroCodehead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="heroCodelabel" class="otter-text" style="color: #b7c4d8; font-size: 12px; font-weight: 600;">Otter</div>
+      <div id="heroEyebrow" class="otter-row" style="background: rgba(77,141,255,.14); border-radius: 999px; border: 1px solid rgba(127,176,255,.35); text-align: middle; padding: 5px 14px 5px 5px; align-self: flex-start;; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="heroBadge" class="otter-text" style="background: #2563eb; color: #ffffff; border-radius: 999px; font-size: 12px; font-weight: 700; padding: 2px 9px;;">1.0.0</div>
+      <div id="heroBadgeText" class="otter-text" style="color: #cfe0ff; font-size: 13px; font-weight: 600;">Stable release for Windows, macOS and Linux</div>
+</div>
+      <div id="heroTitle" class="otter-text" style="color: #ffffff; font-size: 64px; font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; margin-top: 8px;;">Programming that reads like English.</div>
+      <div id="heroLead" class="otter-text" style="color: #dbe6f5; font-size: 20px; line-height: 1.55; max-width: 520px;;">Otter is a programming language you can read aloud. Write scripts, desktop apps and web apps in plain words.</div>
+      <div id="heroActions" class="otter-row" style="margin: 14px 0 0 0; text-align: middle; display: flex; flex-direction: row; gap: 14px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="heroDownload" class="otter-link" href="/download/" style="background: #2563eb; color: #ffffff; border-radius: 12px; font-size: 16px; font-weight: 700; padding: 15px 26px; display: inline-block; box-shadow: 0 10px 30px rgba(37,99,235,.45);;">Download Otter</a>
+      <a id="heroStart" class="otter-link" href="/first-program/" style="color: #ffffff; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.35); font-size: 16px; font-weight: 700; padding: 14px 24px; display: inline-block;;">Write your first program →</a>
+</div>
+      <div id="heroMeta" class="otter-row" style="margin: 8px 0 0 0; text-align: middle; display: flex; flex-direction: row; gap: 22px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="heroFree" class="otter-text" style="color: #a9bbd6; font-size: 14px;">✓  Free, including commercial use</div>
+      <div id="heroNoInstall" class="otter-text" style="color: #a9bbd6; font-size: 14px;">✓  Nothing extra to install on Windows</div>
+</div>
+</div>
+      <div id="heroStage" class="otter-column" style="flex: 1; min-width: 0; position: relative; padding-right: 90px;; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
+      <div id="heroCodeblock" class="otter-column" style="width: 100%; max-width: 100%; background: rgba(12,24,44,.88); border-radius: 16px; border: 1px solid rgba(127,176,255,.22); box-shadow: 0 30px 80px rgba(0,0,0,.45); overflow: hidden; position: relative; z-index: 2; backdrop-filter: blur(6px);; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="heroCodehead" class="otter-row" style="width: 100%; max-width: 100%; padding: 11px 16px; text-align: middle; box-sizing: border-box; border-bottom: 1px solid rgba(255,255,255,.07);; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="heroCodelabel" class="otter-text" style="color: #9fb1cc; font-size: 12px; font-weight: 600;">hello.ot</div>
       <button id="heroCodecopy" class="otter-button" style="background: #22375a; color: #e5edf8; border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Copy</button>
 </div>
       <div class="otter-runnable">
-        <div id="heroCode" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 15px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 18px 22px; line-height: 1.7; overflow-x: auto; border: 1px solid #27406a; max-width: 560px; border-top-left-radius: 0; border-top-right-radius: 0;;">name is &quot;Otter&quot;
+        <div id="heroCode" class="otter-text" style="background: #0f1b2e; color: #e5edf8; font-size: 15px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 20px 22px; line-height: 1.75; overflow-x: auto; background: transparent;;">name is &quot;Otter&quot;
 say &quot;Hello,&quot; name
 
 to greet person
@@ -457,61 +470,74 @@ greet &quot;Ada&quot;</div>
         <pre id="heroCode-output" class="otter-run-output" hidden></pre>
       </div>
 </div>
-      <div id="heroActions" class="otter-row" style="margin: 8px 0 0 0; text-align: middle; display: flex; flex-direction: row; gap: 14px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
-      <a id="heroDownload" class="otter-link" href="/download/" style="background: #2563eb; color: #ffffff; border-radius: 12px; font-size: 16px; font-weight: 700; padding: 14px 26px; display: inline-block;;">Download Otter</a>
-      <a id="heroStart" class="otter-link" href="/what-is-otter/" style="color: #ffffff; border-radius: 12px; border: 2px solid #4d8dff; font-size: 16px; font-weight: 700; padding: 12px 24px; display: inline-block;;">Get Started</a>
-      <a id="heroDocs" class="otter-link" href="/docs/" style="color: #b7d3ff; font-size: 16px; font-weight: 700; padding: 14px 8px; display: inline-block;;">Read the Docs</a>
-</div>
-      <div id="heroVersion" class="otter-text" style="color: #f5c46b; font-size: 13px;">Version 1.0.0 - Download: Available</div>
-</div>
-      <img id="heroMascot" class="otter-image" src="/static/images/otter-docs-hero-mascot.png" alt="The Otter mascot sitting on a rock" style="height: 340px;" />
+      <img id="heroMascot" class="otter-image" src="/static/images/otter-download-hero-mascot.png" alt="The Otter mascot standing on a rock" style="height: 330px; position: absolute; z-index: 3; right: -40px; bottom: -118px; filter: drop-shadow(0 18px 24px rgba(0,0,0,.35));;" />
 </div>
 </div>
-      <div id="homeContent" class="otter-column" style="width: 100%; max-width: 100%; padding: 56px 56px 24px; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: column; gap: 64px; align-items: stretch; justify-content: flex-start;">
-      <div id="whySection" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="whyTitle" class="otter-text" style="color: #0b1d36; font-size: 34px; font-weight: 800; letter-spacing: -0.02em;">Why Otter?</div>
-      <div id="whyLead" class="otter-text" style="color: #3a4d6b; font-size: 17px;">Programs should be understandable when read aloud. Otter is built around that one idea.</div>
-      <div id="whyCards" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; display: flex; flex-direction: row; gap: 20px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
-      <div id="why1" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
+</div>
+      <div id="homeContent" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="whySection" class="otter-column" style="width: 100%; max-width: 100%; padding: 96px 40px; box-sizing: border-box; max-width: 1180px; margin: 0 auto;; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
+      <div id="whyEyebrow" class="otter-text" style="color: #2563eb; font-size: 13px; font-weight: 700; letter-spacing: 0.1em;">WHY OTTER</div>
+      <div id="whyTitle" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em;">Programs you can understand by reading them.</div>
+      <div id="whyLead" class="otter-text" style="color: #3a4d6b; margin: 0 0 24px 0; font-size: 18px; line-height: 1.55; max-width: 640px;;">Otter is built around one idea: a program should make sense when you read it out loud.</div>
+      <div id="whyRow1" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 22px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="why1" class="otter-card" style="background: #ffffff; border-radius: 18px; border: 1px solid #e3e9f2; padding: 28px; flex: 1; min-width: 0; gap: 12px;">
         
         
-      <div id="why1Title" class="otter-text" style="font-size: 18px; font-weight: 700;">Reads like English</div>
-      <div id="why1Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.55;">age is 29. say &quot;Hello&quot;. add 5 to score. Words do the work that symbols do elsewhere, so a program reads like a description of itself.</div>
+      <div id="why1Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 10px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.65; overflow-x: auto;;">add 5 to score
+if score is at least 10
+    say &quot;You win&quot;
+.</div>
+      <div id="why1Title" class="otter-text" style="margin: 6px 0 0 0; font-size: 21px; font-weight: 700;">Reads like English</div>
+      <div id="why1Body" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Words do the work that symbols do elsewhere, so a program reads like a description of itself.</div>
 
       </div>
-      <div id="why2" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
+      <div id="why2" class="otter-card" style="background: #ffffff; border-radius: 18px; border: 1px solid #e3e9f2; padding: 28px; flex: 1; min-width: 0; gap: 12px;">
         
         
-      <div id="why2Title" class="otter-text" style="font-size: 18px; font-weight: 700;">Errors that help</div>
-      <div id="why2Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.55;">Every message names the line, says what went wrong in plain words and suggests a fix. Raw stack traces never reach you.</div>
+      <div id="why2Code" class="otter-text" style="background: #fff6f4; color: #8a2b1b; border-radius: 10px; border: 1px solid #f6d5cd; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.65; overflow-x: auto;;">Line 1:
+    say length of games
 
-      </div>
-      <div id="why3" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
-        
-        
-      <div id="why3Title" class="otter-text" style="font-size: 18px; font-weight: 700;">One language, many targets</div>
-      <div id="why3Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.55;">The same statements build console tools, desktop windows, web pages, API servers, data processing and network clients.</div>
-
-      </div>
-      <div id="why4" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
-        
-        
-      <div id="why4Title" class="otter-text" style="font-size: 18px; font-weight: 700;">Nothing to install</div>
-      <div id="why4Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.55;">Otter runs on the Windows PowerShell already on Windows 10 and 11. No runtime, no package manager, no administrator rights.</div>
+Otter could not find the variable &quot;games&quot;.
+Try:
+    games is 0</div>
+      <div id="why2Title" class="otter-text" style="margin: 6px 0 0 0; font-size: 21px; font-weight: 700;">Errors that help</div>
+      <div id="why2Body" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Every message names the line, says what went wrong in plain words and suggests a fix. Raw stack traces never reach you.</div>
 
       </div>
 </div>
+      <div id="whyRow2" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 22px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="why3" class="otter-card" style="background: #ffffff; border-radius: 18px; border: 1px solid #e3e9f2; padding: 28px; flex: 1; min-width: 0; gap: 12px;">
+        
+        
+      <div id="why3Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 10px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.65; overflow-x: auto;;">otter app.ot          # run it
+otter web app.ot      # make it a web page</div>
+      <div id="why3Title" class="otter-text" style="margin: 6px 0 0 0; font-size: 21px; font-weight: 700;">One language, many targets</div>
+      <div id="why3Body" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">The same statements build console tools, desktop windows, web pages, API servers and network clients.</div>
+
+      </div>
+      <div id="why4" class="otter-card" style="background: #ffffff; border-radius: 18px; border: 1px solid #e3e9f2; padding: 28px; flex: 1; min-width: 0; gap: 12px;">
+        
+        
+      <div id="why4Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 10px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.65; overflow-x: auto;;">.\otter.cmd examples\hello.ot
+Hello, Otter!</div>
+      <div id="why4Title" class="otter-text" style="margin: 6px 0 0 0; font-size: 21px; font-weight: 700;">Nothing to install</div>
+      <div id="why4Body" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Otter runs on the Windows PowerShell already on Windows 10 and 11. No runtime, no package manager, no administrator rights.</div>
+
+      </div>
 </div>
-      <div id="syntaxSection" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="syntaxTitle" class="otter-text" style="color: #0b1d36; font-size: 34px; font-weight: 800; letter-spacing: -0.02em;">English-like syntax</div>
-      <div id="syntaxLead" class="otter-text" style="color: #3a4d6b; font-size: 17px;">The same idea in three languages. Otter keeps only the words.</div>
-      <div id="cmpRow" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; display: flex; flex-direction: row; gap: 20px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
-      <div id="cmpOtterblock" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="cmpOtterHead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="cmpOtterLabel" class="otter-text" style="color: #7fb0ff; font-size: 12px; font-weight: 700;">Otter</div>
+</div>
+      <div id="syntaxSection" class="otter-column" style="width: 100%; max-width: 100%; background: #ffffff; border-top: 1px solid #e3e9f2; border-bottom: 1px solid #e3e9f2;; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
+      <div id="syntaxInner" class="otter-column" style="width: 100%; max-width: 100%; padding: 96px 40px; box-sizing: border-box; max-width: 1180px; margin: 0 auto;; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
+      <div id="syntaxEyebrow" class="otter-text" style="color: #2563eb; font-size: 13px; font-weight: 700; letter-spacing: 0.1em;">SIDE BY SIDE</div>
+      <div id="syntaxTitle" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em;">The same program. Otter keeps only the words.</div>
+      <div id="syntaxLead" class="otter-text" style="color: #3a4d6b; margin: 0 0 24px 0; font-size: 18px;">No braces, no semicolons, no brackets to balance.</div>
+      <div id="cmpRow" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 22px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="cmpOtterblock" class="otter-column" style="background: #0f1b2e; border-radius: 16px; border: 1px solid #1d3557; flex: 1.25; min-width: 0; overflow: hidden;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="cmpOtterHead" class="otter-row" style="width: 100%; max-width: 100%; background: #16263f; padding: 10px 16px; text-align: middle; box-sizing: border-box;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="cmpOtterLabel" class="otter-text" style="color: #7fb0ff; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;">OTTER</div>
 </div>
       <div class="otter-runnable">
-        <div id="cmpOtter" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 20px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">age is 29
+        <div id="cmpOtter" class="otter-text" style="background: #0f1b2e; color: #e5edf8; font-size: 16px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 20px 22px; line-height: 1.75; overflow-x: auto;;">age is 29
 
 if age is at least 18
     say &quot;Adult&quot;
@@ -524,101 +550,111 @@ to greet person
         <pre id="cmpOtter-output" class="otter-run-output" hidden></pre>
       </div>
 </div>
-      <div id="cmpJsblock" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="cmpJsHead" class="otter-row" style="width: 100%; max-width: 100%; background: #dde6f2; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="cmpJsLabel" class="otter-text" style="color: #4a5b75; font-size: 12px; font-weight: 700;">JavaScript</div>
+      <div id="cmpOthers" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; align-items: stretch; justify-content: flex-start;">
+      <div id="cmpJsblock" class="otter-column" style="width: 100%; max-width: 100%; background: #f3f6fb; border-radius: 16px; border: 1px solid #e3e9f2; overflow: hidden;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="cmpJsHead" class="otter-row" style="width: 100%; max-width: 100%; background: #e8eef7; padding: 10px 16px; text-align: middle; box-sizing: border-box;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="cmpJsLabel" class="otter-text" style="color: #5d708b; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;">JAVASCRIPT</div>
 </div>
-      <div id="cmpJs" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 20px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">let age = 29;
-
-if (age &gt;= 18) {
-  console.log(&quot;Adult&quot;);
-}
+      <div id="cmpJs" class="otter-text" style="background: #f3f6fb; color: #5d708b; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 14px 18px; line-height: 1.7; overflow-x: auto;;">let age = 29;
+if (age &gt;= 18) { console.log(&quot;Adult&quot;); }
 
 function greet(person) {
   console.log(&quot;Hello, &quot; + person);
 }</div>
 </div>
-      <div id="cmpPyblock" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
-      <div id="cmpPyHead" class="otter-row" style="width: 100%; max-width: 100%; background: #dde6f2; padding: 8px 14px; text-align: middle; box-sizing: border-box; border-radius: 12px 12px 0 0;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
-      <div id="cmpPyLabel" class="otter-text" style="color: #4a5b75; font-size: 12px; font-weight: 700;">Python</div>
+      <div id="cmpPyblock" class="otter-column" style="width: 100%; max-width: 100%; background: #f3f6fb; border-radius: 16px; border: 1px solid #e3e9f2; overflow: hidden;; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
+      <div id="cmpPyHead" class="otter-row" style="width: 100%; max-width: 100%; background: #e8eef7; padding: 10px 16px; text-align: middle; box-sizing: border-box;; display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="cmpPyLabel" class="otter-text" style="color: #5d708b; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;">PYTHON</div>
 </div>
-      <div id="cmpPy" class="otter-text" style="background: #e8eef7; color: #0f1f36; border-radius: 12px; font-size: 14px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 16px 20px; line-height: 1.7; overflow-x: auto; border-top-left-radius: 0; border-top-right-radius: 0;;">age = 29
-
+      <div id="cmpPy" class="otter-text" style="background: #f3f6fb; color: #5d708b; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 14px 18px; line-height: 1.7; overflow-x: auto;;">age = 29
 if age &gt;= 18:
     print(&quot;Adult&quot;)
-
 
 def greet(person):
     print(&quot;Hello, &quot; + person)</div>
 </div>
 </div>
-      <a id="syntaxMore" class="otter-link" href="/design-readable/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Why Otter uses these conventions</a>
 </div>
-      <div id="buildSection" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="buildTitle" class="otter-text" style="color: #0b1d36; font-size: 34px; font-weight: 800; letter-spacing: -0.02em;">What you can build</div>
-      <div id="buildCards" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; display: flex; flex-direction: row; gap: 20px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="syntaxMore" class="otter-link" href="/design-readable/" style="color: #2563eb; margin: 10px 0 0 0; font-size: 15px; font-weight: 600;">Why Otter uses these conventions →</a>
+</div>
+</div>
+      <div id="buildSection" class="otter-column" style="width: 100%; max-width: 100%; padding: 96px 40px; box-sizing: border-box; max-width: 1180px; margin: 0 auto;; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
+      <div id="buildEyebrow" class="otter-text" style="color: #2563eb; font-size: 13px; font-weight: 700; letter-spacing: 0.1em;">WHAT YOU CAN BUILD</div>
+      <div id="buildTitle" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em;">From a ten-line script to a real application.</div>
+      <div id="buildLead" class="otter-text" style="color: #3a4d6b; margin: 0 0 24px 0; font-size: 18px;">One language for the small jobs and the big ones.</div>
+      <div id="buildCards" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; align-items: stretch;; display: flex; flex-direction: row; gap: 18px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
       <div id="build1" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
         
         
-      <a id="build1Link" class="otter-link" href="/files/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Console tools and automation</a>
-      <div id="build1Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.5;">Files, folders, CSV, other programs, and things that watch for change.</div>
+      <a id="build1Link" class="otter-link" href="/files/" style="color: #0f1f36; font-size: 18px; font-weight: 700;">Console tools</a>
+      <div id="build1Body" class="otter-text" style="color: #3a4d6b; font-size: 15px; line-height: 1.55;">Files, folders, CSV, other programs, and things that watch for change.</div>
+      <a id="build1Go" class="otter-link" href="/files/" style="color: #2563eb; margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">Files and folders →</a>
 
       </div>
       <div id="build2" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
         
         
-      <a id="build2Link" class="otter-link" href="/windows-apps/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Desktop applications</a>
-      <div id="build2Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.5;">Windows, buttons, text boxes and events, in a few readable lines.</div>
+      <a id="build2Link" class="otter-link" href="/windows-apps/" style="color: #0f1f36; font-size: 18px; font-weight: 700;">Desktop apps</a>
+      <div id="build2Body" class="otter-text" style="color: #3a4d6b; font-size: 15px; line-height: 1.55;">Windows, buttons, text boxes and events in a few readable lines.</div>
+      <a id="build2Go" class="otter-link" href="/windows-apps/" style="color: #2563eb; margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">Windows apps →</a>
 
       </div>
       <div id="build3" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
         
         
-      <a id="build3Link" class="otter-link" href="/web-apps/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Web applications</a>
-      <div id="build3Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.5;">otter web turns a program into a standalone web page.</div>
+      <a id="build3Link" class="otter-link" href="/web-apps/" style="color: #0f1f36; font-size: 18px; font-weight: 700;">Web apps</a>
+      <div id="build3Body" class="otter-text" style="color: #3a4d6b; font-size: 15px; line-height: 1.55;">otter web turns a program into a standalone web page.</div>
+      <a id="build3Go" class="otter-link" href="/web-apps/" style="color: #2563eb; margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">Web apps →</a>
 
       </div>
       <div id="build4" class="otter-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 22px; flex: 1; min-width: 0; gap: 8px;">
         
         
-      <a id="build4Link" class="otter-link" href="/what-can-you-build/" style="color: #0f1f36; font-size: 17px; font-weight: 700;">Data, servers and networking</a>
-      <div id="build4Body" class="otter-text" style="color: #4a5b75; font-size: 14px; line-height: 1.5;">Databases, APIs, WebSockets, TCP, TLS and encryption.</div>
+      <a id="build4Link" class="otter-link" href="/what-can-you-build/" style="color: #0f1f36; font-size: 18px; font-weight: 700;">Servers and data</a>
+      <div id="build4Body" class="otter-text" style="color: #3a4d6b; font-size: 15px; line-height: 1.55;">Databases, APIs, WebSockets, TCP, TLS and encryption.</div>
+      <a id="build4Go" class="otter-link" href="/what-can-you-build/" style="color: #2563eb; margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">What you can build →</a>
 
       </div>
 </div>
+      <div id="shotsRow" class="otter-row" style="width: 100%; max-width: 100%; margin: 50px 0 0 0; text-align: top; display: flex; flex-direction: row; gap: 28px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="shot1Col" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
+      <div id="shot1Frame" class="otter-column" style="width: 100%; max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid #d6dfec; box-shadow: 0 18px 40px rgba(11,29,54,.12); background: #0f1b2e;; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
+      <img id="shot1" class="otter-image" src="/static/images/screenshot-greeter.png" alt="A greeter web application written in Otter: a text box, a button and a greeting" />
 </div>
-      <div id="shotsSection" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="shotsTitle" class="otter-text" style="color: #0b1d36; font-size: 34px; font-weight: 800; letter-spacing: -0.02em;">See it work</div>
-      <div id="shotsLead" class="otter-text" style="color: #3a4d6b; font-size: 17px;">These are real web applications written in Otter and built with otter web.</div>
-      <div id="shotsRow" class="otter-row" style="width: 100%; max-width: 100%; text-align: top; display: flex; flex-direction: row; gap: 24px; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap;">
-      <div id="shot1Col" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; align-items: stretch; justify-content: flex-start;">
-      <img id="shot1" class="otter-image" src="/static/images/screenshot-greeter.png" alt="A greeter web application: a text box, a button and a greeting" style="width: 520px; border-radius: 12px; border: 1px solid #e3e9f2; box-shadow: 0 8px 24px rgba(11,29,54,0.10);" />
-      <a id="shot1Caption" class="otter-link" href="/tiny-app/" style="color: #2563eb; font-size: 15px; font-weight: 600;">The greeter: build it step by step</a>
+      <a id="shot1Caption" class="otter-link" href="/tiny-app/" style="color: #2563eb; font-size: 15px; font-weight: 600;">The greeter: build it step by step →</a>
 </div>
-      <div id="shot2Col" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; align-items: stretch; justify-content: flex-start;">
-      <img id="shot2" class="otter-image" src="/static/images/screenshot-showcase.png" alt="The Otter web showcase application" style="width: 520px; border-radius: 12px; border: 1px solid #e3e9f2; box-shadow: 0 8px 24px rgba(11,29,54,0.10);" />
-      <a id="shot2Caption" class="otter-link" href="/web-apps/" style="color: #2563eb; font-size: 15px; font-weight: 600;">The web showcase example</a>
+      <div id="shot2Col" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
+      <div id="shot2Frame" class="otter-column" style="width: 100%; max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid #d6dfec; box-shadow: 0 18px 40px rgba(11,29,54,.12); background: #0f1b2e;; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
+      <img id="shot2" class="otter-image" src="/static/images/screenshot-showcase.png" alt="The Otter web showcase application" />
+</div>
+      <a id="shot2Caption" class="otter-link" href="/web-apps/" style="color: #2563eb; font-size: 15px; font-weight: 600;">The web showcase example →</a>
 </div>
 </div>
 </div>
-      <div id="nextSection" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: stretch; justify-content: flex-start;">
-      <div id="nextTitle" class="otter-text" style="color: #0b1d36; font-size: 34px; font-weight: 800; letter-spacing: -0.02em;">Start here</div>
-      <div id="nextCard" class="otter-card" style="width: 100%; max-width: 100%; background: #ffffff; border-radius: 16px; border: 1px solid #e3e9f2; padding: 26px; gap: 12px;">
-        
-        
-      <a id="next1" class="otter-link" href="/installation/" style="color: #2563eb; font-size: 16px; font-weight: 600;">1. Download or install Otter</a>
-      <a id="next2" class="otter-link" href="/first-program/" style="color: #2563eb; font-size: 16px; font-weight: 600;">2. Run your first program</a>
-      <a id="next3" class="otter-link" href="/values/" style="color: #2563eb; font-size: 16px; font-weight: 600;">3. Learn the basics</a>
-      <a id="next4" class="otter-link" href="/tiny-app/" style="color: #2563eb; font-size: 16px; font-weight: 600;">4. Build a tiny application</a>
-      <a id="next5" class="otter-link" href="/examples/" style="color: #2563eb; font-size: 16px; font-weight: 600;">5. Explore examples and tutorials</a>
-
-      </div>
+</div>
+      <div id="homeClose" class="otter-column" style="width: 100%; max-width: 100%; background: #0b1d36; background-image: linear-gradient(90deg, rgba(7,24,50,.97) 0%, rgba(7,24,50,.86) 55%, rgba(7,24,50,.35) 100%), url('/static/images/otter-docs-mountain-backdrop.png'); background-size: cover; background-position: center; overflow: hidden;; display: flex; flex-direction: column; gap: 8px; align-items: stretch; justify-content: flex-start;">
+      <div id="closeBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 80px 40px 0; text-align: bottom; box-sizing: border-box; max-width: 1180px; margin: 0 auto;; display: flex; flex-direction: row; gap: 40px; align-items: flex-end; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="closeCopy" class="otter-column" style="flex: 1; min-width: 0; padding-bottom: 80px;; display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start;">
+      <div id="closeTitle" class="otter-text" style="color: #ffffff; font-size: 46px; font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; max-width: 620px; text-wrap: balance;;">Write your first Otter program in five minutes.</div>
+      <div id="closeSteps" class="otter-row" style="margin: 8px 0 18px 0; text-align: middle; display: flex; flex-direction: row; gap: 26px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <div id="closeStep1" class="otter-text" style="color: #b7c8e2; font-size: 15px;">1  Download</div>
+      <div id="closeStep2" class="otter-text" style="color: #b7c8e2; font-size: 15px;">2  Run hello.ot</div>
+      <div id="closeStep3" class="otter-text" style="color: #b7c8e2; font-size: 15px;">3  Learn the basics</div>
+</div>
+      <div id="closeActions" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 14px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="closeDownload" class="otter-link" href="/download/" style="background: #2563eb; color: #ffffff; border-radius: 12px; font-size: 16px; font-weight: 700; padding: 15px 26px; display: inline-block; box-shadow: 0 10px 30px rgba(37,99,235,.45);;">Download Otter 1.0.0</a>
+      <a id="closeDocs" class="otter-link" href="/docs/" style="color: #ffffff; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.35); font-size: 16px; font-weight: 700; padding: 14px 24px; display: inline-block;;">Read the docs</a>
+</div>
+      <a id="closeRef" class="otter-link" href="/quick-reference/" style="color: #b7d3ff; margin: 6px 0 0 0; font-size: 15px; font-weight: 600;">Or print the one-page quick reference →</a>
+</div>
+      <img id="closeMascot" class="otter-image" src="/static/images/otter-docs-hero-mascot.png" alt="The Otter mascot sitting on a rock" style="height: 300px;" />
 </div>
 </div>
       <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
       <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
       <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerQuickRef" class="otter-link" href="/quick-reference/" style="color: #b7c4d8; font-size: 13px;">Quick reference</a>
       <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
       <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
       <a id="footerPrivacy" class="otter-link" href="/privacy/" style="color: #b7c4d8; font-size: 13px;">Privacy</a>
