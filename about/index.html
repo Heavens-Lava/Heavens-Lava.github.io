@@ -156,41 +156,45 @@
       letter-spacing: -0.02em;
       color: inherit;
     }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
     .otter-button-primary, .otter-btn-primary {
-      background-color: #2563eb !important;
-      color: #ffffff !important;
-      border: none !important;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 600;
       cursor: pointer;
     }
     .otter-button-primary:hover, .otter-btn-primary:hover {
-      background-color: #1d4ed8 !important;
+      background-color: #1d4ed8;
     }
     .otter-button-secondary, .otter-btn-secondary {
-      background-color: #334155 !important;
-      color: #f8fafc !important;
-      border: 1px solid #475569 !important;
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 500;
       cursor: pointer;
     }
     .otter-button-secondary:hover, .otter-btn-secondary:hover {
-      background-color: #475569 !important;
+      background-color: #475569;
     }
     .otter-button-danger, .otter-btn-danger {
-      background-color: #dc2626 !important;
-      color: #ffffff !important;
-      border: none !important;
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 600;
       cursor: pointer;
     }
     .otter-button-danger:hover, .otter-btn-danger:hover {
-      background-color: #b91c1c !important;
+      background-color: #b91c1c;
     }
     .otter-panel {
       display: flex;
@@ -594,7 +598,7 @@ if age is at least 18
       </div>
 </div>
       <div id="b7" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">What Otter is today</div>
-      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">This is Otter 1.0.0 (Stable release). The language, the command-line tools, desktop and web application support, and the standard library are all in active use. Otter runs on Windows, macOS and Linux; desktop windows and a few Windows features need Windows.</div>
+      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">This is Otter 1.0.1 (Stable release). The language, the command-line tools, desktop and web application support, and the standard library are all in active use. Otter runs on Windows, macOS and Linux; desktop windows and a few Windows features need Windows.</div>
       <div id="b9" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Design philosophy</div>
       <div id="b10" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">The reasoning behind the language - why properties use of, why a period only ever ends a block, why one canonical spelling beats many - is written down.</div>
       <a id="b11" class="otter-link" href="/design-readable/" style="color: #2563eb; font-size: 15px; font-weight: 600;">Readable like English</a>

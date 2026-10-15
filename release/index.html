@@ -149,41 +149,45 @@
       letter-spacing: -0.02em;
       color: inherit;
     }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
     .otter-button-primary, .otter-btn-primary {
-      background-color: #2563eb !important;
-      color: #ffffff !important;
-      border: none !important;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 600;
       cursor: pointer;
     }
     .otter-button-primary:hover, .otter-btn-primary:hover {
-      background-color: #1d4ed8 !important;
+      background-color: #1d4ed8;
     }
     .otter-button-secondary, .otter-btn-secondary {
-      background-color: #334155 !important;
-      color: #f8fafc !important;
-      border: 1px solid #475569 !important;
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 500;
       cursor: pointer;
     }
     .otter-button-secondary:hover, .otter-btn-secondary:hover {
-      background-color: #475569 !important;
+      background-color: #475569;
     }
     .otter-button-danger, .otter-btn-danger {
-      background-color: #dc2626 !important;
-      color: #ffffff !important;
-      border: none !important;
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 600;
       cursor: pointer;
     }
     .otter-button-danger:hover, .otter-btn-danger:hover {
-      background-color: #b91c1c !important;
+      background-color: #b91c1c;
     }
     .otter-panel {
       display: flex;
@@ -570,13 +574,13 @@
       <div id="b1" class="otter-text" style="color: #0b1d36; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;">Release readiness</div>
       <div id="b2" class="otter-text" style="color: #3a4d6b; font-size: 18px; line-height: 1.55;">What is published today, stated plainly. Details that do not exist yet say so - nothing here is a placeholder.</div>
       <div id="b3" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Current release</div>
-      <div id="b4" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Version: 1.0.0 (Stable release)</div>
+      <div id="b4" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Version: 1.0.1 (Stable release)</div>
       <div id="b5" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Installer: Available</div>
       <div id="b6" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Requirements: Windows 10 or Windows 11 with Windows PowerShell 5.1, or Linux or macOS with PowerShell 7.</div>
-      <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">SHA-256: 62DC15966CC8C3454134C4A04071FEB06ADDC223A656367DF9F77700FE0839E1</div>
-      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Release notes: On GitHub with the download (Releases, v1.0.0).</div>
+      <div id="b7" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">SHA-256: B70FF7D6D6A47BD477499CAC48B681FAF0826CC03A1E77B1AFB0F39A66826A87</div>
+      <div id="b8" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Release notes: On GitHub with the download (Releases, v1.0.1).</div>
       <div id="rc1" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">Release candidates</div>
-      <div id="rc2" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Each release candidate is a tagged version of Otter that passed the full release certification: the complete test suite, the conformance programs, 2,000 generated programs, and the portable suites on Windows PowerShell 5.1 and on PowerShell 7 on Windows, Linux and macOS. The current candidate is 1.0.0.</div>
+      <div id="rc2" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Each release candidate is a tagged version of Otter that passed the full release certification: the complete test suite, the conformance programs, 2,000 generated programs, and the portable suites on Windows PowerShell 5.1 and on PowerShell 7 on Windows, Linux and macOS. The current candidate is 1.0.1.</div>
       <a id="rc3" class="otter-link" href="https://github.com/Heavens-Lava/otterPS/blob/master/CHANGELOG.md" style="color: #2563eb; font-size: 15px; font-weight: 600;" target="_blank" rel="noopener noreferrer">Read what changed in each release candidate</a>
       <div id="b9" class="otter-text" style="color: #0b1d36; margin: 14px 0 0 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em;">V1 publication checklist</div>
       <div id="b10" class="otter-text" style="color: #3a4d6b; font-size: 16px; line-height: 1.6;">Before publishing an installer: certify the installer, provide its size, release date, SHA-256 checksum, and release notes, then replace the download-page notice with the real signed download link.</div>

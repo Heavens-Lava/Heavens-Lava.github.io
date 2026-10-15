@@ -149,41 +149,45 @@
       letter-spacing: -0.02em;
       color: inherit;
     }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
     .otter-button-primary, .otter-btn-primary {
-      background-color: #2563eb !important;
-      color: #ffffff !important;
-      border: none !important;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 600;
       cursor: pointer;
     }
     .otter-button-primary:hover, .otter-btn-primary:hover {
-      background-color: #1d4ed8 !important;
+      background-color: #1d4ed8;
     }
     .otter-button-secondary, .otter-btn-secondary {
-      background-color: #334155 !important;
-      color: #f8fafc !important;
-      border: 1px solid #475569 !important;
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 500;
       cursor: pointer;
     }
     .otter-button-secondary:hover, .otter-btn-secondary:hover {
-      background-color: #475569 !important;
+      background-color: #475569;
     }
     .otter-button-danger, .otter-btn-danger {
-      background-color: #dc2626 !important;
-      color: #ffffff !important;
-      border: none !important;
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
       padding: 10px 18px;
       font-weight: 600;
       cursor: pointer;
     }
     .otter-button-danger:hover, .otter-btn-danger:hover {
-      background-color: #b91c1c !important;
+      background-color: #b91c1c;
     }
     .otter-panel {
       display: flex;
@@ -429,9 +433,9 @@
 </div>
       <div id="refHeadBody" class="otter-row" style="width: 100%; max-width: 100%; padding: 56px 40px 48px; text-align: bottom; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: row; gap: 32px; align-items: flex-end; justify-content: space-between; flex-wrap: nowrap;">
       <div id="refHeadCopy" class="otter-column" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: stretch; justify-content: flex-start;">
-      <div id="refEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em;">OTTER 1.0.0 · QUICK REFERENCE</div>
+      <div id="refEyebrow" class="otter-text" style="color: #7fb0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em;">OTTER 1.0.1 · QUICK REFERENCE</div>
       <div id="refTitle" class="otter-text" style="color: #ffffff; font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; max-width: 760px; text-wrap: balance;;">Everything you need to start building with Otter.</div>
-      <div id="refLead" class="otter-text" style="color: #dbe6f5; font-size: 18px; line-height: 1.55; max-width: 700px;;">The whole language on one page: the basics first, then files, data, the internet, servers, databases and apps. Print it, keep it next to your keyboard, and look things up as you go. Every example was run with Otter 1.0.0.</div>
+      <div id="refLead" class="otter-text" style="color: #dbe6f5; font-size: 18px; line-height: 1.55; max-width: 680px;;">The whole language on one page. Print it, keep it next to your keyboard, and look things up as you go. Every example was run with Otter 1.0.1.</div>
       <div id="refActions" class="otter-row" style="margin: 8px 0 0 0; text-align: middle; display: flex; flex-direction: row; gap: 12px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
       <button id="refPrint" class="otter-button" style="background: #2563eb; color: #ffffff; border-radius: 10px; padding: 12px 22px; font-size: 15px; font-weight: 700;">Print this page</button>
       <a id="refStart" class="otter-link" href="/first-program/" style="color: #ffffff; border-radius: 10px; border: 1.5px solid rgba(255,255,255,.35); font-size: 15px; font-weight: 700; padding: 11px 20px; display: inline-block;;">Write your first program →</a>
@@ -441,7 +445,7 @@
 </div>
 </div>
       <div id="refBody" class="otter-column" style="width: 100%; max-width: 100%; padding: 40px 40px 24px; box-sizing: border-box; max-width: 1240px; margin: 0 auto;; display: flex; flex-direction: column; gap: 22px; align-items: stretch; justify-content: flex-start;">
-      <div id="refPrintHead" class="otter-text" style="color: #0b1d36; font-size: 14px; font-weight: 700;">Otter 1.0.0 Quick Reference  ·  otterprogramming.com</div>
+      <div id="refPrintHead" class="otter-text" style="color: #0b1d36; font-size: 14px; font-weight: 700;">Otter 1.0.1 Quick Reference  ·  otterprogramming.com</div>
       <div id="refGrid" class="otter-column" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 0px; align-items: stretch; justify-content: flex-start;">
       <div id="r1" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
         
@@ -474,9 +478,7 @@ nickname is gone     # no value at all</div>
       <div id="r3Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">say &quot;Hello,&quot; name     # Hello, Ada
 say &quot;Saved&quot; in color &quot;green&quot;
 
-ask &quot;How old are you?&quot; and call it age
-ask secretly &quot;Password:&quot; and call it pw
-choose from sizes into size   # numbered menu</div>
+ask &quot;How old are you?&quot; and call it age</div>
       <div id="r3Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">say puts one space between its parts. ask turns 29 into a number and true into a boolean; anything else stays text.</div>
 
       </div>
@@ -490,18 +492,9 @@ choose from sizes into size   # numbered menu</div>
 20 divided by 4 make share   # 5
 sum is 5 plus 3              # 8
 
-add 2 to score
-remove 1 from score
-increase lives               # by 1
-decrease lives by 2
-
-say 15 percent of 200        # 30
-say 2 power 10               # 1024
-say round of 3.6             # 4
-say round down of 3.6        # 3
-say square root of 81        # 9
-say larger of 3 and 9        # 9</div>
-      <div id="r4Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Words, not symbols. There are no negative literals: write 0 minus 4. Dividing by zero is a clear Otter error.</div>
+add 1 to score
+remove 2 from score</div>
+      <div id="r4Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Math uses words, not symbols. add and remove change a number in place. Dividing by zero is a clear Otter error.</div>
 
       </div>
       <div id="r5" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
@@ -512,16 +505,13 @@ say larger of 3 and 9        # 9</div>
 say uppercase of name        # ADA
 say lowercase of name        # ada
 
-replace &quot;Jeff&quot; with &quot;Ada&quot; in title
-replace &quot;a&quot; with &quot;o&quot; in title into copy
-
 split &quot;red,green,blue&quot; by &quot;,&quot; into colors
 join colors with &quot; | &quot; into line
 
 say &quot;one\ttwo&quot;        # \t is a tab
 say &quot;line\nbreak&quot;     # \n is a new line
 say &quot;She said \&quot;hi\&quot;&quot;</div>
-      <div id="r5Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Check text with starts with, ends with and contains. replace ... into leaves the original alone.</div>
+      <div id="r5Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Check text with starts with, ends with and contains (see the comparison words).</div>
 
       </div>
       <div id="r6" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
@@ -548,7 +538,7 @@ is greater than     &gt;
 is less than        &lt;
 is at least         &gt;=
 is at most          &lt;=
-contains            list or text has it
+contains            list has it / text has it
 starts with         text begins with
 ends with           text ends with
 is gone             has no value</div>
@@ -572,9 +562,8 @@ each game in games
 .
 
 while tries is less than 3
-    increase tries
+    add 1 to tries
 .</div>
-      <div id="r8Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">“for each” works too: for each game in games.</div>
 
       </div>
       <div id="r9" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
@@ -585,20 +574,15 @@ while tries is less than 3
     &quot;Zelda&quot;
     &quot;Mario&quot;
 .
-names are empty
 
 add &quot;Pokemon&quot; to games
 remove &quot;Mario&quot; from games
+
 say length of games          # 2
 say first of games           # Zelda
 say last of games            # Pokemon
-
-sort scores                  # 10, 20, 30
-reverse scores
-random item from games into pick
-
-find game in games where game is &quot;Zelda&quot; into hit</div>
-      <div id="r9Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">say games prints Zelda, Pokemon. find gives the first match, or gone if there is none.</div>
+random item from games into pick</div>
+      <div id="r9Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">say games prints Zelda, Pokemon. add and remove work on lists as well as numbers.</div>
 
       </div>
       <div id="r10" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
@@ -616,7 +600,7 @@ to tax subtotal and rate
 .
 tax 100 and 0.08 make owed     # 8
 due is tax 200 and 0.05        # 10</div>
-      <div id="r10Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Separate inputs with and. stop leaves a function early. A function’s names are its own: they never change the ones outside it.</div>
+      <div id="r10Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Separate inputs with and. A function's names are its own: they never change the ones outside it.</div>
 
       </div>
       <div id="r11" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
@@ -646,14 +630,14 @@ grace is a Person with name &quot;Grace&quot;, age 85</div>
     read &quot;notes.txt&quot; into notes
 otherwise
     say &quot;Could not read the file.&quot;
-.
-
-try
-    fail with &quot;The file is empty.&quot;
-otherwise into reason
-    say &quot;Problem:&quot; reason
 .</div>
       <div id="r12Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Without try, Otter stops and explains: the line, what went wrong, and a fix to try.</div>
+      <div id="r12Err" class="otter-text" style="background: #fff6f4; color: #8a2b1b; border-radius: 8px; border: 1px solid #f6d5cd; font-size: 12px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 10px 14px; line-height: 1.55; overflow-x: auto;;">Line 1:
+    say length of games
+
+Otter could not find the variable &quot;games&quot;.
+Try:
+    games is 0</div>
 
       </div>
       <div id="r13" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
@@ -669,134 +653,33 @@ if file &quot;notes.txt&quot; exists
 .
 
 copy &quot;notes.txt&quot; to &quot;backup.txt&quot;
-move &quot;backup.txt&quot; to &quot;old.txt&quot;
-delete file &quot;old.txt&quot;
-
-create folder &quot;Backup&quot;
-get files in &quot;.&quot; into found
-get files in &quot;Backup&quot; and subfolders into all
-zip folder &quot;Backup&quot; into &quot;backup.zip&quot;
-unzip &quot;backup.zip&quot; into &quot;Restored&quot;
-delete folder &quot;Backup&quot;</div>
+delete file &quot;backup.txt&quot;
+get files in &quot;.&quot; into found</div>
       <div id="r13Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">append adds the text exactly as given; put \n at the start for a new line. Each found file has a name, extension and size.</div>
 
       </div>
       <div id="r14" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
         
         
-      <div id="r14Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">14. CSV and JSON</div>
-      <div id="r14Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">convert text from csv into rows
-read csv from &quot;weather.csv&quot; into rows
-write csv rows to &quot;copy.csv&quot;
-each row in rows
-    say city of row temp of row
-.
-
-read json from &quot;settings.json&quot; into settings
+      <div id="r14Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">14. JSON, dates and random</div>
+      <div id="r14Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">read json from &quot;settings.json&quot; into settings
 say theme of settings
-convert text from json into data</div>
-      <div id="r14Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">The first CSV line names the columns. JSON becomes ordinary Otter objects and lists.</div>
+convert text from json into data
+
+day is today
+moment is now
+add 7 days to day
+format day as &quot;yyyy-MM-dd&quot; into stamp
+
+random number from 1 to 6 into roll</div>
+      <div id="r14Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">JSON becomes ordinary Otter objects and lists. today has no time of day; now has both.</div>
 
       </div>
       <div id="r15" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
         
         
-      <div id="r15Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">15. Dates, time and waiting</div>
-      <div id="r15Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">day is today
-moment is now
-add 7 days to day
-format day as &quot;yyyy-MM-dd&quot; into stamp
-startDate is date from &quot;2024-01-15&quot;
-say days between startDate and day
-
-wait 2 seconds
-start timer clock
-say elapsed milliseconds of clock
-
-random number from 1 to 6 into roll</div>
-      <div id="r15Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">today has no time of day; now has both.</div>
-
-      </div>
-      <div id="r16" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
-        
-        
-      <div id="r16Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">16. Programs, modules and settings</div>
-      <div id="r16Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">use &quot;helpers.ot&quot;       # use another file's functions
-
-get arguments into args
-get environment variable &quot;HOME&quot; into home
-get current directory into here
-
-run command &quot;git status&quot; into result
-say output of result
-say exit code of result
-
-log &quot;Started.&quot;         # notes for you, not output
-warn &quot;Disk is nearly full.&quot;</div>
-      <div id="r16Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">otter app.ot Ada 7 passes Ada and 7 in args.</div>
-
-      </div>
-      <div id="r17" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
-        
-        
-      <div id="r17Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">17. The internet</div>
-      <div id="r17Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">get &quot;https://api.example.com/items&quot; into page
-get &quot;https://api.example.com/items&quot; as json into items
-post &quot;hello&quot; to &quot;https://api.example.com/echo&quot; into reply
-download file from &quot;https://example.com/logo.png&quot; to &quot;logo.png&quot;</div>
-      <div id="r17Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Add a header on the next line, indented:  with header &quot;Authorization&quot; is &quot;Bearer token&quot;</div>
-
-      </div>
-      <div id="r18" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
-        
-        
-      <div id="r18Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">18. A web server</div>
-      <div id="r18Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">api is a web server
-    port is 8080
-.
-
-when api receives GET at &quot;/hello&quot;
-    respond with &quot;Hello from Otter&quot;
-.
-
-when api receives GET at &quot;/users&quot;
-    respond with &quot;Ada&quot; as json
-.
-
-start api</div>
-      <div id="r18Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Run it with otter serve server.ot, then open http://localhost:8080/hello.</div>
-
-      </div>
-      <div id="r19" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
-        
-        
-      <div id="r19Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">19. A database</div>
-      <div id="r19Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">database has
-    provider is &quot;sqlite&quot;
-    connection is &quot;tasks.db&quot;
-.
-connect database into db
-
-execute db with
-    &quot;create table if not exists tasks (id integer primary key, title text)&quot;
-execute db with
-    &quot;insert into tasks (title) values (@title)&quot;
-    parameter &quot;title&quot; is &quot;Buy milk&quot;
-
-query db with
-    &quot;select id, title from tasks&quot;
-into tasks
-each task in tasks
-    say id of task title of task
-.</div>
-      <div id="r19Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">SQLite is built in. Use parameters instead of gluing values into SQL. connection &quot;:memory:&quot; keeps it in memory.</div>
-
-      </div>
-      <div id="r20" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
-        
-        
-      <div id="r20Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">20. A desktop window</div>
-      <div id="r20Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">clicks is 0
+      <div id="r15Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">15. A desktop window</div>
+      <div id="r15Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">clicks is 0
 
 create window into app
 title of app is &quot;Counter&quot;
@@ -813,14 +696,14 @@ when addButton is clicked
 .
 
 show app</div>
-      <div id="r20Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Run it with otter counter.ot. Controls include text, text box, button, row, column, card, grid and scroll.</div>
+      <div id="r15Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Run it with otter counter.ot. Controls include text, text box, button, row, column, card, grid and scroll.</div>
 
       </div>
-      <div id="r21" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
+      <div id="r16" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
         
         
-      <div id="r21Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">21. A web page</div>
-      <div id="r21Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">app is a page with title &quot;Greeter&quot;, width 560, spacing 14
+      <div id="r16Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">16. A web page</div>
+      <div id="r16Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">app is a page with title &quot;Greeter&quot;, width 560, spacing 14
 
 nameBox is a text box with placeholder &quot;Your name&quot;
 helloButton is a button with text &quot;Say hello&quot;
@@ -832,52 +715,19 @@ when helloButton is clicked
 
 put nameBox, helloButton, message in app
 show app</div>
-      <div id="r21Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">otter web greeter.ot turns it into a standalone web page and opens it.</div>
+      <div id="r16Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">otter web greeter.ot turns it into a standalone web page and opens it.</div>
 
       </div>
-      <div id="r22" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
+      <div id="r17" class="otter-card" style="background: #eaf2ff; border-radius: 14px; border: 1px solid #cfe0ff; padding: 18px; gap: 8px;">
         
         
-      <div id="r22Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">22. Values that update themselves</div>
-      <div id="r22Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">state clicks is 0
-derive doubled is clicks times 2
-
-when clicks changes
-    say &quot;clicks is now&quot; clicks
-.
-
-clicks is 2           # clicks is now 2
-say doubled           # 4</div>
-      <div id="r22Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">derive keeps a value in step with the values it is made from.</div>
-
-      </div>
-      <div id="r23" class="otter-card" style="background: #ffffff; border-radius: 14px; border: 1px solid #e3e9f2; padding: 18px; gap: 10px;">
-        
-        
-      <div id="r23Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">23. Security and secrets</div>
-      <div id="r23Code" class="otter-text" style="background: #0f1b2e; color: #e5edf8; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', Consolas, monospace; white-space: pre; padding: 12px 14px; line-height: 1.6; overflow-x: auto;;">digest is sha256 of bytes from text &quot;abc&quot;
-say hex from bytes digest
-
-hash password &quot;secret&quot; and call it stored
-if password &quot;secret&quot; matches hash stored
-    say &quot;Signed in&quot;
-.
-
-store secret &quot;api-token&quot; with value token
-token is secret &quot;api-token&quot;</div>
-      <div id="r23Note" class="otter-text" style="color: #3a4d6b; font-size: 14px; line-height: 1.5;">Secrets live in the operating system’s credential store, never in your files.</div>
-
-      </div>
-      <div id="r24" class="otter-card" style="background: #eaf2ff; border-radius: 14px; border: 1px solid #cfe0ff; padding: 18px; gap: 8px;">
-        
-        
-      <div id="r24Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">24. Rules of thumb</div>
-      <div id="r24a" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• is gives a value. Otter has no = sign.</div>
-      <div id="r24b" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Indent the inside of a block; a period on its own line ends it.</div>
-      <div id="r24c" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Properties read name of person, never person.name.</div>
-      <div id="r24d" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Using a name before giving it a value is an error, not false.</div>
-      <div id="r24e" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• A few words, such as count and start, are statement words and cannot be names. Otter tells you if you try.</div>
-      <div id="r24f" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Stuck? Read the error: it names the line and suggests a fix.</div>
+      <div id="r17Title" class="otter-text" style="color: #0b1d36; font-size: 17px; font-weight: 800;">17. Rules of thumb</div>
+      <div id="r17a" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• is gives a value. Otter has no = sign.</div>
+      <div id="r17b" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Indent the inside of a block; a period on its own line ends it.</div>
+      <div id="r17c" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Properties read name of person, never person.name.</div>
+      <div id="r17d" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Using a name before giving it a value is an error, not false.</div>
+      <div id="r17e" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• A few words, such as count, are statement words and cannot be names. Otter tells you if you try.</div>
+      <div id="r17f" class="otter-text" style="color: #0f1f36; font-size: 14px; line-height: 1.5;">• Stuck? Read the error: it names the line and suggests a fix.</div>
 
       </div>
 </div>
