@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPG Adventure Game Engine Recipe - Otter Component Library</title>
+<meta name="description" content="Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.">
+<link rel="canonical" href="https://otterprogramming.com/library/recipe-otter-official-rpg-adventure/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otter Programming Language">
+<meta property="og:title" content="RPG Adventure Game Engine Recipe - Otter Component Library">
+<meta property="og:description" content="Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.">
+<meta property="og:url" content="https://otterprogramming.com/library/recipe-otter-official-rpg-adventure/">
+<meta property="og:image" content="https://otterprogramming.com/static/images/otter-site-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RPG Adventure Game Engine Recipe - Otter Component Library">
+<meta name="twitter:description" content="Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"RPG Adventure Game Engine Recipe","description":"Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.","url":"https://otterprogramming.com/library/recipe-otter-official-rpg-adventure/","programmingLanguage":"Otter","runtimePlatform":"Otter (console)","version":"1.0.0","license":"MIT","codeRepository":"https://github.com/Heavens-Lava/otter-net"}</script>
+<style>
+    :root {
+      --otter-bg: #f4f7fb;
+      --otter-card-bg: #1e293b;
+      --otter-text: #0f1f36;
+      --otter-text-muted: #94a3b8;
+      --otter-primary: #2563eb;
+      --otter-primary-hover: #1d4ed8;
+      --otter-input-bg: #0f172a;
+      --otter-border: #334155;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #0f1f36;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    body.otter-has-page {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body.otter-has-page.otter-doc-scroll {
+      height: auto;
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .otter-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-column {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-window {
+      background-color: #1e293b;
+      border: 1px solid var(--otter-border);
+      width: 100%;
+      max-width: 520px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-page {
+      background: transparent;
+      border: none;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-card {
+      background-color: var(--otter-card-bg);
+      border: 1px solid var(--otter-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .otter-button {
+      background-color: var(--otter-primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.08s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .otter-button:hover { background-color: var(--otter-primary-hover); }
+    .otter-button:active { transform: scale(0.98); }
+    .otter-text-box {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .otter-text-box:focus {
+      border-color: var(--otter-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .otter-text {
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .otter-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
+    .otter-button-primary, .otter-btn-primary {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-primary:hover, .otter-btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .otter-button-secondary, .otter-btn-secondary {
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otter-button-secondary:hover, .otter-btn-secondary:hover {
+      background-color: #475569;
+    }
+    .otter-button-danger, .otter-btn-danger {
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-danger:hover, .otter-btn-danger:hover {
+      background-color: #b91c1c;
+    }
+    .otter-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-conditional {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .otter-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--otter-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .otter-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    .otter-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .otter-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    .otter-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+    .otter-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-select {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .otter-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-text-area,
+    .otter-textarea {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .otter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(37,99,235,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .otter-canvas {
+      background: #020617;
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      max-width: 100%;
+      display: block;
+    }
+    .otter-progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--otter-border);
+      background: var(--otter-input-bg);
+    }
+    .otter-progress::-webkit-progress-bar {
+      background: var(--otter-input-bg);
+      border-radius: 9999px;
+    }
+    .otter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .otter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+    }
+    .otter-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .otter-toggle-track {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .otter-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .otter-toggle:checked + .otter-toggle-track {
+      background: var(--otter-primary);
+    }
+    .otter-toggle:checked + .otter-toggle-track .otter-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .otter-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-radio {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .otter-toast {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      animation: otterToastIn 0.25s ease-out;
+      max-width: 320px;
+    }
+    @keyframes otterToastIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #otter-live-output {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: none;
+    }
+
+  </style>
+<link rel="icon" href="/static/images/otter-site-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/static/images/otter-site-icon.png">
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<link rel="stylesheet" href="/static/library-app.css">
+<script defer src="/static/docs-enhancements.js"></script>
+<script type="module" src="/static/library-app.js"></script>
+</head>
+<body class="otter-has-page otter-doc-scroll lib-body">
+<div class="otter-page" id="app" style="width:100%;max-width:100%;background:#f4f7fb;color:#0f1f36;padding:0px;gap:0px;">
+  <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
+      <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
+</div>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navLibrary" class="otter-link" href="/library/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Library</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 214px; text-align: left;;">Search docs &amp; library...  Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+  <main class="lib-detail-main" id="libraryDetailMain">
+    <nav class="lib-crumbs" aria-label="Breadcrumb">
+      <a href="/library/">Otter Library</a>
+      <span aria-hidden="true">/</span>
+      <a href="/library/?category=otter">Otter</a>
+      <span aria-hidden="true">/</span>
+      <span>RPG Adventure Game Engine Recipe</span>
+    </nav>
+
+    <header class="lib-detail-hero">
+      <div class="lib-detail-badges">
+        <span class="lib-cat-chip lib-cat-otter">Otter</span>
+        <span class="lib-sub-chip">Recipes</span>
+        <span class="lib-lang-chip">Otter</span>
+        <span class="lib-ver-chip lib-badge-tested">Upstream Recipe Tested</span>
+      </div>
+      <h1>RPG Adventure Game Engine Recipe</h1>
+      <p class="lib-detail-desc">Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.</p>
+      <div class="lib-detail-quickmeta">
+        <span><strong>ID:</strong> <code>otter-official/rpg-adventure</code></span>
+        <span><strong>Version:</strong> 1.0.0</span>
+        <span><strong>License:</strong> MIT</span>
+        <span><strong>Framework:</strong> Otter &gt;=1.0.1</span>
+      </div>
+    </header>
+
+    <div class="lib-detail-layout">
+      <div class="lib-detail-primary">
+        <section class="lib-panel" aria-labelledby="preview-heading">
+    <div class="lib-panel-head">
+      <h2 id="preview-heading">Architecture &amp; Runtime Preview</h2>
+      <span class="lib-pill">Otter &gt;=1.0.1</span>
+    </div>
+    <p class="lib-preview-caption">Composes `otter-official/game-entity` actors, inventory, and cooldown systems with `otter-official/math-utils`. Evaluates turn damage including equipment bonuses, manages skill readiness via timestamp differences, and levels up upon defeating the enemy.</p>
+    
+    <ol class="lib-arch-list"><li class="lib-arch-step"><span class="lib-arch-num">1</span><span>spawn-entities: Initialize player hero and enemy boss actors (otter-official/game-entity)</span></li><li class="lib-arch-step"><span class="lib-arch-num">2</span><span>resolve-combat-loop: Execute attack sequence applying equipment bonuses and ability cooldowns (otter-official/game-entity)</span></li><li class="lib-arch-step"><span class="lib-arch-num">3</span><span>award-loot-and-exp: Grant loot drop into inventory and level up hero upon victory (otter-official/game-entity)</span></li></ol>
+    
+  </section>
+        <section class="lib-panel" aria-labelledby="source-heading">
+    <div class="lib-panel-head">
+      <h2 id="source-heading">Source Code (4 files)</h2>
+      <span class="lib-copy-live" aria-live="polite"></span>
+    </div>
+    <div class="lib-tabs" role="tablist" aria-label="Component source files"><button type="button" role="tab" class="lib-tab is-active" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0" data-file-index="0">otter.recipe.json</button><button type="button" role="tab" class="lib-tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1" data-file-index="1">templates/game.ot.tmpl</button><button type="button" role="tab" class="lib-tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1" data-file-index="2">tests/test.ot</button><button type="button" role="tab" class="lib-tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1" data-file-index="3">examples/demo.ot</button></div>
+    <div role="tabpanel" id="panel-0" aria-labelledby="tab-0" class="lib-code-panel" data-file-panel="0">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">otter.recipe.json · json</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-0">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="json">{
+  <span class="tok-key">&quot;schemaVersion&quot;</span>: <span class="tok-num">1</span>,
+  <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/rpg-adventure&quot;</span>,
+  <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">0</span>&quot;</span>,
+  <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;RPG Adventure Game Engine&quot;</span>,
+  <span class="tok-key">&quot;summary&quot;</span>: <span class="tok-str">&quot;Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.&quot;</span>,
+  <span class="tok-key">&quot;target&quot;</span>: <span class="tok-str">&quot;console&quot;</span>,
+  <span class="tok-key">&quot;requiresOtter&quot;</span>: <span class="tok-str">&quot;&gt;=<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span>,
+  <span class="tok-key">&quot;capabilities&quot;</span>: [&quot;game&quot;, &quot;files&quot;],
+  <span class="tok-key">&quot;packs&quot;</span>: [
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/game-entity&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.1</span>.<span class="tok-num">0</span>&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/math-utils&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/file-helpers&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span> }
+  ],
+  <span class="tok-key">&quot;blueprints&quot;</span>: [
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/game-combat&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">0</span>&quot;</span> }
+  ],
+  <span class="tok-key">&quot;configuration&quot;</span>: [
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;heroName&quot;</span>, <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Hero Name&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;default&quot;</span>: <span class="tok-str">&quot;Aria&quot;</span>, <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Name of the playable hero&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;enemyName&quot;</span>, <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Boss Opponent Name&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;default&quot;</span>: <span class="tok-str">&quot;Dungeon Dragon&quot;</span>, <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Name of the boss monster&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;startingEnemyHp&quot;</span>, <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Enemy Starting Health&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span>, <span class="tok-key">&quot;default&quot;</span>: <span class="tok-num">120</span>, <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Starting health of the boss opponent&quot;</span> }
+  ],
+  <span class="tok-key">&quot;steps&quot;</span>: [
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;spawn-entities&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Initialize player hero and enemy boss actors&quot;</span>,
+      <span class="tok-key">&quot;source&quot;</span>: <span class="tok-str">&quot;otter-official/game-entity&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;name&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }, { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;hp&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }, { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;lvl&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> }]
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;resolve-combat-loop&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Execute attack sequence applying equipment bonuses and ability cooldowns&quot;</span>,
+      <span class="tok-key">&quot;source&quot;</span>: <span class="tok-str">&quot;otter-official/game-entity&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;enemy&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> }, { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;damage&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;remainingHp&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }]
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;award-loot-and-exp&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Grant loot drop into inventory and level up hero upon victory&quot;</span>,
+      <span class="tok-key">&quot;source&quot;</span>: <span class="tok-str">&quot;otter-official/game-entity&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;hero&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> }, { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;xp&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;newLevel&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }]
+    }
+  ],
+  <span class="tok-key">&quot;generatedFiles&quot;</span>: [
+    { <span class="tok-key">&quot;path&quot;</span>: <span class="tok-str">&quot;src/game.ot&quot;</span>, <span class="tok-key">&quot;template&quot;</span>: <span class="tok-str">&quot;templates/game.ot.tmpl&quot;</span> }
+  ],
+  <span class="tok-key">&quot;tests&quot;</span>: [
+    &quot;tests/test.ot&quot;
+  ],
+  <span class="tok-key">&quot;explanations&quot;</span>: {
+    <span class="tok-key">&quot;beginner&quot;</span>: <span class="tok-str">&quot;This application creates an RPG battle game. Your hero fights monsters using special abilities with cooldowns, collects weapons into an inventory, equips items for extra power, and levels up when enemies are defeated.&quot;</span>,
+    <span class="tok-key">&quot;intermediate&quot;</span>: <span class="tok-str">&quot;Composes `otter-official/game-entity` actors, inventory, and cooldown systems with `otter-official/math-utils`. Evaluates turn damage including equipment bonuses, manages skill readiness via timestamp differences, and levels up upon defeating the enemy.&quot;</span>,
+    <span class="tok-key">&quot;advanced&quot;</span>: <span class="tok-str">&quot;Architected as a composable RPG engine. Blueprints provide the base combat math while recipe orchestration adds weapon equipment slots, loot tables, ability cooldown timers, and serialized save states via `file-helpers`.&quot;</span>
+  }
+}
+</code></pre>
+      <textarea id="raw-code-0" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;id&quot;: &quot;otter-official/rpg-adventure&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;title&quot;: &quot;RPG Adventure Game Engine&quot;,
+  &quot;summary&quot;: &quot;Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and experience progression.&quot;,
+  &quot;target&quot;: &quot;console&quot;,
+  &quot;requiresOtter&quot;: &quot;&gt;=1.0.1&quot;,
+  &quot;capabilities&quot;: [&quot;game&quot;, &quot;files&quot;],
+  &quot;packs&quot;: [
+    { &quot;id&quot;: &quot;otter-official/game-entity&quot;, &quot;version&quot;: &quot;1.1.0&quot; },
+    { &quot;id&quot;: &quot;otter-official/math-utils&quot;, &quot;version&quot;: &quot;1.0.1&quot; },
+    { &quot;id&quot;: &quot;otter-official/file-helpers&quot;, &quot;version&quot;: &quot;1.0.1&quot; }
+  ],
+  &quot;blueprints&quot;: [
+    { &quot;id&quot;: &quot;otter-official/game-combat&quot;, &quot;version&quot;: &quot;1.0.0&quot; }
+  ],
+  &quot;configuration&quot;: [
+    { &quot;id&quot;: &quot;heroName&quot;, &quot;title&quot;: &quot;Hero Name&quot;, &quot;type&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Aria&quot;, &quot;description&quot;: &quot;Name of the playable hero&quot; },
+    { &quot;id&quot;: &quot;enemyName&quot;, &quot;title&quot;: &quot;Boss Opponent Name&quot;, &quot;type&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Dungeon Dragon&quot;, &quot;description&quot;: &quot;Name of the boss monster&quot; },
+    { &quot;id&quot;: &quot;startingEnemyHp&quot;, &quot;title&quot;: &quot;Enemy Starting Health&quot;, &quot;type&quot;: &quot;number&quot;, &quot;default&quot;: 120, &quot;description&quot;: &quot;Starting health of the boss opponent&quot; }
+  ],
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;spawn-entities&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;description&quot;: &quot;Initialize player hero and enemy boss actors&quot;,
+      &quot;source&quot;: &quot;otter-official/game-entity&quot;,
+      &quot;inputs&quot;: [{ &quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;text&quot; }, { &quot;name&quot;: &quot;hp&quot;, &quot;type&quot;: &quot;number&quot; }, { &quot;name&quot;: &quot;lvl&quot;, &quot;type&quot;: &quot;number&quot; }],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot; }]
+    },
+    {
+      &quot;id&quot;: &quot;resolve-combat-loop&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;description&quot;: &quot;Execute attack sequence applying equipment bonuses and ability cooldowns&quot;,
+      &quot;source&quot;: &quot;otter-official/game-entity&quot;,
+      &quot;inputs&quot;: [{ &quot;name&quot;: &quot;enemy&quot;, &quot;type&quot;: &quot;object&quot; }, { &quot;name&quot;: &quot;damage&quot;, &quot;type&quot;: &quot;number&quot; }],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;remainingHp&quot;, &quot;type&quot;: &quot;number&quot; }]
+    },
+    {
+      &quot;id&quot;: &quot;award-loot-and-exp&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;description&quot;: &quot;Grant loot drop into inventory and level up hero upon victory&quot;,
+      &quot;source&quot;: &quot;otter-official/game-entity&quot;,
+      &quot;inputs&quot;: [{ &quot;name&quot;: &quot;hero&quot;, &quot;type&quot;: &quot;object&quot; }, { &quot;name&quot;: &quot;xp&quot;, &quot;type&quot;: &quot;number&quot; }],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;newLevel&quot;, &quot;type&quot;: &quot;number&quot; }]
+    }
+  ],
+  &quot;generatedFiles&quot;: [
+    { &quot;path&quot;: &quot;src/game.ot&quot;, &quot;template&quot;: &quot;templates/game.ot.tmpl&quot; }
+  ],
+  &quot;tests&quot;: [
+    &quot;tests/test.ot&quot;
+  ],
+  &quot;explanations&quot;: {
+    &quot;beginner&quot;: &quot;This application creates an RPG battle game. Your hero fights monsters using special abilities with cooldowns, collects weapons into an inventory, equips items for extra power, and levels up when enemies are defeated.&quot;,
+    &quot;intermediate&quot;: &quot;Composes `otter-official/game-entity` actors, inventory, and cooldown systems with `otter-official/math-utils`. Evaluates turn damage including equipment bonuses, manages skill readiness via timestamp differences, and levels up upon defeating the enemy.&quot;,
+    &quot;advanced&quot;: &quot;Architected as a composable RPG engine. Blueprints provide the base combat math while recipe orchestration adds weapon equipment slots, loot tables, ability cooldown timers, and serialized save states via `file-helpers`.&quot;
+  }
+}
+</textarea>
+    </div><div role="tabpanel" id="panel-1" aria-labelledby="tab-1" class="lib-code-panel is-hidden" data-file-panel="1">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">templates/game.ot.tmpl · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-1">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># ==============================================================================</span>
+<span class="tok-com"># Generated by Otter Application Recipe: rpg-adventure 1.0.0</span>
+<span class="tok-com"># Target: Complete RPG Game Engine with Combat, Inventory, Cooldowns &amp; XP</span>
+<span class="tok-com"># ==============================================================================</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/game-entity}&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/math-utils}&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/file-helpers}&quot;</span>
+
+<span class="tok-com"># 1. Initialize Hero and Inventory</span>
+hero <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;${config:heroName}&quot;</span> <span class="tok-num">100</span> <span class="tok-num">1</span>
+bag <span class="tok-kw">is</span> createInventory <span class="tok-num">8</span>
+
+starterSword <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Iron Broadsword&quot;</span> <span class="tok-str">&quot;weapon&quot;</span> <span class="tok-num">15</span>
+addItemToInventory bag starterSword
+
+potion <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Health Elixir&quot;</span> <span class="tok-str">&quot;consumable&quot;</span> <span class="tok-num">25</span>
+addItemToInventory bag potion
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;=== RPG Adventure ===&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Hero:&quot;</span>
+<span class="tok-kw">say</span> name <span class="tok-kw">of</span> hero
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Level:&quot;</span>
+<span class="tok-kw">say</span> level <span class="tok-kw">of</span> hero
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Health:&quot;</span>
+<span class="tok-kw">say</span> health <span class="tok-kw">of</span> hero
+
+<span class="tok-com"># 2. Setup Ability Cooldown</span>
+meteorSkill <span class="tok-kw">is</span> createCooldown <span class="tok-str">&quot;Meteor Strike&quot;</span> <span class="tok-num">10</span>
+battleTime <span class="tok-kw">is</span> <span class="tok-num">100</span>
+
+<span class="tok-com"># 3. Spawn Boss Opponent</span>
+enemy <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;${config:enemyName}&quot;</span> ${config:startingEnemyHp} <span class="tok-num">3</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;A wild monster appears:&quot;</span>
+<span class="tok-kw">say</span> name <span class="tok-kw">of</span> enemy
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Enemy HP:&quot;</span>
+<span class="tok-kw">say</span> health <span class="tok-kw">of</span> enemy
+
+<span class="tok-com"># 4. Turn 1: Special Ability Check &amp; Execution</span>
+canCast <span class="tok-kw">is</span> isCooldownReady meteorSkill battleTime
+<span class="tok-kw">if</span> canCast <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    triggerCooldown meteorSkill battleTime
+    spellDmg <span class="tok-kw">is</span> <span class="tok-num">50</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Hero casts Meteor Strike for damage:&quot;</span>
+    <span class="tok-kw">say</span> spellDmg
+    remHp <span class="tok-kw">is</span> applyDamage enemy spellDmg
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Enemy HP after spell:&quot;</span>
+    <span class="tok-kw">say</span> remHp
+.
+
+<span class="tok-com"># 5. Turn 2: Weapon Strike with Equipment Bonus</span>
+baseAttack <span class="tok-kw">is</span> <span class="tok-num">25</span>
+weaponBonus <span class="tok-kw">is</span> itemPower <span class="tok-kw">of</span> starterSword
+totalAttack <span class="tok-kw">is</span> baseAttack <span class="tok-kw">plus</span> weaponBonus
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Hero strikes with weapon for total damage:&quot;</span>
+<span class="tok-kw">say</span> totalAttack
+remHp <span class="tok-kw">is</span> applyDamage enemy totalAttack
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Enemy HP after strike:&quot;</span>
+<span class="tok-kw">say</span> remHp
+
+<span class="tok-com"># 6. Turn 3: Finishing Blow</span>
+finishingDmg <span class="tok-kw">is</span> <span class="tok-num">50</span>
+remHp <span class="tok-kw">is</span> applyDamage enemy finishingDmg
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Finishing blow damage:&quot;</span>
+<span class="tok-kw">say</span> finishingDmg
+
+<span class="tok-com"># 7. Defeat Condition, Loot Reward, and Level Progression</span>
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> enemy <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;VICTORY! Enemy defeated:&quot;</span>
+    <span class="tok-kw">say</span> name <span class="tok-kw">of</span> enemy
+    
+    <span class="tok-com"># Drop loot and add to bag</span>
+    bossLoot <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Dragon Scale Shield&quot;</span> <span class="tok-str">&quot;armor&quot;</span> <span class="tok-num">30</span>
+    addItemToInventory bag bossLoot
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Loot acquired:&quot;</span>
+    <span class="tok-kw">say</span> itemName <span class="tok-kw">of</span> bossLoot
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Inventory item count:&quot;</span>
+    <span class="tok-kw">say</span> currentCount <span class="tok-kw">of</span> bag
+    
+    <span class="tok-com"># Hero Level Up</span>
+    newLevel <span class="tok-kw">is</span> levelUp hero
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;HERO LEVELED UP! New Level:&quot;</span>
+    <span class="tok-kw">say</span> newLevel
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;New Max Health:&quot;</span>
+    <span class="tok-kw">say</span> maxHealth <span class="tok-kw">of</span> hero
+.
+
+<span class="tok-com"># 8. Save Game State</span>
+<span class="tok-kw">a</span> SaveRecord <span class="tok-kw">has</span>
+    heroName
+    heroLevel
+    heroHp
+    invSlots
+.
+saveRecord <span class="tok-kw">is</span> <span class="tok-kw">a</span> SaveRecord
+heroName <span class="tok-kw">of</span> saveRecord <span class="tok-kw">is</span> name <span class="tok-kw">of</span> hero
+heroLevel <span class="tok-kw">of</span> saveRecord <span class="tok-kw">is</span> level <span class="tok-kw">of</span> hero
+heroHp <span class="tok-kw">of</span> saveRecord <span class="tok-kw">is</span> health <span class="tok-kw">of</span> hero
+invSlots <span class="tok-kw">of</span> saveRecord <span class="tok-kw">is</span> currentCount <span class="tok-kw">of</span> bag
+writeJsonObject <span class="tok-str">&quot;rpg_savegame.json&quot;</span> saveRecord
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Game progress saved to rpg_savegame.json.&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;RPG Adventure loop completed successfully.&quot;</span>
+</code></pre>
+      <textarea id="raw-code-1" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># ==============================================================================
+# Generated by Otter Application Recipe: rpg-adventure 1.0.0
+# Target: Complete RPG Game Engine with Combat, Inventory, Cooldowns &amp; XP
+# ==============================================================================
+
+use &quot;${import:otter-official/game-entity}&quot;
+use &quot;${import:otter-official/math-utils}&quot;
+use &quot;${import:otter-official/file-helpers}&quot;
+
+# 1. Initialize Hero and Inventory
+hero is createActor &quot;${config:heroName}&quot; 100 1
+bag is createInventory 8
+
+starterSword is createItem &quot;Iron Broadsword&quot; &quot;weapon&quot; 15
+addItemToInventory bag starterSword
+
+potion is createItem &quot;Health Elixir&quot; &quot;consumable&quot; 25
+addItemToInventory bag potion
+
+say &quot;=== RPG Adventure ===&quot;
+say &quot;Hero:&quot;
+say name of hero
+say &quot;Level:&quot;
+say level of hero
+say &quot;Health:&quot;
+say health of hero
+
+# 2. Setup Ability Cooldown
+meteorSkill is createCooldown &quot;Meteor Strike&quot; 10
+battleTime is 100
+
+# 3. Spawn Boss Opponent
+enemy is createActor &quot;${config:enemyName}&quot; ${config:startingEnemyHp} 3
+say &quot;A wild monster appears:&quot;
+say name of enemy
+say &quot;Enemy HP:&quot;
+say health of enemy
+
+# 4. Turn 1: Special Ability Check &amp; Execution
+canCast is isCooldownReady meteorSkill battleTime
+if canCast is true
+    triggerCooldown meteorSkill battleTime
+    spellDmg is 50
+    say &quot;Hero casts Meteor Strike for damage:&quot;
+    say spellDmg
+    remHp is applyDamage enemy spellDmg
+    say &quot;Enemy HP after spell:&quot;
+    say remHp
+.
+
+# 5. Turn 2: Weapon Strike with Equipment Bonus
+baseAttack is 25
+weaponBonus is itemPower of starterSword
+totalAttack is baseAttack plus weaponBonus
+say &quot;Hero strikes with weapon for total damage:&quot;
+say totalAttack
+remHp is applyDamage enemy totalAttack
+say &quot;Enemy HP after strike:&quot;
+say remHp
+
+# 6. Turn 3: Finishing Blow
+finishingDmg is 50
+remHp is applyDamage enemy finishingDmg
+say &quot;Finishing blow damage:&quot;
+say finishingDmg
+
+# 7. Defeat Condition, Loot Reward, and Level Progression
+if isAlive of enemy is false
+    say &quot;VICTORY! Enemy defeated:&quot;
+    say name of enemy
+    
+    # Drop loot and add to bag
+    bossLoot is createItem &quot;Dragon Scale Shield&quot; &quot;armor&quot; 30
+    addItemToInventory bag bossLoot
+    say &quot;Loot acquired:&quot;
+    say itemName of bossLoot
+    say &quot;Inventory item count:&quot;
+    say currentCount of bag
+    
+    # Hero Level Up
+    newLevel is levelUp hero
+    say &quot;HERO LEVELED UP! New Level:&quot;
+    say newLevel
+    say &quot;New Max Health:&quot;
+    say maxHealth of hero
+.
+
+# 8. Save Game State
+a SaveRecord has
+    heroName
+    heroLevel
+    heroHp
+    invSlots
+.
+saveRecord is a SaveRecord
+heroName of saveRecord is name of hero
+heroLevel of saveRecord is level of hero
+heroHp of saveRecord is health of hero
+invSlots of saveRecord is currentCount of bag
+writeJsonObject &quot;rpg_savegame.json&quot; saveRecord
+
+say &quot;Game progress saved to rpg_savegame.json.&quot;
+say &quot;RPG Adventure loop completed successfully.&quot;
+</textarea>
+    </div><div role="tabpanel" id="panel-2" aria-labelledby="tab-2" class="lib-code-panel is-hidden" data-file-panel="2">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">tests/test.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-2">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># ==============================================================================</span>
+<span class="tok-com"># Test: RPG Adventure Game Mechanics</span>
+<span class="tok-com"># ==============================================================================</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;</span>
+
+<span class="tok-com"># Test 1: Actor creation and damage</span>
+hero <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Aria&quot;</span> <span class="tok-num">100</span> <span class="tok-num">1</span>
+enemy <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Goblin Chief&quot;</span> <span class="tok-num">80</span> <span class="tok-num">2</span>
+
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">100</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected hero hp 100&quot;</span>
+.
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> enemy <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected enemy alive&quot;</span>
+.
+
+<span class="tok-com"># Test 2: Damage application and defeat condition</span>
+remHp <span class="tok-kw">is</span> applyDamage enemy <span class="tok-num">50</span>
+<span class="tok-kw">if</span> remHp <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">30</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected 30 remaining enemy hp&quot;</span>
+.
+
+remHp2 <span class="tok-kw">is</span> applyDamage enemy <span class="tok-num">40</span>
+<span class="tok-kw">if</span> remHp2 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">0</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected 0 hp after fatal damage&quot;</span>
+.
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> enemy <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected enemy defeated&quot;</span>
+.
+
+<span class="tok-com"># Test 3: Ability cooldown timing</span>
+skill <span class="tok-kw">is</span> createCooldown <span class="tok-str">&quot;Lightning&quot;</span> <span class="tok-num">5</span>
+readyAt0 <span class="tok-kw">is</span> isCooldownReady skill <span class="tok-num">10</span>
+<span class="tok-kw">if</span> readyAt0 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected skill to be ready initially&quot;</span>
+.
+
+triggerCooldown skill <span class="tok-num">10</span>
+readyAt12 <span class="tok-kw">is</span> isCooldownReady skill <span class="tok-num">12</span>
+<span class="tok-kw">if</span> readyAt12 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected skill to be on cooldown at +2s&quot;</span>
+.
+
+readyAt16 <span class="tok-kw">is</span> isCooldownReady skill <span class="tok-num">16</span>
+<span class="tok-kw">if</span> readyAt16 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected skill ready after 6s (cd=5s)&quot;</span>
+.
+
+<span class="tok-com"># Test 4: Inventory management and loot</span>
+inv <span class="tok-kw">is</span> createInventory <span class="tok-num">4</span>
+sword <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Excalibur&quot;</span> <span class="tok-str">&quot;weapon&quot;</span> <span class="tok-num">50</span>
+shield <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Aegis&quot;</span> <span class="tok-str">&quot;armor&quot;</span> <span class="tok-num">25</span>
+
+addOk1 <span class="tok-kw">is</span> addItemToInventory inv sword
+addOk2 <span class="tok-kw">is</span> addItemToInventory inv shield
+
+<span class="tok-kw">if</span> addOk1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected item 1 added&quot;</span>
+.
+<span class="tok-kw">if</span> currentCount <span class="tok-kw">of</span> inv <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected 2 inventory items&quot;</span>
+.
+
+<span class="tok-com"># Test 5: Hero level up progression</span>
+lvlBefore <span class="tok-kw">is</span> level <span class="tok-kw">of</span> hero
+maxHpBefore <span class="tok-kw">is</span> maxHealth <span class="tok-kw">of</span> hero
+newLvl <span class="tok-kw">is</span> levelUp hero
+
+<span class="tok-kw">if</span> newLvl <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected level 2 after levelUp&quot;</span>
+.
+<span class="tok-kw">if</span> maxHealth <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">120</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected 120 maxHealth after levelUp&quot;</span>
+.
+
+<span class="tok-com"># Test 6: Persistence of game state</span>
+saveFile <span class="tok-kw">is</span> <span class="tok-str">&quot;test_rpg_save.json&quot;</span>
+<span class="tok-kw">a</span> SaveRecord <span class="tok-kw">has</span>
+    heroLevel
+    heroHealth
+.
+saveRecord <span class="tok-kw">is</span> <span class="tok-kw">a</span> SaveRecord
+heroLevel <span class="tok-kw">of</span> saveRecord <span class="tok-kw">is</span> level <span class="tok-kw">of</span> hero
+heroHealth <span class="tok-kw">of</span> saveRecord <span class="tok-kw">is</span> health <span class="tok-kw">of</span> hero
+writeJsonObject saveFile saveRecord
+
+loadedRecord <span class="tok-kw">is</span> readJsonObject saveFile
+<span class="tok-kw">if</span> heroLevel <span class="tok-kw">of</span> loadedRecord <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected loaded hero level 2&quot;</span>
+.
+
+writeSafe saveFile <span class="tok-str">&quot;&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;RPG adventure tests passed.&quot;</span>
+</code></pre>
+      <textarea id="raw-code-2" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># ==============================================================================
+# Test: RPG Adventure Game Mechanics
+# ==============================================================================
+
+use &quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;
+
+# Test 1: Actor creation and damage
+hero is createActor &quot;Aria&quot; 100 1
+enemy is createActor &quot;Goblin Chief&quot; 80 2
+
+if health of hero is not 100
+    say &quot;FAIL: expected hero hp 100&quot;
+.
+if isAlive of enemy is not true
+    say &quot;FAIL: expected enemy alive&quot;
+.
+
+# Test 2: Damage application and defeat condition
+remHp is applyDamage enemy 50
+if remHp is not 30
+    say &quot;FAIL: expected 30 remaining enemy hp&quot;
+.
+
+remHp2 is applyDamage enemy 40
+if remHp2 is not 0
+    say &quot;FAIL: expected 0 hp after fatal damage&quot;
+.
+if isAlive of enemy is not false
+    say &quot;FAIL: expected enemy defeated&quot;
+.
+
+# Test 3: Ability cooldown timing
+skill is createCooldown &quot;Lightning&quot; 5
+readyAt0 is isCooldownReady skill 10
+if readyAt0 is not true
+    say &quot;FAIL: expected skill to be ready initially&quot;
+.
+
+triggerCooldown skill 10
+readyAt12 is isCooldownReady skill 12
+if readyAt12 is not false
+    say &quot;FAIL: expected skill to be on cooldown at +2s&quot;
+.
+
+readyAt16 is isCooldownReady skill 16
+if readyAt16 is not true
+    say &quot;FAIL: expected skill ready after 6s (cd=5s)&quot;
+.
+
+# Test 4: Inventory management and loot
+inv is createInventory 4
+sword is createItem &quot;Excalibur&quot; &quot;weapon&quot; 50
+shield is createItem &quot;Aegis&quot; &quot;armor&quot; 25
+
+addOk1 is addItemToInventory inv sword
+addOk2 is addItemToInventory inv shield
+
+if addOk1 is not true
+    say &quot;FAIL: expected item 1 added&quot;
+.
+if currentCount of inv is not 2
+    say &quot;FAIL: expected 2 inventory items&quot;
+.
+
+# Test 5: Hero level up progression
+lvlBefore is level of hero
+maxHpBefore is maxHealth of hero
+newLvl is levelUp hero
+
+if newLvl is not 2
+    say &quot;FAIL: expected level 2 after levelUp&quot;
+.
+if maxHealth of hero is not 120
+    say &quot;FAIL: expected 120 maxHealth after levelUp&quot;
+.
+
+# Test 6: Persistence of game state
+saveFile is &quot;test_rpg_save.json&quot;
+a SaveRecord has
+    heroLevel
+    heroHealth
+.
+saveRecord is a SaveRecord
+heroLevel of saveRecord is level of hero
+heroHealth of saveRecord is health of hero
+writeJsonObject saveFile saveRecord
+
+loadedRecord is readJsonObject saveFile
+if heroLevel of loadedRecord is not 2
+    say &quot;FAIL: expected loaded hero level 2&quot;
+.
+
+writeSafe saveFile &quot;&quot;
+
+say &quot;RPG adventure tests passed.&quot;
+</textarea>
+    </div><div role="tabpanel" id="panel-3" aria-labelledby="tab-3" class="lib-code-panel is-hidden" data-file-panel="3">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">examples/demo.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-3">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># ==============================================================================</span>
+<span class="tok-com"># Demo: RPG Adventure Mechanics</span>
+<span class="tok-com"># ==============================================================================</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;=== RPG Adventure Combat Demo ===&quot;</span>
+
+hero <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Aria&quot;</span> <span class="tok-num">100</span> <span class="tok-num">1</span>
+boss <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Shadow Knight&quot;</span> <span class="tok-num">90</span> <span class="tok-num">2</span>
+inv <span class="tok-kw">is</span> createInventory <span class="tok-num">6</span>
+
+starterDagger <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Rune Dagger&quot;</span> <span class="tok-str">&quot;weapon&quot;</span> <span class="tok-num">20</span>
+addItemToInventory inv starterDagger
+
+strikeSkill <span class="tok-kw">is</span> createCooldown <span class="tok-str">&quot;Shadow Strike&quot;</span> <span class="tok-num">8</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Hero entered the dungeon with:&quot;</span>
+<span class="tok-kw">say</span> itemName <span class="tok-kw">of</span> starterDagger
+
+<span class="tok-com"># Strike 1 with skill</span>
+canStrike <span class="tok-kw">is</span> isCooldownReady strikeSkill <span class="tok-num">50</span>
+<span class="tok-kw">if</span> canStrike <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    triggerCooldown strikeSkill <span class="tok-num">50</span>
+    dmg <span class="tok-kw">is</span> <span class="tok-num">45</span>
+    rem <span class="tok-kw">is</span> applyDamage boss dmg
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Hero executes Shadow Strike! Boss HP remaining:&quot;</span>
+    <span class="tok-kw">say</span> rem
+.
+
+<span class="tok-com"># Strike 2 with weapon</span>
+wAtk <span class="tok-kw">is</span> <span class="tok-num">25</span> <span class="tok-kw">plus</span> itemPower <span class="tok-kw">of</span> starterDagger
+rem2 <span class="tok-kw">is</span> applyDamage boss wAtk
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Hero strikes with weapon! Boss HP remaining:&quot;</span>
+remClamped <span class="tok-kw">is</span> maxVal rem2 <span class="tok-num">0</span>
+<span class="tok-kw">say</span> remClamped
+
+<span class="tok-com"># Defeat check and reward</span>
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> boss <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Boss defeated! Granting loot and XP.&quot;</span>
+    loot <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Dark Knight Armor&quot;</span> <span class="tok-str">&quot;armor&quot;</span> <span class="tok-num">35</span>
+    addItemToInventory inv loot
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Acquired:&quot;</span>
+    <span class="tok-kw">say</span> itemName <span class="tok-kw">of</span> loot
+    lvl <span class="tok-kw">is</span> levelUp hero
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Hero reached level:&quot;</span>
+    <span class="tok-kw">say</span> lvl
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;RPG adventure demo finished successfully.&quot;</span>
+</code></pre>
+      <textarea id="raw-code-3" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># ==============================================================================
+# Demo: RPG Adventure Mechanics
+# ==============================================================================
+
+use &quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;
+
+say &quot;=== RPG Adventure Combat Demo ===&quot;
+
+hero is createActor &quot;Aria&quot; 100 1
+boss is createActor &quot;Shadow Knight&quot; 90 2
+inv is createInventory 6
+
+starterDagger is createItem &quot;Rune Dagger&quot; &quot;weapon&quot; 20
+addItemToInventory inv starterDagger
+
+strikeSkill is createCooldown &quot;Shadow Strike&quot; 8
+
+say &quot;Hero entered the dungeon with:&quot;
+say itemName of starterDagger
+
+# Strike 1 with skill
+canStrike is isCooldownReady strikeSkill 50
+if canStrike is true
+    triggerCooldown strikeSkill 50
+    dmg is 45
+    rem is applyDamage boss dmg
+    say &quot;Hero executes Shadow Strike! Boss HP remaining:&quot;
+    say rem
+.
+
+# Strike 2 with weapon
+wAtk is 25 plus itemPower of starterDagger
+rem2 is applyDamage boss wAtk
+say &quot;Hero strikes with weapon! Boss HP remaining:&quot;
+remClamped is maxVal rem2 0
+say remClamped
+
+# Defeat check and reward
+if isAlive of boss is false
+    say &quot;Boss defeated! Granting loot and XP.&quot;
+    loot is createItem &quot;Dark Knight Armor&quot; &quot;armor&quot; 35
+    addItemToInventory inv loot
+    say &quot;Acquired:&quot;
+    say itemName of loot
+    lvl is levelUp hero
+    say &quot;Hero reached level:&quot;
+    say lvl
+.
+
+say &quot;RPG adventure demo finished successfully.&quot;
+</textarea>
+    </div>
+  </section>
+
+        <section class="lib-panel" aria-labelledby="install-heading">
+          <div class="lib-panel-head">
+            <h2 id="install-heading">Installation &amp; Usage</h2>
+            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+          </div>
+          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> recipe inspect <span class="tok-kw">otter</span>-official/rpg-adventure
+<span class="tok-kw">otter</span> recipe apply <span class="tok-kw">otter</span>-official/rpg-adventure --project ./my-app</code></pre>
+          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter recipe inspect otter-official/rpg-adventure
+otter recipe apply otter-official/rpg-adventure --project ./my-app</textarea>
+          <p class="lib-usage-text">This application creates an RPG battle game. Your hero fights monsters using special abilities with cooldowns, collects weapons into an inventory, equips items for extra power, and levels up when enemies are defeated.</p>
+        </section>
+
+        <section class="lib-panel" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Components</h2>
+        <div class="lib-related-grid">
+          <a class="lib-related-card" href="/library/blueprint-otter-official-game-combat/">
+            <span class="lib-related-cat">Otter · Blueprints</span>
+            <strong>RPG Combat Starter Blueprint</strong>
+            <span>Connect actor creation, damage calculation, defeat conditions, and rewards.</span>
+          </a><a class="lib-related-card" href="/library/pack-otter-official-file-helpers/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>file-helpers Pack</strong>
+            <span>Safe file I/O and JSON storage utilities: readOrFallback, writeSafe, appendSafe, deleteFileSafe, fileExistsSaf…</span>
+          </a><a class="lib-related-card" href="/library/pack-otter-official-game-entity/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>game-entity Pack</strong>
+            <span>Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, le…</span>
+          </a><a class="lib-related-card" href="/library/pack-otter-official-math-utils/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>math-utils Pack</strong>
+            <span>Essential mathematical helpers: clamp, lerp, mapRange, minVal, maxVal, calcAverage, calcSum, calcPercentage, r…</span>
+          </a>
+        </div>
+      </section>
+      </div>
+
+      <aside class="lib-detail-aside" aria-label="Component metadata">
+        <section class="lib-aside-card">
+          <h3>Verification Status</h3>
+          <p class="lib-ver-badge-block lib-badge-tested">Upstream Recipe Tested</p>
+          <p class="lib-aside-copy">Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-recipes.ps1; imported with SHA-256 provenance verification.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Dependencies</h3>
+          <ul class="lib-meta-list"><li><code>otter-official/game-entity</code> <span>1.1.0</span></li><li><code>otter-official/math-utils</code> <span>1.0.1</span></li><li><code>otter-official/file-helpers</code> <span>1.0.1</span></li><li><code>otter-official/game-combat</code> <span>1.0.0</span></li></ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Compatibility &amp; Platforms</h3>
+          <ul class="lib-meta-list">
+            <li>Otter (console)</li>
+          </ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Tags</h3>
+          <div class="lib-tags-wrap">
+            <a class="lib-tag" href="/library/?q=recipe">#recipe</a><a class="lib-tag" href="/library/?q=console">#console</a><a class="lib-tag" href="/library/?q=game">#game</a><a class="lib-tag" href="/library/?q=files">#files</a>
+          </div>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Catalog Provenance</h3>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
+      <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="footerLibraryLink" class="otter-link" href="/library/" style="color: #b7c4d8; font-size: 13px;">Library</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerQuickRef" class="otter-link" href="/quick-reference/" style="color: #b7c4d8; font-size: 13px;">Quick reference</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerPrivacy" class="otter-link" href="/privacy/" style="color: #b7c4d8; font-size: 13px;">Privacy</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+</div>
+</body>
+</html>

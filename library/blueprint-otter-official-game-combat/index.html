@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPG Combat Starter Blueprint - Otter Component Library</title>
+<meta name="description" content="Connect actor creation, damage calculation, defeat conditions, and rewards.">
+<link rel="canonical" href="https://otterprogramming.com/library/blueprint-otter-official-game-combat/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otter Programming Language">
+<meta property="og:title" content="RPG Combat Starter Blueprint - Otter Component Library">
+<meta property="og:description" content="Connect actor creation, damage calculation, defeat conditions, and rewards.">
+<meta property="og:url" content="https://otterprogramming.com/library/blueprint-otter-official-game-combat/">
+<meta property="og:image" content="https://otterprogramming.com/static/images/otter-site-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RPG Combat Starter Blueprint - Otter Component Library">
+<meta name="twitter:description" content="Connect actor creation, damage calculation, defeat conditions, and rewards.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"RPG Combat Starter Blueprint","description":"Connect actor creation, damage calculation, defeat conditions, and rewards.","url":"https://otterprogramming.com/library/blueprint-otter-official-game-combat/","programmingLanguage":"Otter","runtimePlatform":"Otter (console), Otter (game)","version":"1.0.0","license":"MIT","codeRepository":"https://github.com/Heavens-Lava/otter-net"}</script>
+<style>
+    :root {
+      --otter-bg: #f4f7fb;
+      --otter-card-bg: #1e293b;
+      --otter-text: #0f1f36;
+      --otter-text-muted: #94a3b8;
+      --otter-primary: #2563eb;
+      --otter-primary-hover: #1d4ed8;
+      --otter-input-bg: #0f172a;
+      --otter-border: #334155;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #0f1f36;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    body.otter-has-page {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body.otter-has-page.otter-doc-scroll {
+      height: auto;
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .otter-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-column {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-window {
+      background-color: #1e293b;
+      border: 1px solid var(--otter-border);
+      width: 100%;
+      max-width: 520px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-page {
+      background: transparent;
+      border: none;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-card {
+      background-color: var(--otter-card-bg);
+      border: 1px solid var(--otter-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .otter-button {
+      background-color: var(--otter-primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.08s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .otter-button:hover { background-color: var(--otter-primary-hover); }
+    .otter-button:active { transform: scale(0.98); }
+    .otter-text-box {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .otter-text-box:focus {
+      border-color: var(--otter-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .otter-text {
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .otter-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
+    .otter-button-primary, .otter-btn-primary {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-primary:hover, .otter-btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .otter-button-secondary, .otter-btn-secondary {
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otter-button-secondary:hover, .otter-btn-secondary:hover {
+      background-color: #475569;
+    }
+    .otter-button-danger, .otter-btn-danger {
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-danger:hover, .otter-btn-danger:hover {
+      background-color: #b91c1c;
+    }
+    .otter-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-conditional {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .otter-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--otter-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .otter-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    .otter-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .otter-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    .otter-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+    .otter-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-select {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .otter-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-text-area,
+    .otter-textarea {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .otter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(37,99,235,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .otter-canvas {
+      background: #020617;
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      max-width: 100%;
+      display: block;
+    }
+    .otter-progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--otter-border);
+      background: var(--otter-input-bg);
+    }
+    .otter-progress::-webkit-progress-bar {
+      background: var(--otter-input-bg);
+      border-radius: 9999px;
+    }
+    .otter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .otter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+    }
+    .otter-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .otter-toggle-track {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .otter-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .otter-toggle:checked + .otter-toggle-track {
+      background: var(--otter-primary);
+    }
+    .otter-toggle:checked + .otter-toggle-track .otter-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .otter-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-radio {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .otter-toast {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      animation: otterToastIn 0.25s ease-out;
+      max-width: 320px;
+    }
+    @keyframes otterToastIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #otter-live-output {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: none;
+    }
+
+  </style>
+<link rel="icon" href="/static/images/otter-site-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/static/images/otter-site-icon.png">
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<link rel="stylesheet" href="/static/library-app.css">
+<script defer src="/static/docs-enhancements.js"></script>
+<script type="module" src="/static/library-app.js"></script>
+</head>
+<body class="otter-has-page otter-doc-scroll lib-body">
+<div class="otter-page" id="app" style="width:100%;max-width:100%;background:#f4f7fb;color:#0f1f36;padding:0px;gap:0px;">
+  <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
+      <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
+</div>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navLibrary" class="otter-link" href="/library/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Library</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 214px; text-align: left;;">Search docs &amp; library...  Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+  <main class="lib-detail-main" id="libraryDetailMain">
+    <nav class="lib-crumbs" aria-label="Breadcrumb">
+      <a href="/library/">Otter Library</a>
+      <span aria-hidden="true">/</span>
+      <a href="/library/?category=otter">Otter</a>
+      <span aria-hidden="true">/</span>
+      <span>RPG Combat Starter Blueprint</span>
+    </nav>
+
+    <header class="lib-detail-hero">
+      <div class="lib-detail-badges">
+        <span class="lib-cat-chip lib-cat-otter">Otter</span>
+        <span class="lib-sub-chip">Blueprints</span>
+        <span class="lib-lang-chip">Otter</span>
+        <span class="lib-ver-chip lib-badge-tested">Upstream Blueprint Tested</span>
+      </div>
+      <h1>RPG Combat Starter Blueprint</h1>
+      <p class="lib-detail-desc">Connect actor creation, damage calculation, defeat conditions, and rewards.</p>
+      <div class="lib-detail-quickmeta">
+        <span><strong>ID:</strong> <code>otter-official/game-combat</code></span>
+        <span><strong>Version:</strong> 1.0.0</span>
+        <span><strong>License:</strong> MIT</span>
+        <span><strong>Framework:</strong> Otter &gt;=1.0.1</span>
+      </div>
+    </header>
+
+    <div class="lib-detail-layout">
+      <div class="lib-detail-primary">
+        <section class="lib-panel" aria-labelledby="preview-heading">
+    <div class="lib-panel-head">
+      <h2 id="preview-heading">Architecture &amp; Runtime Preview</h2>
+      <span class="lib-pill">Otter &gt;=1.0.1</span>
+    </div>
+    <p class="lib-preview-caption">Data flows from enemyInit and attack into game-entity.applyDamage. The remaining health is evaluated by a conditional defeat check, which activates victory reward output when health is at most 0.</p>
+    
+    <ol class="lib-arch-list"><li class="lib-arch-step"><span class="lib-arch-num">1</span><span>Spawn Enemy (pack-call: game-entity.createActor)</span></li><li class="lib-arch-step"><span class="lib-arch-num">2</span><span>Player Attack (input)</span></li><li class="lib-arch-step"><span class="lib-arch-num">3</span><span>Apply Combat Damage (pack-call: game-entity.applyDamage)</span></li><li class="lib-arch-step"><span class="lib-arch-num">4</span><span>Check Defeat Condition (condition)</span></li><li class="lib-arch-step"><span class="lib-arch-num">5</span><span>Grant Victory Reward (output)</span></li></ol>
+    
+  </section>
+        <section class="lib-panel" aria-labelledby="source-heading">
+    <div class="lib-panel-head">
+      <h2 id="source-heading">Source Code (4 files)</h2>
+      <span class="lib-copy-live" aria-live="polite"></span>
+    </div>
+    <div class="lib-tabs" role="tablist" aria-label="Component source files"><button type="button" role="tab" class="lib-tab is-active" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0" data-file-index="0">otter.blueprint.json</button><button type="button" role="tab" class="lib-tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1" data-file-index="1">templates/combat.ot.tmpl</button><button type="button" role="tab" class="lib-tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1" data-file-index="2">tests/test.ot</button><button type="button" role="tab" class="lib-tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1" data-file-index="3">examples/demo.ot</button></div>
+    <div role="tabpanel" id="panel-0" aria-labelledby="tab-0" class="lib-code-panel" data-file-panel="0">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">otter.blueprint.json · json</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-0">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="json">{
+  <span class="tok-key">&quot;schemaVersion&quot;</span>: <span class="tok-num">1</span>,
+  <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/game-combat&quot;</span>,
+  <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">0</span>&quot;</span>,
+  <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;RPG Combat Starter&quot;</span>,
+  <span class="tok-key">&quot;summary&quot;</span>: <span class="tok-str">&quot;Connect actor creation, damage calculation, defeat conditions, and rewards.&quot;</span>,
+  <span class="tok-key">&quot;targets&quot;</span>: [&quot;console&quot;, &quot;game&quot;],
+  <span class="tok-key">&quot;requiresOtter&quot;</span>: <span class="tok-str">&quot;&gt;=<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span>,
+  <span class="tok-key">&quot;packs&quot;</span>: [
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/math-utils&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/game-entity&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.1</span>.<span class="tok-num">0</span>&quot;</span> }
+  ],
+  <span class="tok-key">&quot;configuration&quot;</span>: [
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;startingHealth&quot;</span>,
+      <span class="tok-key">&quot;label&quot;</span>: <span class="tok-str">&quot;Enemy Starting Health&quot;</span>,
+      <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span>,
+      <span class="tok-key">&quot;default&quot;</span>: <span class="tok-num">100</span>,
+      <span class="tok-key">&quot;minimum&quot;</span>: <span class="tok-num">1</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Initial health pool of the combat opponent&quot;</span>
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;baseAttackDamage&quot;</span>,
+      <span class="tok-key">&quot;label&quot;</span>: <span class="tok-str">&quot;Player Base Attack Damage&quot;</span>,
+      <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span>,
+      <span class="tok-key">&quot;default&quot;</span>: <span class="tok-num">35</span>,
+      <span class="tok-key">&quot;minimum&quot;</span>: <span class="tok-num">1</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Base damage dealt before defense or level multipliers&quot;</span>
+    }
+  ],
+  <span class="tok-key">&quot;nodes&quot;</span>: [
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;enemyInit&quot;</span>,
+      <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Spawn Enemy&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;capability&quot;</span>: <span class="tok-str">&quot;game-entity.createActor&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;enemy&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> }],
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Instantiate the opponent entity with starting health&quot;</span>
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;attack&quot;</span>,
+      <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Player Attack&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;input&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;damage&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }],
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Player triggers an attack delivering base damage&quot;</span>
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;applyDamage&quot;</span>,
+      <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Apply Combat Damage&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;capability&quot;</span>: <span class="tok-str">&quot;game-entity.applyDamage&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [
+        { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;required&quot;</span>: <span class="tok-kw">true</span> },
+        { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;amount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span>, <span class="tok-key">&quot;required&quot;</span>: <span class="tok-kw">true</span> }
+      ],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;remainingHealth&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }],
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Deduct damage from enemy health and update alive state&quot;</span>
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;defeatCheck&quot;</span>,
+      <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Check Defeat Condition&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;condition&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [
+        { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;health&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span>, <span class="tok-key">&quot;required&quot;</span>: <span class="tok-kw">true</span> }
+      ],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isDefeated&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> }],
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Branch when enemy health drops to or below zero&quot;</span>
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;reward&quot;</span>,
+      <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Grant Victory Reward&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;output&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [
+        { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isDefeated&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span>, <span class="tok-key">&quot;required&quot;</span>: <span class="tok-kw">true</span> }
+      ],
+      <span class="tok-key">&quot;outputs&quot;</span>: [],
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Display battle outcome and grant experience points&quot;</span>
+    }
+  ],
+  <span class="tok-key">&quot;edges&quot;</span>: [
+    { <span class="tok-key">&quot;from&quot;</span>: <span class="tok-str">&quot;enemyInit.enemy&quot;</span>, <span class="tok-key">&quot;to&quot;</span>: <span class="tok-str">&quot;applyDamage.actor&quot;</span>, <span class="tok-key">&quot;label&quot;</span>: <span class="tok-str">&quot;target&quot;</span> },
+    { <span class="tok-key">&quot;from&quot;</span>: <span class="tok-str">&quot;attack.damage&quot;</span>, <span class="tok-key">&quot;to&quot;</span>: <span class="tok-str">&quot;applyDamage.amount&quot;</span>, <span class="tok-key">&quot;label&quot;</span>: <span class="tok-str">&quot;damage amount&quot;</span> },
+    { <span class="tok-key">&quot;from&quot;</span>: <span class="tok-str">&quot;applyDamage.remainingHealth&quot;</span>, <span class="tok-key">&quot;to&quot;</span>: <span class="tok-str">&quot;defeatCheck.health&quot;</span>, <span class="tok-key">&quot;label&quot;</span>: <span class="tok-str">&quot;remaining hp&quot;</span> },
+    { <span class="tok-key">&quot;from&quot;</span>: <span class="tok-str">&quot;defeatCheck.isDefeated&quot;</span>, <span class="tok-key">&quot;to&quot;</span>: <span class="tok-str">&quot;reward.isDefeated&quot;</span>, <span class="tok-key">&quot;label&quot;</span>: <span class="tok-str">&quot;victory flag&quot;</span> }
+  ],
+  <span class="tok-key">&quot;generatedFiles&quot;</span>: [
+    {
+      <span class="tok-key">&quot;path&quot;</span>: <span class="tok-str">&quot;src/combat.ot&quot;</span>,
+      <span class="tok-key">&quot;template&quot;</span>: <span class="tok-str">&quot;templates/combat.ot.tmpl&quot;</span>
+    }
+  ],
+  <span class="tok-key">&quot;explanations&quot;</span>: {
+    <span class="tok-key">&quot;beginner&quot;</span>: <span class="tok-str">&quot;This blueprint sets up a game combat fight. It spawns an enemy with <span class="tok-num">100</span> health, deals <span class="tok-num">35</span> damage with an attack, checks if the enemy was defeated, and prints the result.&quot;</span>,
+    <span class="tok-key">&quot;intermediate&quot;</span>: <span class="tok-str">&quot;Data flows from enemyInit and attack into game-entity.applyDamage. The remaining health is evaluated by a conditional defeat check, which activates victory reward output when health is at most <span class="tok-num">0</span>.&quot;</span>,
+    <span class="tok-key">&quot;advanced&quot;</span>: <span class="tok-str">&quot;Composes otter-official/game-entity Actor state and applyDamage pure mutation with otter-official/math-utils. Emits idiomatic relative imports: use \&quot;.otter/packages/otter-official/game-entity/src/main.ot\&quot;.&quot;</span>
+  },
+  <span class="tok-key">&quot;tests&quot;</span>: [
+    &quot;tests/test.ot&quot;
+  ]
+}
+</code></pre>
+      <textarea id="raw-code-0" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;id&quot;: &quot;otter-official/game-combat&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;title&quot;: &quot;RPG Combat Starter&quot;,
+  &quot;summary&quot;: &quot;Connect actor creation, damage calculation, defeat conditions, and rewards.&quot;,
+  &quot;targets&quot;: [&quot;console&quot;, &quot;game&quot;],
+  &quot;requiresOtter&quot;: &quot;&gt;=1.0.1&quot;,
+  &quot;packs&quot;: [
+    { &quot;id&quot;: &quot;otter-official/math-utils&quot;, &quot;version&quot;: &quot;1.0.1&quot; },
+    { &quot;id&quot;: &quot;otter-official/game-entity&quot;, &quot;version&quot;: &quot;1.1.0&quot; }
+  ],
+  &quot;configuration&quot;: [
+    {
+      &quot;id&quot;: &quot;startingHealth&quot;,
+      &quot;label&quot;: &quot;Enemy Starting Health&quot;,
+      &quot;type&quot;: &quot;number&quot;,
+      &quot;default&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;Initial health pool of the combat opponent&quot;
+    },
+    {
+      &quot;id&quot;: &quot;baseAttackDamage&quot;,
+      &quot;label&quot;: &quot;Player Base Attack Damage&quot;,
+      &quot;type&quot;: &quot;number&quot;,
+      &quot;default&quot;: 35,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;Base damage dealt before defense or level multipliers&quot;
+    }
+  ],
+  &quot;nodes&quot;: [
+    {
+      &quot;id&quot;: &quot;enemyInit&quot;,
+      &quot;title&quot;: &quot;Spawn Enemy&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;capability&quot;: &quot;game-entity.createActor&quot;,
+      &quot;inputs&quot;: [],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;enemy&quot;, &quot;type&quot;: &quot;object&quot; }],
+      &quot;description&quot;: &quot;Instantiate the opponent entity with starting health&quot;
+    },
+    {
+      &quot;id&quot;: &quot;attack&quot;,
+      &quot;title&quot;: &quot;Player Attack&quot;,
+      &quot;kind&quot;: &quot;input&quot;,
+      &quot;inputs&quot;: [],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;damage&quot;, &quot;type&quot;: &quot;number&quot; }],
+      &quot;description&quot;: &quot;Player triggers an attack delivering base damage&quot;
+    },
+    {
+      &quot;id&quot;: &quot;applyDamage&quot;,
+      &quot;title&quot;: &quot;Apply Combat Damage&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;capability&quot;: &quot;game-entity.applyDamage&quot;,
+      &quot;inputs&quot;: [
+        { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;amount&quot;, &quot;type&quot;: &quot;number&quot;, &quot;required&quot;: true }
+      ],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;remainingHealth&quot;, &quot;type&quot;: &quot;number&quot; }],
+      &quot;description&quot;: &quot;Deduct damage from enemy health and update alive state&quot;
+    },
+    {
+      &quot;id&quot;: &quot;defeatCheck&quot;,
+      &quot;title&quot;: &quot;Check Defeat Condition&quot;,
+      &quot;kind&quot;: &quot;condition&quot;,
+      &quot;inputs&quot;: [
+        { &quot;name&quot;: &quot;health&quot;, &quot;type&quot;: &quot;number&quot;, &quot;required&quot;: true }
+      ],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;isDefeated&quot;, &quot;type&quot;: &quot;boolean&quot; }],
+      &quot;description&quot;: &quot;Branch when enemy health drops to or below zero&quot;
+    },
+    {
+      &quot;id&quot;: &quot;reward&quot;,
+      &quot;title&quot;: &quot;Grant Victory Reward&quot;,
+      &quot;kind&quot;: &quot;output&quot;,
+      &quot;inputs&quot;: [
+        { &quot;name&quot;: &quot;isDefeated&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;required&quot;: true }
+      ],
+      &quot;outputs&quot;: [],
+      &quot;description&quot;: &quot;Display battle outcome and grant experience points&quot;
+    }
+  ],
+  &quot;edges&quot;: [
+    { &quot;from&quot;: &quot;enemyInit.enemy&quot;, &quot;to&quot;: &quot;applyDamage.actor&quot;, &quot;label&quot;: &quot;target&quot; },
+    { &quot;from&quot;: &quot;attack.damage&quot;, &quot;to&quot;: &quot;applyDamage.amount&quot;, &quot;label&quot;: &quot;damage amount&quot; },
+    { &quot;from&quot;: &quot;applyDamage.remainingHealth&quot;, &quot;to&quot;: &quot;defeatCheck.health&quot;, &quot;label&quot;: &quot;remaining hp&quot; },
+    { &quot;from&quot;: &quot;defeatCheck.isDefeated&quot;, &quot;to&quot;: &quot;reward.isDefeated&quot;, &quot;label&quot;: &quot;victory flag&quot; }
+  ],
+  &quot;generatedFiles&quot;: [
+    {
+      &quot;path&quot;: &quot;src/combat.ot&quot;,
+      &quot;template&quot;: &quot;templates/combat.ot.tmpl&quot;
+    }
+  ],
+  &quot;explanations&quot;: {
+    &quot;beginner&quot;: &quot;This blueprint sets up a game combat fight. It spawns an enemy with 100 health, deals 35 damage with an attack, checks if the enemy was defeated, and prints the result.&quot;,
+    &quot;intermediate&quot;: &quot;Data flows from enemyInit and attack into game-entity.applyDamage. The remaining health is evaluated by a conditional defeat check, which activates victory reward output when health is at most 0.&quot;,
+    &quot;advanced&quot;: &quot;Composes otter-official/game-entity Actor state and applyDamage pure mutation with otter-official/math-utils. Emits idiomatic relative imports: use \&quot;.otter/packages/otter-official/game-entity/src/main.ot\&quot;.&quot;
+  },
+  &quot;tests&quot;: [
+    &quot;tests/test.ot&quot;
+  ]
+}
+</textarea>
+    </div><div role="tabpanel" id="panel-1" aria-labelledby="tab-1" class="lib-code-panel is-hidden" data-file-panel="1">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">templates/combat.ot.tmpl · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-1">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># Generated by Otter Blueprint: otter-official/game-combat 1.0.0</span>
+<span class="tok-com"># Standard editable Otter 1.0.1 source code</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/game-entity}&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/math-utils}&quot;</span>
+
+<span class="tok-com"># Step 1: Spawn Opponent</span>
+enemyHp <span class="tok-kw">is</span> ${startingHealth}
+enemy <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Dungeon Goblin&quot;</span> enemyHp <span class="tok-num">1</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Enemy encountered:&quot;</span> name <span class="tok-kw">of</span> enemy <span class="tok-str">&quot;with&quot;</span> health <span class="tok-kw">of</span> enemy <span class="tok-str">&quot;HP&quot;</span>
+
+<span class="tok-com"># Step 2: Player Attack</span>
+attackDmg <span class="tok-kw">is</span> ${baseAttackDamage}
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Player attacks for&quot;</span> attackDmg <span class="tok-str">&quot;damage!&quot;</span>
+
+<span class="tok-com"># Step 3: Apply Combat Damage</span>
+remHp <span class="tok-kw">is</span> applyDamage enemy attackDmg
+<span class="tok-kw">say</span> name <span class="tok-kw">of</span> enemy <span class="tok-str">&quot;remaining HP:&quot;</span> remHp
+
+<span class="tok-com"># Step 4: Check Defeat Condition and Grant Reward</span>
+<span class="tok-kw">if</span> remHp <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Victory! The enemy has been defeated.&quot;</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Experience awarded: 100 XP&quot;</span>
+<span class="tok-kw">otherwise</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;The battle continues! Enemy is still standing.&quot;</span>
+.
+</code></pre>
+      <textarea id="raw-code-1" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># Generated by Otter Blueprint: otter-official/game-combat 1.0.0
+# Standard editable Otter 1.0.1 source code
+
+use &quot;${import:otter-official/game-entity}&quot;
+use &quot;${import:otter-official/math-utils}&quot;
+
+# Step 1: Spawn Opponent
+enemyHp is ${startingHealth}
+enemy is createActor &quot;Dungeon Goblin&quot; enemyHp 1
+say &quot;Enemy encountered:&quot; name of enemy &quot;with&quot; health of enemy &quot;HP&quot;
+
+# Step 2: Player Attack
+attackDmg is ${baseAttackDamage}
+say &quot;Player attacks for&quot; attackDmg &quot;damage!&quot;
+
+# Step 3: Apply Combat Damage
+remHp is applyDamage enemy attackDmg
+say name of enemy &quot;remaining HP:&quot; remHp
+
+# Step 4: Check Defeat Condition and Grant Reward
+if remHp is at most 0
+    say &quot;Victory! The enemy has been defeated.&quot;
+    say &quot;Experience awarded: 100 XP&quot;
+otherwise
+    say &quot;The battle continues! Enemy is still standing.&quot;
+.
+</textarea>
+    </div><div role="tabpanel" id="panel-2" aria-labelledby="tab-2" class="lib-code-panel is-hidden" data-file-panel="2">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">tests/test.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-2">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># Integration tests for game-combat Blueprint</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;</span>
+
+<span class="tok-com"># Test 1: Spawn Opponent</span>
+enemyHp <span class="tok-kw">is</span> <span class="tok-num">100</span>
+enemy <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Dungeon Goblin&quot;</span> enemyHp <span class="tok-num">1</span>
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> enemy <span class="tok-kw">is</span> <span class="tok-num">100</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;test 1 passed: enemy spawned with configured hp&quot;</span>
+.
+
+<span class="tok-com"># Test 2: Apply Damage</span>
+attackDmg <span class="tok-kw">is</span> <span class="tok-num">35</span>
+remHp <span class="tok-kw">is</span> applyDamage enemy attackDmg
+<span class="tok-kw">if</span> remHp <span class="tok-kw">is</span> <span class="tok-num">65</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;test 2 passed: damage deducted accurately&quot;</span>
+.
+
+<span class="tok-com"># Test 3: Defeat condition</span>
+fatalDmg <span class="tok-kw">is</span> <span class="tok-num">70</span>
+remAfterFatal <span class="tok-kw">is</span> applyDamage enemy fatalDmg
+<span class="tok-kw">if</span> remAfterFatal <span class="tok-kw">is</span> <span class="tok-num">0</span> <span class="tok-kw">and</span> isAlive <span class="tok-kw">of</span> enemy <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;test 3 passed: defeat condition triggers properly&quot;</span>
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;All game-combat tests passed.&quot;</span>
+</code></pre>
+      <textarea id="raw-code-2" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># Integration tests for game-combat Blueprint
+use &quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;
+
+# Test 1: Spawn Opponent
+enemyHp is 100
+enemy is createActor &quot;Dungeon Goblin&quot; enemyHp 1
+if health of enemy is 100
+    say &quot;test 1 passed: enemy spawned with configured hp&quot;
+.
+
+# Test 2: Apply Damage
+attackDmg is 35
+remHp is applyDamage enemy attackDmg
+if remHp is 65
+    say &quot;test 2 passed: damage deducted accurately&quot;
+.
+
+# Test 3: Defeat condition
+fatalDmg is 70
+remAfterFatal is applyDamage enemy fatalDmg
+if remAfterFatal is 0 and isAlive of enemy is false
+    say &quot;test 3 passed: defeat condition triggers properly&quot;
+.
+
+say &quot;All game-combat tests passed.&quot;
+</textarea>
+    </div><div role="tabpanel" id="panel-3" aria-labelledby="tab-3" class="lib-code-panel is-hidden" data-file-panel="3">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">examples/demo.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-3">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># Demo for game-combat Blueprint</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;=== RPG Combat Blueprint Demo ===&quot;</span>
+
+<span class="tok-com"># Step 1: Spawn Opponent</span>
+enemyHp <span class="tok-kw">is</span> <span class="tok-num">100</span>
+enemy <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Dungeon Goblin&quot;</span> enemyHp <span class="tok-num">1</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Enemy encountered:&quot;</span> name <span class="tok-kw">of</span> enemy <span class="tok-str">&quot;with&quot;</span> health <span class="tok-kw">of</span> enemy <span class="tok-str">&quot;HP&quot;</span>
+
+<span class="tok-com"># Step 2: Player Attack</span>
+attackDmg <span class="tok-kw">is</span> <span class="tok-num">35</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Player attacks for&quot;</span> attackDmg <span class="tok-str">&quot;damage!&quot;</span>
+
+<span class="tok-com"># Step 3: Apply Combat Damage</span>
+remHp <span class="tok-kw">is</span> applyDamage enemy attackDmg
+<span class="tok-kw">say</span> name <span class="tok-kw">of</span> enemy <span class="tok-str">&quot;remaining HP:&quot;</span> remHp
+
+<span class="tok-com"># Step 4: Check Defeat Condition</span>
+<span class="tok-kw">if</span> remHp <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Victory! The enemy has been defeated.&quot;</span>
+<span class="tok-kw">otherwise</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;The battle continues! Enemy is still standing.&quot;</span>
+.
+</code></pre>
+      <textarea id="raw-code-3" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># Demo for game-combat Blueprint
+use &quot;../../../../packs/otter-official/game-entity/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/math-utils/src/main.ot&quot;
+
+say &quot;=== RPG Combat Blueprint Demo ===&quot;
+
+# Step 1: Spawn Opponent
+enemyHp is 100
+enemy is createActor &quot;Dungeon Goblin&quot; enemyHp 1
+say &quot;Enemy encountered:&quot; name of enemy &quot;with&quot; health of enemy &quot;HP&quot;
+
+# Step 2: Player Attack
+attackDmg is 35
+say &quot;Player attacks for&quot; attackDmg &quot;damage!&quot;
+
+# Step 3: Apply Combat Damage
+remHp is applyDamage enemy attackDmg
+say name of enemy &quot;remaining HP:&quot; remHp
+
+# Step 4: Check Defeat Condition
+if remHp is at most 0
+    say &quot;Victory! The enemy has been defeated.&quot;
+otherwise
+    say &quot;The battle continues! Enemy is still standing.&quot;
+.
+</textarea>
+    </div>
+  </section>
+
+        <section class="lib-panel" aria-labelledby="install-heading">
+          <div class="lib-panel-head">
+            <h2 id="install-heading">Installation &amp; Usage</h2>
+            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+          </div>
+          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> blueprint explain <span class="tok-kw">otter</span>-official/game-combat
+<span class="tok-kw">otter</span> blueprint apply <span class="tok-kw">otter</span>-official/game-combat --project ./my-app</code></pre>
+          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter blueprint explain otter-official/game-combat
+otter blueprint apply otter-official/game-combat --project ./my-app</textarea>
+          <p class="lib-usage-text">This blueprint sets up a game combat fight. It spawns an enemy with 100 health, deals 35 damage with an attack, checks if the enemy was defeated, and prints the result.</p>
+        </section>
+
+        <section class="lib-panel" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Components</h2>
+        <div class="lib-related-grid">
+          <a class="lib-related-card" href="/library/games-godot-health-combat/">
+            <span class="lib-related-cat">Games · Combat Systems</span>
+            <strong>Godot 4 Health &amp; Damage Component</strong>
+            <span>Signal-driven Godot 4 GDScript HealthComponent node with invulnerability frames, armor mitigation, healing cap…</span>
+          </a><a class="lib-related-card" href="/library/pack-otter-official-game-entity/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>game-entity Pack</strong>
+            <span>Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, le…</span>
+          </a><a class="lib-related-card" href="/library/pack-otter-official-math-utils/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>math-utils Pack</strong>
+            <span>Essential mathematical helpers: clamp, lerp, mapRange, minVal, maxVal, calcAverage, calcSum, calcPercentage, r…</span>
+          </a><a class="lib-related-card" href="/library/recipe-otter-official-rpg-adventure/">
+            <span class="lib-related-cat">Otter · Recipes</span>
+            <strong>RPG Adventure Game Engine Recipe</strong>
+            <span>Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and exp…</span>
+          </a>
+        </div>
+      </section>
+      </div>
+
+      <aside class="lib-detail-aside" aria-label="Component metadata">
+        <section class="lib-aside-card">
+          <h3>Verification Status</h3>
+          <p class="lib-ver-badge-block lib-badge-tested">Upstream Blueprint Tested</p>
+          <p class="lib-aside-copy">Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-blueprints.ps1; imported with SHA-256 provenance verification.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Dependencies</h3>
+          <ul class="lib-meta-list"><li><code>otter-official/math-utils</code> <span>1.0.1</span></li><li><code>otter-official/game-entity</code> <span>1.1.0</span></li></ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Compatibility &amp; Platforms</h3>
+          <ul class="lib-meta-list">
+            <li>Otter (console)</li><li>Otter (game)</li>
+          </ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Tags</h3>
+          <div class="lib-tags-wrap">
+            <a class="lib-tag" href="/library/?q=blueprint">#blueprint</a><a class="lib-tag" href="/library/?q=console">#console</a><a class="lib-tag" href="/library/?q=game">#game</a><a class="lib-tag" href="/library/?q=math-utils">#math-utils</a><a class="lib-tag" href="/library/?q=game-entity">#game-entity</a>
+          </div>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Catalog Provenance</h3>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
+      <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="footerLibraryLink" class="otter-link" href="/library/" style="color: #b7c4d8; font-size: 13px;">Library</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerQuickRef" class="otter-link" href="/quick-reference/" style="color: #b7c4d8; font-size: 13px;">Quick reference</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerPrivacy" class="otter-link" href="/privacy/" style="color: #b7c4d8; font-size: 13px;">Privacy</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+</div>
+</body>
+</html>

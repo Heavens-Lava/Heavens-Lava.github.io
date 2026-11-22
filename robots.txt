@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://otterprogramming.com/sitemap.xml

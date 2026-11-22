@@ -1,0 +1,3081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>game-entity Pack - Otter Component Library</title>
+<meta name="description" content="Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.">
+<link rel="canonical" href="https://otterprogramming.com/library/pack-otter-official-game-entity/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otter Programming Language">
+<meta property="og:title" content="game-entity Pack - Otter Component Library">
+<meta property="og:description" content="Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.">
+<meta property="og:url" content="https://otterprogramming.com/library/pack-otter-official-game-entity/">
+<meta property="og:image" content="https://otterprogramming.com/static/images/otter-site-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="game-entity Pack - Otter Component Library">
+<meta name="twitter:description" content="Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"game-entity Pack","description":"Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.","url":"https://otterprogramming.com/library/pack-otter-official-game-entity/","programmingLanguage":"Otter","runtimePlatform":"Otter (console), Otter (desktop), Otter (web)","version":"1.1.0","license":"MIT","codeRepository":"https://github.com/Heavens-Lava/otter-net"}</script>
+<style>
+    :root {
+      --otter-bg: #f4f7fb;
+      --otter-card-bg: #1e293b;
+      --otter-text: #0f1f36;
+      --otter-text-muted: #94a3b8;
+      --otter-primary: #2563eb;
+      --otter-primary-hover: #1d4ed8;
+      --otter-input-bg: #0f172a;
+      --otter-border: #334155;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #0f1f36;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    body.otter-has-page {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body.otter-has-page.otter-doc-scroll {
+      height: auto;
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .otter-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-column {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-window {
+      background-color: #1e293b;
+      border: 1px solid var(--otter-border);
+      width: 100%;
+      max-width: 520px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-page {
+      background: transparent;
+      border: none;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-card {
+      background-color: var(--otter-card-bg);
+      border: 1px solid var(--otter-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .otter-button {
+      background-color: var(--otter-primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.08s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .otter-button:hover { background-color: var(--otter-primary-hover); }
+    .otter-button:active { transform: scale(0.98); }
+    .otter-text-box {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .otter-text-box:focus {
+      border-color: var(--otter-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .otter-text {
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .otter-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
+    .otter-button-primary, .otter-btn-primary {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-primary:hover, .otter-btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .otter-button-secondary, .otter-btn-secondary {
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otter-button-secondary:hover, .otter-btn-secondary:hover {
+      background-color: #475569;
+    }
+    .otter-button-danger, .otter-btn-danger {
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-danger:hover, .otter-btn-danger:hover {
+      background-color: #b91c1c;
+    }
+    .otter-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-conditional {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .otter-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--otter-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .otter-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    .otter-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .otter-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    .otter-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+    .otter-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-select {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .otter-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-text-area,
+    .otter-textarea {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .otter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(37,99,235,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .otter-canvas {
+      background: #020617;
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      max-width: 100%;
+      display: block;
+    }
+    .otter-progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--otter-border);
+      background: var(--otter-input-bg);
+    }
+    .otter-progress::-webkit-progress-bar {
+      background: var(--otter-input-bg);
+      border-radius: 9999px;
+    }
+    .otter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .otter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+    }
+    .otter-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .otter-toggle-track {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .otter-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .otter-toggle:checked + .otter-toggle-track {
+      background: var(--otter-primary);
+    }
+    .otter-toggle:checked + .otter-toggle-track .otter-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .otter-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-radio {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .otter-toast {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      animation: otterToastIn 0.25s ease-out;
+      max-width: 320px;
+    }
+    @keyframes otterToastIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #otter-live-output {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: none;
+    }
+
+  </style>
+<link rel="icon" href="/static/images/otter-site-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/static/images/otter-site-icon.png">
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<link rel="stylesheet" href="/static/library-app.css">
+<script defer src="/static/docs-enhancements.js"></script>
+<script type="module" src="/static/library-app.js"></script>
+</head>
+<body class="otter-has-page otter-doc-scroll lib-body">
+<div class="otter-page" id="app" style="width:100%;max-width:100%;background:#f4f7fb;color:#0f1f36;padding:0px;gap:0px;">
+  <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
+      <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
+</div>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navLibrary" class="otter-link" href="/library/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Library</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 214px; text-align: left;;">Search docs &amp; library...  Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+  <main class="lib-detail-main" id="libraryDetailMain">
+    <nav class="lib-crumbs" aria-label="Breadcrumb">
+      <a href="/library/">Otter Library</a>
+      <span aria-hidden="true">/</span>
+      <a href="/library/?category=otter">Otter</a>
+      <span aria-hidden="true">/</span>
+      <span>game-entity Pack</span>
+    </nav>
+
+    <header class="lib-detail-hero">
+      <div class="lib-detail-badges">
+        <span class="lib-cat-chip lib-cat-otter">Otter</span>
+        <span class="lib-sub-chip">Packs</span>
+        <span class="lib-lang-chip">Otter</span>
+        <span class="lib-ver-chip lib-badge-verified">Upstream Contract &amp; Behavioral Tests</span>
+      </div>
+      <h1>game-entity Pack</h1>
+      <p class="lib-detail-desc">Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.</p>
+      <div class="lib-detail-quickmeta">
+        <span><strong>ID:</strong> <code>otter-official/game-entity</code></span>
+        <span><strong>Version:</strong> 1.1.0</span>
+        <span><strong>License:</strong> MIT</span>
+        <span><strong>Framework:</strong> Otter &gt;=1.0.1</span>
+      </div>
+    </header>
+
+    <div class="lib-detail-layout">
+      <div class="lib-detail-primary">
+        <section class="lib-panel" aria-labelledby="preview-heading">
+      <div class="lib-panel-head">
+        <h2 id="preview-heading">Schema v2 Operation Contract (26 operations)</h2>
+        <span class="lib-pill">Scoping Prefix: <code>_ge_</code></span>
+      </div>
+      <p class="lib-preview-caption">Schema v2 Pack exposing 26 structurally AST-verified Otter 1.0.1 operations with isolated prefix &#39;_ge_&#39;.</p>
+      <div class="lib-table-wrap">
+        <table class="lib-contract-table">
+          <thead><tr><th>Operation Signature</th><th>Returns</th><th>Side Effects</th><th>Error Mode</th></tr></thead>
+          <tbody><tr>
+        <td><code>createActor(name: text, hp: number, lvl: number)</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>createItem(itemName: text, itemKind: text, itemPower: number)</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>createStackableItem(itemName: text, itemKind: text, itemPower: number, countVal: number, maxStackVal: number)</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>applyDamage(actor: object, amount: number)</code></td>
+        <td><code>number</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>restoreHealth(actor: object, amount: number)</code></td>
+        <td><code>number</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>reviveActor(actor: object, hp: number)</code></td>
+        <td><code>number</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>levelUp(actor: object)</code></td>
+        <td><code>number</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>gainExperience(actor: object, amount: number, neededPerLevel: number)</code></td>
+        <td><code>boolean</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>createCooldown(name: text, cd: number)</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>isCooldownReady(cooldownObj: object, nowSeconds: number)</code></td>
+        <td><code>boolean</code></td>
+        <td>none</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>triggerCooldown(cooldownObj: object, nowSeconds: number)</code></td>
+        <td><code>boolean</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>createInventory(slots: number)</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>getInventoryCount(inv: object)</code></td>
+        <td><code>number</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>getInventoryCapacity(inv: object)</code></td>
+        <td><code>number</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>findItemInInventory(inv: object, targetName: text)</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-gone</code></td>
+      </tr><tr>
+        <td><code>addItemToInventory(inv: object, item: object)</code></td>
+        <td><code>boolean</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>removeItemFromInventory(inv: object, targetName: text)</code></td>
+        <td><code>boolean</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>consumeItemFromInventory(inv: object, targetName: text, amount: number)</code></td>
+        <td><code>boolean</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>createEquipment()</code></td>
+        <td><code>object</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>equipItem(equipment: object, item: object)</code></td>
+        <td><code>boolean</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>unequipSlot(equipment: object, slotName: text)</code></td>
+        <td><code>object</code></td>
+        <td>state:mutation</td>
+        <td><code>returns-gone</code></td>
+      </tr><tr>
+        <td><code>getEquipmentAttackBonus(equipment: object)</code></td>
+        <td><code>number</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>getEquipmentDefenseBonus(equipment: object)</code></td>
+        <td><code>number</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>buildItemRecord(it: object)</code></td>
+        <td><code>thing</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>serializeGameState(actor: object, inv: object, equip: object)</code></td>
+        <td><code>thing</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>deserializeGameState(stateData: thing)</code></td>
+        <td><code>thing</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+        <section class="lib-panel" aria-labelledby="source-heading">
+    <div class="lib-panel-head">
+      <h2 id="source-heading">Source Code (4 files)</h2>
+      <span class="lib-copy-live" aria-live="polite"></span>
+    </div>
+    <div class="lib-tabs" role="tablist" aria-label="Component source files"><button type="button" role="tab" class="lib-tab is-active" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0" data-file-index="0">src/main.ot</button><button type="button" role="tab" class="lib-tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1" data-file-index="1">otter.pack.json</button><button type="button" role="tab" class="lib-tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1" data-file-index="2">tests/test.ot</button><button type="button" role="tab" class="lib-tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1" data-file-index="3">examples/demo.ot</button></div>
+    <div role="tabpanel" id="panel-0" aria-labelledby="tab-0" class="lib-code-panel" data-file-panel="0">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">src/main.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-0">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># game-entity - Otter Reusable Game Actor &amp; Combat Library</span>
+<span class="tok-com"># Provides Actor, InventoryItem, Cooldown, Inventory, Equipment,</span>
+<span class="tok-com"># combat mechanics, leveling, inventory management, and state persistence</span>
+<span class="tok-com"># Internal variables use &#39;_ge_&#39; prefix to prevent collisions with caller/outer variables.</span>
+
+<span class="tok-kw">a</span> Actor <span class="tok-kw">has</span>
+    name
+    health
+    maxHealth
+    level
+    isAlive
+    attackBonus
+    defenseBonus
+    experience
+.
+
+<span class="tok-kw">a</span> InventoryItem <span class="tok-kw">has</span>
+    itemName
+    itemKind
+    itemPower
+    isStackable
+    itemCount
+    maxStack
+.
+
+<span class="tok-kw">a</span> Cooldown <span class="tok-kw">has</span>
+    skillName
+    cooldownSeconds
+    lastUsedSeconds
+.
+
+<span class="tok-kw">a</span> Inventory <span class="tok-kw">has</span>
+    capacity
+    currentCount
+    items
+.
+
+<span class="tok-kw">a</span> Equipment <span class="tok-kw">has</span>
+    weapon
+    armor
+    accessory
+.
+
+<span class="tok-kw">to</span> createActor name hp lvl
+    _ge_actor <span class="tok-kw">is</span> <span class="tok-kw">a</span> Actor
+    name <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> name
+    health <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> hp
+    maxHealth <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> hp
+    level <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> lvl
+    isAlive <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    attackBonus <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> <span class="tok-num">0</span>
+    defenseBonus <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> <span class="tok-num">0</span>
+    experience <span class="tok-kw">of</span> _ge_actor <span class="tok-kw">is</span> <span class="tok-num">0</span>
+    <span class="tok-kw">return</span> _ge_actor
+.
+
+<span class="tok-kw">to</span> createItem itemName itemKind itemPower
+    _ge_item <span class="tok-kw">is</span> <span class="tok-kw">a</span> InventoryItem
+    itemName <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> itemName
+    itemKind <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> itemKind
+    itemPower <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> itemPower
+    isStackable <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    itemCount <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> <span class="tok-num">1</span>
+    maxStack <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> <span class="tok-num">1</span>
+    <span class="tok-kw">return</span> _ge_item
+.
+
+<span class="tok-kw">to</span> createStackableItem itemName itemKind itemPower countVal maxStackVal
+    _ge_item <span class="tok-kw">is</span> <span class="tok-kw">a</span> InventoryItem
+    itemName <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> itemName
+    itemKind <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> itemKind
+    itemPower <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> itemPower
+    isStackable <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    itemCount <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> countVal
+    maxStack <span class="tok-kw">of</span> _ge_item <span class="tok-kw">is</span> maxStackVal
+    <span class="tok-kw">return</span> _ge_item
+.
+
+<span class="tok-kw">to</span> applyDamage actor amount
+    <span class="tok-kw">if</span> amount <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        <span class="tok-kw">return</span> health <span class="tok-kw">of</span> actor
+    .
+    _ge_cur <span class="tok-kw">is</span> health <span class="tok-kw">of</span> actor
+    _ge_newHp <span class="tok-kw">is</span> _ge_cur <span class="tok-kw">minus</span> amount
+    <span class="tok-kw">if</span> _ge_newHp <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        health <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> <span class="tok-num">0</span>
+        isAlive <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+        <span class="tok-kw">return</span> <span class="tok-num">0</span>
+    .
+    health <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_newHp
+    <span class="tok-kw">return</span> _ge_newHp
+.
+
+<span class="tok-kw">to</span> restoreHealth actor amount
+    <span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+        <span class="tok-kw">return</span> <span class="tok-num">0</span>
+    .
+    _ge_cur <span class="tok-kw">is</span> health <span class="tok-kw">of</span> actor
+    _ge_maxHp <span class="tok-kw">is</span> maxHealth <span class="tok-kw">of</span> actor
+    _ge_newHp <span class="tok-kw">is</span> _ge_cur <span class="tok-kw">plus</span> amount
+    <span class="tok-kw">if</span> _ge_newHp <span class="tok-kw">is</span> <span class="tok-kw">greater</span> <span class="tok-kw">than</span> _ge_maxHp
+        health <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_maxHp
+        <span class="tok-kw">return</span> _ge_maxHp
+    .
+    health <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_newHp
+    <span class="tok-kw">return</span> _ge_newHp
+.
+
+<span class="tok-kw">to</span> reviveActor actor hp
+    <span class="tok-kw">if</span> hp <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        <span class="tok-kw">return</span> <span class="tok-num">0</span>
+    .
+    isAlive <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    _ge_maxHp <span class="tok-kw">is</span> maxHealth <span class="tok-kw">of</span> actor
+    _ge_newHp <span class="tok-kw">is</span> hp
+    <span class="tok-kw">if</span> _ge_newHp <span class="tok-kw">is</span> <span class="tok-kw">greater</span> <span class="tok-kw">than</span> _ge_maxHp
+        _ge_newHp <span class="tok-kw">is</span> _ge_maxHp
+    .
+    health <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_newHp
+    <span class="tok-kw">return</span> _ge_newHp
+.
+
+<span class="tok-kw">to</span> levelUp actor
+    _ge_curLvl <span class="tok-kw">is</span> level <span class="tok-kw">of</span> actor
+    level <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_curLvl <span class="tok-kw">plus</span> <span class="tok-num">1</span>
+    _ge_curMax <span class="tok-kw">is</span> maxHealth <span class="tok-kw">of</span> actor
+    _ge_newMax <span class="tok-kw">is</span> _ge_curMax <span class="tok-kw">plus</span> <span class="tok-num">25</span>
+    maxHealth <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_newMax
+    health <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_newMax
+    attackBonus <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> attackBonus <span class="tok-kw">of</span> actor <span class="tok-kw">plus</span> <span class="tok-num">5</span>
+    defenseBonus <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> defenseBonus <span class="tok-kw">of</span> actor <span class="tok-kw">plus</span> <span class="tok-num">3</span>
+    <span class="tok-kw">return</span> level <span class="tok-kw">of</span> actor
+.
+
+<span class="tok-kw">to</span> gainExperience actor amount neededPerLevel
+    <span class="tok-kw">if</span> neededPerLevel <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    _ge_curExp <span class="tok-kw">is</span> experience <span class="tok-kw">of</span> actor
+    experience <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_curExp <span class="tok-kw">plus</span> amount
+    _ge_leveled <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">while</span> experience <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">least</span> neededPerLevel
+        levelUp actor
+        _ge_remExp <span class="tok-kw">is</span> experience <span class="tok-kw">of</span> actor <span class="tok-kw">minus</span> neededPerLevel
+        experience <span class="tok-kw">of</span> actor <span class="tok-kw">is</span> _ge_remExp
+        _ge_leveled <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> _ge_leveled
+.
+
+<span class="tok-kw">to</span> createCooldown name cd
+    _ge_cdObj <span class="tok-kw">is</span> <span class="tok-kw">a</span> Cooldown
+    skillName <span class="tok-kw">of</span> _ge_cdObj <span class="tok-kw">is</span> name
+    cooldownSeconds <span class="tok-kw">of</span> _ge_cdObj <span class="tok-kw">is</span> cd
+    lastUsedSeconds <span class="tok-kw">of</span> _ge_cdObj <span class="tok-kw">is</span> <span class="tok-num">0</span> <span class="tok-kw">minus</span> <span class="tok-num">9999</span>
+    <span class="tok-kw">return</span> _ge_cdObj
+.
+
+<span class="tok-kw">to</span> isCooldownReady cooldownObj nowSeconds
+    _ge_last <span class="tok-kw">is</span> lastUsedSeconds <span class="tok-kw">of</span> cooldownObj
+    _ge_dur <span class="tok-kw">is</span> cooldownSeconds <span class="tok-kw">of</span> cooldownObj
+    _ge_elapsed <span class="tok-kw">is</span> nowSeconds <span class="tok-kw">minus</span> _ge_last
+    <span class="tok-kw">if</span> _ge_elapsed <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">least</span> _ge_dur
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> triggerCooldown cooldownObj nowSeconds
+    _ge_check <span class="tok-kw">is</span> isCooldownReady cooldownObj nowSeconds
+    <span class="tok-kw">if</span> _ge_check <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        lastUsedSeconds <span class="tok-kw">of</span> cooldownObj <span class="tok-kw">is</span> nowSeconds
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> createInventory slots
+    _ge_inv <span class="tok-kw">is</span> <span class="tok-kw">a</span> Inventory
+    capacity <span class="tok-kw">of</span> _ge_inv <span class="tok-kw">is</span> slots
+    currentCount <span class="tok-kw">of</span> _ge_inv <span class="tok-kw">is</span> <span class="tok-num">0</span>
+    _ge_empty <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    items <span class="tok-kw">of</span> _ge_inv <span class="tok-kw">is</span> _ge_empty
+    <span class="tok-kw">return</span> _ge_inv
+.
+
+<span class="tok-kw">to</span> getInventoryCount inv
+    <span class="tok-kw">return</span> currentCount <span class="tok-kw">of</span> inv
+.
+
+<span class="tok-kw">to</span> getInventoryCapacity inv
+    <span class="tok-kw">return</span> capacity <span class="tok-kw">of</span> inv
+.
+
+<span class="tok-kw">to</span> findItemInInventory inv targetName
+    _ge_itemList <span class="tok-kw">is</span> items <span class="tok-kw">of</span> inv
+    <span class="tok-kw">for</span> <span class="tok-kw">each</span> _ge_it <span class="tok-kw">in</span> _ge_itemList
+        <span class="tok-kw">if</span> itemName <span class="tok-kw">of</span> _ge_it <span class="tok-kw">is</span> targetName
+            <span class="tok-kw">return</span> _ge_it
+        .
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">gone</span>
+.
+
+<span class="tok-kw">to</span> addItemToInventory inv item
+    _ge_curCount <span class="tok-kw">is</span> currentCount <span class="tok-kw">of</span> inv
+    _ge_cap <span class="tok-kw">is</span> capacity <span class="tok-kw">of</span> inv
+    
+    <span class="tok-com"># Check if stackable with existing item</span>
+    <span class="tok-kw">if</span> isStackable <span class="tok-kw">of</span> item <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        _ge_existing <span class="tok-kw">is</span> findItemInInventory inv itemName <span class="tok-kw">of</span> item
+        <span class="tok-kw">if</span> _ge_existing <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+            _ge_existingCount <span class="tok-kw">is</span> itemCount <span class="tok-kw">of</span> _ge_existing
+            _ge_addCount <span class="tok-kw">is</span> itemCount <span class="tok-kw">of</span> item
+            _ge_newCount <span class="tok-kw">is</span> _ge_existingCount <span class="tok-kw">plus</span> _ge_addCount
+            _ge_maxLimit <span class="tok-kw">is</span> maxStack <span class="tok-kw">of</span> _ge_existing
+            <span class="tok-kw">if</span> _ge_newCount <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> _ge_maxLimit
+                itemCount <span class="tok-kw">of</span> _ge_existing <span class="tok-kw">is</span> _ge_newCount
+                <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+            .
+        .
+    .
+
+    <span class="tok-com"># Check capacity limit</span>
+    <span class="tok-kw">if</span> _ge_curCount <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">least</span> _ge_cap
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+
+    currentCount <span class="tok-kw">of</span> inv <span class="tok-kw">is</span> _ge_curCount <span class="tok-kw">plus</span> <span class="tok-num">1</span>
+    _ge_itemList <span class="tok-kw">is</span> items <span class="tok-kw">of</span> inv
+    <span class="tok-kw">add</span> item <span class="tok-kw">to</span> _ge_itemList
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> removeItemFromInventory inv targetName
+    _ge_itemList <span class="tok-kw">is</span> items <span class="tok-kw">of</span> inv
+    _ge_newItems <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    _ge_removed <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">for</span> <span class="tok-kw">each</span> _ge_it <span class="tok-kw">in</span> _ge_itemList
+        <span class="tok-kw">if</span> <span class="tok-kw">not</span> _ge_removed <span class="tok-kw">and</span> itemName <span class="tok-kw">of</span> _ge_it <span class="tok-kw">is</span> targetName
+            _ge_removed <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        <span class="tok-kw">otherwise</span>
+            <span class="tok-kw">add</span> _ge_it <span class="tok-kw">to</span> _ge_newItems
+        .
+    .
+    <span class="tok-kw">if</span> _ge_removed <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        items <span class="tok-kw">of</span> inv <span class="tok-kw">is</span> _ge_newItems
+        currentCount <span class="tok-kw">of</span> inv <span class="tok-kw">is</span> currentCount <span class="tok-kw">of</span> inv <span class="tok-kw">minus</span> <span class="tok-num">1</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> consumeItemFromInventory inv targetName amount
+    <span class="tok-kw">if</span> amount <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    _ge_targetItem <span class="tok-kw">is</span> findItemInInventory inv targetName
+    <span class="tok-kw">if</span> _ge_targetItem <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    _ge_curQty <span class="tok-kw">is</span> itemCount <span class="tok-kw">of</span> _ge_targetItem
+    <span class="tok-kw">if</span> _ge_curQty <span class="tok-kw">is</span> <span class="tok-kw">less</span> <span class="tok-kw">than</span> amount
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    _ge_remQty <span class="tok-kw">is</span> _ge_curQty <span class="tok-kw">minus</span> amount
+    <span class="tok-kw">if</span> _ge_remQty <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        removeItemFromInventory inv targetName
+    <span class="tok-kw">otherwise</span>
+        itemCount <span class="tok-kw">of</span> _ge_targetItem <span class="tok-kw">is</span> _ge_remQty
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> createEquipment
+    _ge_newEq <span class="tok-kw">is</span> <span class="tok-kw">a</span> Equipment
+    weapon <span class="tok-kw">of</span> _ge_newEq <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+    armor <span class="tok-kw">of</span> _ge_newEq <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+    accessory <span class="tok-kw">of</span> _ge_newEq <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+    <span class="tok-kw">return</span> _ge_newEq
+.
+
+<span class="tok-kw">to</span> equipItem equipment item
+    _ge_kind <span class="tok-kw">is</span> itemKind <span class="tok-kw">of</span> item
+    <span class="tok-kw">if</span> _ge_kind <span class="tok-kw">is</span> <span class="tok-str">&quot;weapon&quot;</span>
+        weapon <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> item
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">if</span> _ge_kind <span class="tok-kw">is</span> <span class="tok-str">&quot;armor&quot;</span>
+        armor <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> item
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">if</span> _ge_kind <span class="tok-kw">is</span> <span class="tok-str">&quot;accessory&quot;</span>
+        accessory <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> item
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">if</span> _ge_kind <span class="tok-kw">is</span> <span class="tok-str">&quot;attack_accessory&quot;</span>
+        accessory <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> item
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">if</span> _ge_kind <span class="tok-kw">is</span> <span class="tok-str">&quot;defense_accessory&quot;</span>
+        accessory <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> item
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> unequipSlot equipment slotName
+    <span class="tok-kw">if</span> slotName <span class="tok-kw">is</span> <span class="tok-str">&quot;weapon&quot;</span>
+        _ge_prevW <span class="tok-kw">is</span> weapon <span class="tok-kw">of</span> equipment
+        weapon <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+        <span class="tok-kw">return</span> _ge_prevW
+    .
+    <span class="tok-kw">if</span> slotName <span class="tok-kw">is</span> <span class="tok-str">&quot;armor&quot;</span>
+        _ge_prevA <span class="tok-kw">is</span> armor <span class="tok-kw">of</span> equipment
+        armor <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+        <span class="tok-kw">return</span> _ge_prevA
+    .
+    <span class="tok-kw">if</span> slotName <span class="tok-kw">is</span> <span class="tok-str">&quot;accessory&quot;</span>
+        _ge_prevAcc <span class="tok-kw">is</span> accessory <span class="tok-kw">of</span> equipment
+        accessory <span class="tok-kw">of</span> equipment <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+        <span class="tok-kw">return</span> _ge_prevAcc
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">gone</span>
+.
+
+<span class="tok-kw">to</span> getEquipmentAttackBonus equipment
+    _ge_bonus <span class="tok-kw">is</span> <span class="tok-num">0</span>
+    _ge_w <span class="tok-kw">is</span> weapon <span class="tok-kw">of</span> equipment
+    <span class="tok-kw">if</span> _ge_w <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        _ge_bonus <span class="tok-kw">is</span> _ge_bonus <span class="tok-kw">plus</span> itemPower <span class="tok-kw">of</span> _ge_w
+    .
+    _ge_acc <span class="tok-kw">is</span> accessory <span class="tok-kw">of</span> equipment
+    <span class="tok-kw">if</span> _ge_acc <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        _ge_k <span class="tok-kw">is</span> itemKind <span class="tok-kw">of</span> _ge_acc
+        <span class="tok-kw">if</span> _ge_k <span class="tok-kw">is</span> <span class="tok-str">&quot;attack_accessory&quot;</span>
+            _ge_bonus <span class="tok-kw">is</span> _ge_bonus <span class="tok-kw">plus</span> itemPower <span class="tok-kw">of</span> _ge_acc
+        <span class="tok-kw">otherwise</span> <span class="tok-kw">if</span> _ge_k <span class="tok-kw">is</span> <span class="tok-str">&quot;accessory&quot;</span>
+            _ge_bonus <span class="tok-kw">is</span> _ge_bonus <span class="tok-kw">plus</span> itemPower <span class="tok-kw">of</span> _ge_acc
+        .
+    .
+    <span class="tok-kw">return</span> _ge_bonus
+.
+
+<span class="tok-kw">to</span> getEquipmentDefenseBonus equipment
+    _ge_bonus <span class="tok-kw">is</span> <span class="tok-num">0</span>
+    _ge_arm <span class="tok-kw">is</span> armor <span class="tok-kw">of</span> equipment
+    <span class="tok-kw">if</span> _ge_arm <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        _ge_bonus <span class="tok-kw">is</span> _ge_bonus <span class="tok-kw">plus</span> itemPower <span class="tok-kw">of</span> _ge_arm
+    .
+    _ge_acc <span class="tok-kw">is</span> accessory <span class="tok-kw">of</span> equipment
+    <span class="tok-kw">if</span> _ge_acc <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        _ge_k <span class="tok-kw">is</span> itemKind <span class="tok-kw">of</span> _ge_acc
+        <span class="tok-kw">if</span> _ge_k <span class="tok-kw">is</span> <span class="tok-str">&quot;defense_accessory&quot;</span>
+            _ge_bonus <span class="tok-kw">is</span> _ge_bonus <span class="tok-kw">plus</span> itemPower <span class="tok-kw">of</span> _ge_acc
+        .
+    .
+    <span class="tok-kw">return</span> _ge_bonus
+.
+
+<span class="tok-kw">to</span> buildItemRecord it
+    _ge_itemData <span class="tok-kw">has</span>
+        itemName <span class="tok-kw">is</span> itemName <span class="tok-kw">of</span> it
+        itemKind <span class="tok-kw">is</span> itemKind <span class="tok-kw">of</span> it
+        itemPower <span class="tok-kw">is</span> itemPower <span class="tok-kw">of</span> it
+        isStackable <span class="tok-kw">is</span> isStackable <span class="tok-kw">of</span> it
+        itemCount <span class="tok-kw">is</span> itemCount <span class="tok-kw">of</span> it
+        maxStack <span class="tok-kw">is</span> maxStack <span class="tok-kw">of</span> it
+    .
+    <span class="tok-kw">return</span> _ge_itemData
+.
+
+<span class="tok-kw">to</span> serializeGameState actor inv equip
+    _ge_rawItems <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    <span class="tok-kw">for</span> <span class="tok-kw">each</span> _ge_it <span class="tok-kw">in</span> items <span class="tok-kw">of</span> inv
+        _ge_rec <span class="tok-kw">is</span> buildItemRecord _ge_it
+        <span class="tok-kw">add</span> _ge_rec <span class="tok-kw">to</span> _ge_rawItems
+    .
+
+    _ge_equipData <span class="tok-kw">has</span>
+        hasWeapon <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+        hasArmor <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+        hasAccessory <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    .
+    _ge_w <span class="tok-kw">is</span> weapon <span class="tok-kw">of</span> equip
+    <span class="tok-kw">if</span> _ge_w <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        hasWeapon <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        weaponName <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemName <span class="tok-kw">of</span> _ge_w
+        weaponPower <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemPower <span class="tok-kw">of</span> _ge_w
+    .
+    _ge_arm <span class="tok-kw">is</span> armor <span class="tok-kw">of</span> equip
+    <span class="tok-kw">if</span> _ge_arm <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        hasArmor <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        armorName <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemName <span class="tok-kw">of</span> _ge_arm
+        armorPower <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemPower <span class="tok-kw">of</span> _ge_arm
+    .
+    _ge_acc <span class="tok-kw">is</span> accessory <span class="tok-kw">of</span> equip
+    <span class="tok-kw">if</span> _ge_acc <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+        hasAccessory <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        accessoryName <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemName <span class="tok-kw">of</span> _ge_acc
+        accessoryKind <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemKind <span class="tok-kw">of</span> _ge_acc
+        accessoryPower <span class="tok-kw">of</span> _ge_equipData <span class="tok-kw">is</span> itemPower <span class="tok-kw">of</span> _ge_acc
+    .
+
+    _ge_gameState <span class="tok-kw">has</span>
+        name <span class="tok-kw">is</span> name <span class="tok-kw">of</span> actor
+        health <span class="tok-kw">is</span> health <span class="tok-kw">of</span> actor
+        maxHealth <span class="tok-kw">is</span> maxHealth <span class="tok-kw">of</span> actor
+        level <span class="tok-kw">is</span> level <span class="tok-kw">of</span> actor
+        isAlive <span class="tok-kw">is</span> isAlive <span class="tok-kw">of</span> actor
+        attackBonus <span class="tok-kw">is</span> attackBonus <span class="tok-kw">of</span> actor
+        defenseBonus <span class="tok-kw">is</span> defenseBonus <span class="tok-kw">of</span> actor
+        experience <span class="tok-kw">is</span> experience <span class="tok-kw">of</span> actor
+        inventoryCapacity <span class="tok-kw">is</span> capacity <span class="tok-kw">of</span> inv
+        inventoryCount <span class="tok-kw">is</span> currentCount <span class="tok-kw">of</span> inv
+        inventoryItems <span class="tok-kw">is</span> _ge_rawItems
+        equipment <span class="tok-kw">is</span> _ge_equipData
+    .
+    <span class="tok-kw">return</span> _ge_gameState
+.
+
+<span class="tok-kw">to</span> deserializeGameState stateData
+    <span class="tok-com"># 1. Reconstruct Actor</span>
+    _ge_restoredAct <span class="tok-kw">is</span> createActor name <span class="tok-kw">of</span> stateData health <span class="tok-kw">of</span> stateData level <span class="tok-kw">of</span> stateData
+    maxHealth <span class="tok-kw">of</span> _ge_restoredAct <span class="tok-kw">is</span> maxHealth <span class="tok-kw">of</span> stateData
+    isAlive <span class="tok-kw">of</span> _ge_restoredAct <span class="tok-kw">is</span> isAlive <span class="tok-kw">of</span> stateData
+    attackBonus <span class="tok-kw">of</span> _ge_restoredAct <span class="tok-kw">is</span> attackBonus <span class="tok-kw">of</span> stateData
+    defenseBonus <span class="tok-kw">of</span> _ge_restoredAct <span class="tok-kw">is</span> defenseBonus <span class="tok-kw">of</span> stateData
+    experience <span class="tok-kw">of</span> _ge_restoredAct <span class="tok-kw">is</span> experience <span class="tok-kw">of</span> stateData
+
+    <span class="tok-com"># 2. Reconstruct Inventory</span>
+    _ge_restoredInv <span class="tok-kw">is</span> createInventory inventoryCapacity <span class="tok-kw">of</span> stateData
+    <span class="tok-kw">for</span> <span class="tok-kw">each</span> _ge_rawIt <span class="tok-kw">in</span> inventoryItems <span class="tok-kw">of</span> stateData
+        _ge_it <span class="tok-kw">is</span> createItem itemName <span class="tok-kw">of</span> _ge_rawIt itemKind <span class="tok-kw">of</span> _ge_rawIt itemPower <span class="tok-kw">of</span> _ge_rawIt
+        isStackable <span class="tok-kw">of</span> _ge_it <span class="tok-kw">is</span> isStackable <span class="tok-kw">of</span> _ge_rawIt
+        itemCount <span class="tok-kw">of</span> _ge_it <span class="tok-kw">is</span> itemCount <span class="tok-kw">of</span> _ge_rawIt
+        maxStack <span class="tok-kw">of</span> _ge_it <span class="tok-kw">is</span> maxStack <span class="tok-kw">of</span> _ge_rawIt
+        addItemToInventory _ge_restoredInv _ge_it
+    .
+
+    <span class="tok-com"># 3. Reconstruct Equipment</span>
+    _ge_restoredEq <span class="tok-kw">is</span> createEquipment
+    _ge_eqData <span class="tok-kw">is</span> equipment <span class="tok-kw">of</span> stateData
+    <span class="tok-kw">if</span> hasWeapon <span class="tok-kw">of</span> _ge_eqData <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        _ge_wItem <span class="tok-kw">is</span> createItem weaponName <span class="tok-kw">of</span> _ge_eqData <span class="tok-str">&quot;weapon&quot;</span> weaponPower <span class="tok-kw">of</span> _ge_eqData
+        equipItem _ge_restoredEq _ge_wItem
+    .
+    <span class="tok-kw">if</span> hasArmor <span class="tok-kw">of</span> _ge_eqData <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        _ge_aItem <span class="tok-kw">is</span> createItem armorName <span class="tok-kw">of</span> _ge_eqData <span class="tok-str">&quot;armor&quot;</span> armorPower <span class="tok-kw">of</span> _ge_eqData
+        equipItem _ge_restoredEq _ge_aItem
+    .
+    <span class="tok-kw">if</span> hasAccessory <span class="tok-kw">of</span> _ge_eqData <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+        _ge_accObj <span class="tok-kw">is</span> createItem accessoryName <span class="tok-kw">of</span> _ge_eqData accessoryKind <span class="tok-kw">of</span> _ge_eqData accessoryPower <span class="tok-kw">of</span> _ge_eqData
+        equipItem _ge_restoredEq _ge_accObj
+    .
+
+    _ge_bundle <span class="tok-kw">has</span>
+        actor <span class="tok-kw">is</span> _ge_restoredAct
+        inventory <span class="tok-kw">is</span> _ge_restoredInv
+        equipment <span class="tok-kw">is</span> _ge_restoredEq
+    .
+    <span class="tok-kw">return</span> _ge_bundle
+.
+</code></pre>
+      <textarea id="raw-code-0" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># game-entity - Otter Reusable Game Actor &amp; Combat Library
+# Provides Actor, InventoryItem, Cooldown, Inventory, Equipment,
+# combat mechanics, leveling, inventory management, and state persistence
+# Internal variables use &#39;_ge_&#39; prefix to prevent collisions with caller/outer variables.
+
+a Actor has
+    name
+    health
+    maxHealth
+    level
+    isAlive
+    attackBonus
+    defenseBonus
+    experience
+.
+
+a InventoryItem has
+    itemName
+    itemKind
+    itemPower
+    isStackable
+    itemCount
+    maxStack
+.
+
+a Cooldown has
+    skillName
+    cooldownSeconds
+    lastUsedSeconds
+.
+
+a Inventory has
+    capacity
+    currentCount
+    items
+.
+
+a Equipment has
+    weapon
+    armor
+    accessory
+.
+
+to createActor name hp lvl
+    _ge_actor is a Actor
+    name of _ge_actor is name
+    health of _ge_actor is hp
+    maxHealth of _ge_actor is hp
+    level of _ge_actor is lvl
+    isAlive of _ge_actor is true
+    attackBonus of _ge_actor is 0
+    defenseBonus of _ge_actor is 0
+    experience of _ge_actor is 0
+    return _ge_actor
+.
+
+to createItem itemName itemKind itemPower
+    _ge_item is a InventoryItem
+    itemName of _ge_item is itemName
+    itemKind of _ge_item is itemKind
+    itemPower of _ge_item is itemPower
+    isStackable of _ge_item is false
+    itemCount of _ge_item is 1
+    maxStack of _ge_item is 1
+    return _ge_item
+.
+
+to createStackableItem itemName itemKind itemPower countVal maxStackVal
+    _ge_item is a InventoryItem
+    itemName of _ge_item is itemName
+    itemKind of _ge_item is itemKind
+    itemPower of _ge_item is itemPower
+    isStackable of _ge_item is true
+    itemCount of _ge_item is countVal
+    maxStack of _ge_item is maxStackVal
+    return _ge_item
+.
+
+to applyDamage actor amount
+    if amount is at most 0
+        return health of actor
+    .
+    _ge_cur is health of actor
+    _ge_newHp is _ge_cur minus amount
+    if _ge_newHp is at most 0
+        health of actor is 0
+        isAlive of actor is false
+        return 0
+    .
+    health of actor is _ge_newHp
+    return _ge_newHp
+.
+
+to restoreHealth actor amount
+    if isAlive of actor is false
+        return 0
+    .
+    _ge_cur is health of actor
+    _ge_maxHp is maxHealth of actor
+    _ge_newHp is _ge_cur plus amount
+    if _ge_newHp is greater than _ge_maxHp
+        health of actor is _ge_maxHp
+        return _ge_maxHp
+    .
+    health of actor is _ge_newHp
+    return _ge_newHp
+.
+
+to reviveActor actor hp
+    if hp is at most 0
+        return 0
+    .
+    isAlive of actor is true
+    _ge_maxHp is maxHealth of actor
+    _ge_newHp is hp
+    if _ge_newHp is greater than _ge_maxHp
+        _ge_newHp is _ge_maxHp
+    .
+    health of actor is _ge_newHp
+    return _ge_newHp
+.
+
+to levelUp actor
+    _ge_curLvl is level of actor
+    level of actor is _ge_curLvl plus 1
+    _ge_curMax is maxHealth of actor
+    _ge_newMax is _ge_curMax plus 25
+    maxHealth of actor is _ge_newMax
+    health of actor is _ge_newMax
+    attackBonus of actor is attackBonus of actor plus 5
+    defenseBonus of actor is defenseBonus of actor plus 3
+    return level of actor
+.
+
+to gainExperience actor amount neededPerLevel
+    if neededPerLevel is at most 0
+        return false
+    .
+    _ge_curExp is experience of actor
+    experience of actor is _ge_curExp plus amount
+    _ge_leveled is false
+    while experience of actor is at least neededPerLevel
+        levelUp actor
+        _ge_remExp is experience of actor minus neededPerLevel
+        experience of actor is _ge_remExp
+        _ge_leveled is true
+    .
+    return _ge_leveled
+.
+
+to createCooldown name cd
+    _ge_cdObj is a Cooldown
+    skillName of _ge_cdObj is name
+    cooldownSeconds of _ge_cdObj is cd
+    lastUsedSeconds of _ge_cdObj is 0 minus 9999
+    return _ge_cdObj
+.
+
+to isCooldownReady cooldownObj nowSeconds
+    _ge_last is lastUsedSeconds of cooldownObj
+    _ge_dur is cooldownSeconds of cooldownObj
+    _ge_elapsed is nowSeconds minus _ge_last
+    if _ge_elapsed is at least _ge_dur
+        return true
+    .
+    return false
+.
+
+to triggerCooldown cooldownObj nowSeconds
+    _ge_check is isCooldownReady cooldownObj nowSeconds
+    if _ge_check is true
+        lastUsedSeconds of cooldownObj is nowSeconds
+        return true
+    .
+    return false
+.
+
+to createInventory slots
+    _ge_inv is a Inventory
+    capacity of _ge_inv is slots
+    currentCount of _ge_inv is 0
+    _ge_empty are empty
+    items of _ge_inv is _ge_empty
+    return _ge_inv
+.
+
+to getInventoryCount inv
+    return currentCount of inv
+.
+
+to getInventoryCapacity inv
+    return capacity of inv
+.
+
+to findItemInInventory inv targetName
+    _ge_itemList is items of inv
+    for each _ge_it in _ge_itemList
+        if itemName of _ge_it is targetName
+            return _ge_it
+        .
+    .
+    return gone
+.
+
+to addItemToInventory inv item
+    _ge_curCount is currentCount of inv
+    _ge_cap is capacity of inv
+    
+    # Check if stackable with existing item
+    if isStackable of item is true
+        _ge_existing is findItemInInventory inv itemName of item
+        if _ge_existing is not gone
+            _ge_existingCount is itemCount of _ge_existing
+            _ge_addCount is itemCount of item
+            _ge_newCount is _ge_existingCount plus _ge_addCount
+            _ge_maxLimit is maxStack of _ge_existing
+            if _ge_newCount is at most _ge_maxLimit
+                itemCount of _ge_existing is _ge_newCount
+                return true
+            .
+        .
+    .
+
+    # Check capacity limit
+    if _ge_curCount is at least _ge_cap
+        return false
+    .
+
+    currentCount of inv is _ge_curCount plus 1
+    _ge_itemList is items of inv
+    add item to _ge_itemList
+    return true
+.
+
+to removeItemFromInventory inv targetName
+    _ge_itemList is items of inv
+    _ge_newItems are empty
+    _ge_removed is false
+    for each _ge_it in _ge_itemList
+        if not _ge_removed and itemName of _ge_it is targetName
+            _ge_removed is true
+        otherwise
+            add _ge_it to _ge_newItems
+        .
+    .
+    if _ge_removed is true
+        items of inv is _ge_newItems
+        currentCount of inv is currentCount of inv minus 1
+        return true
+    .
+    return false
+.
+
+to consumeItemFromInventory inv targetName amount
+    if amount is at most 0
+        return false
+    .
+    _ge_targetItem is findItemInInventory inv targetName
+    if _ge_targetItem is gone
+        return false
+    .
+    _ge_curQty is itemCount of _ge_targetItem
+    if _ge_curQty is less than amount
+        return false
+    .
+    _ge_remQty is _ge_curQty minus amount
+    if _ge_remQty is at most 0
+        removeItemFromInventory inv targetName
+    otherwise
+        itemCount of _ge_targetItem is _ge_remQty
+    .
+    return true
+.
+
+to createEquipment
+    _ge_newEq is a Equipment
+    weapon of _ge_newEq is gone
+    armor of _ge_newEq is gone
+    accessory of _ge_newEq is gone
+    return _ge_newEq
+.
+
+to equipItem equipment item
+    _ge_kind is itemKind of item
+    if _ge_kind is &quot;weapon&quot;
+        weapon of equipment is item
+        return true
+    .
+    if _ge_kind is &quot;armor&quot;
+        armor of equipment is item
+        return true
+    .
+    if _ge_kind is &quot;accessory&quot;
+        accessory of equipment is item
+        return true
+    .
+    if _ge_kind is &quot;attack_accessory&quot;
+        accessory of equipment is item
+        return true
+    .
+    if _ge_kind is &quot;defense_accessory&quot;
+        accessory of equipment is item
+        return true
+    .
+    return false
+.
+
+to unequipSlot equipment slotName
+    if slotName is &quot;weapon&quot;
+        _ge_prevW is weapon of equipment
+        weapon of equipment is gone
+        return _ge_prevW
+    .
+    if slotName is &quot;armor&quot;
+        _ge_prevA is armor of equipment
+        armor of equipment is gone
+        return _ge_prevA
+    .
+    if slotName is &quot;accessory&quot;
+        _ge_prevAcc is accessory of equipment
+        accessory of equipment is gone
+        return _ge_prevAcc
+    .
+    return gone
+.
+
+to getEquipmentAttackBonus equipment
+    _ge_bonus is 0
+    _ge_w is weapon of equipment
+    if _ge_w is not gone
+        _ge_bonus is _ge_bonus plus itemPower of _ge_w
+    .
+    _ge_acc is accessory of equipment
+    if _ge_acc is not gone
+        _ge_k is itemKind of _ge_acc
+        if _ge_k is &quot;attack_accessory&quot;
+            _ge_bonus is _ge_bonus plus itemPower of _ge_acc
+        otherwise if _ge_k is &quot;accessory&quot;
+            _ge_bonus is _ge_bonus plus itemPower of _ge_acc
+        .
+    .
+    return _ge_bonus
+.
+
+to getEquipmentDefenseBonus equipment
+    _ge_bonus is 0
+    _ge_arm is armor of equipment
+    if _ge_arm is not gone
+        _ge_bonus is _ge_bonus plus itemPower of _ge_arm
+    .
+    _ge_acc is accessory of equipment
+    if _ge_acc is not gone
+        _ge_k is itemKind of _ge_acc
+        if _ge_k is &quot;defense_accessory&quot;
+            _ge_bonus is _ge_bonus plus itemPower of _ge_acc
+        .
+    .
+    return _ge_bonus
+.
+
+to buildItemRecord it
+    _ge_itemData has
+        itemName is itemName of it
+        itemKind is itemKind of it
+        itemPower is itemPower of it
+        isStackable is isStackable of it
+        itemCount is itemCount of it
+        maxStack is maxStack of it
+    .
+    return _ge_itemData
+.
+
+to serializeGameState actor inv equip
+    _ge_rawItems are empty
+    for each _ge_it in items of inv
+        _ge_rec is buildItemRecord _ge_it
+        add _ge_rec to _ge_rawItems
+    .
+
+    _ge_equipData has
+        hasWeapon is false
+        hasArmor is false
+        hasAccessory is false
+    .
+    _ge_w is weapon of equip
+    if _ge_w is not gone
+        hasWeapon of _ge_equipData is true
+        weaponName of _ge_equipData is itemName of _ge_w
+        weaponPower of _ge_equipData is itemPower of _ge_w
+    .
+    _ge_arm is armor of equip
+    if _ge_arm is not gone
+        hasArmor of _ge_equipData is true
+        armorName of _ge_equipData is itemName of _ge_arm
+        armorPower of _ge_equipData is itemPower of _ge_arm
+    .
+    _ge_acc is accessory of equip
+    if _ge_acc is not gone
+        hasAccessory of _ge_equipData is true
+        accessoryName of _ge_equipData is itemName of _ge_acc
+        accessoryKind of _ge_equipData is itemKind of _ge_acc
+        accessoryPower of _ge_equipData is itemPower of _ge_acc
+    .
+
+    _ge_gameState has
+        name is name of actor
+        health is health of actor
+        maxHealth is maxHealth of actor
+        level is level of actor
+        isAlive is isAlive of actor
+        attackBonus is attackBonus of actor
+        defenseBonus is defenseBonus of actor
+        experience is experience of actor
+        inventoryCapacity is capacity of inv
+        inventoryCount is currentCount of inv
+        inventoryItems is _ge_rawItems
+        equipment is _ge_equipData
+    .
+    return _ge_gameState
+.
+
+to deserializeGameState stateData
+    # 1. Reconstruct Actor
+    _ge_restoredAct is createActor name of stateData health of stateData level of stateData
+    maxHealth of _ge_restoredAct is maxHealth of stateData
+    isAlive of _ge_restoredAct is isAlive of stateData
+    attackBonus of _ge_restoredAct is attackBonus of stateData
+    defenseBonus of _ge_restoredAct is defenseBonus of stateData
+    experience of _ge_restoredAct is experience of stateData
+
+    # 2. Reconstruct Inventory
+    _ge_restoredInv is createInventory inventoryCapacity of stateData
+    for each _ge_rawIt in inventoryItems of stateData
+        _ge_it is createItem itemName of _ge_rawIt itemKind of _ge_rawIt itemPower of _ge_rawIt
+        isStackable of _ge_it is isStackable of _ge_rawIt
+        itemCount of _ge_it is itemCount of _ge_rawIt
+        maxStack of _ge_it is maxStack of _ge_rawIt
+        addItemToInventory _ge_restoredInv _ge_it
+    .
+
+    # 3. Reconstruct Equipment
+    _ge_restoredEq is createEquipment
+    _ge_eqData is equipment of stateData
+    if hasWeapon of _ge_eqData is true
+        _ge_wItem is createItem weaponName of _ge_eqData &quot;weapon&quot; weaponPower of _ge_eqData
+        equipItem _ge_restoredEq _ge_wItem
+    .
+    if hasArmor of _ge_eqData is true
+        _ge_aItem is createItem armorName of _ge_eqData &quot;armor&quot; armorPower of _ge_eqData
+        equipItem _ge_restoredEq _ge_aItem
+    .
+    if hasAccessory of _ge_eqData is true
+        _ge_accObj is createItem accessoryName of _ge_eqData accessoryKind of _ge_eqData accessoryPower of _ge_eqData
+        equipItem _ge_restoredEq _ge_accObj
+    .
+
+    _ge_bundle has
+        actor is _ge_restoredAct
+        inventory is _ge_restoredInv
+        equipment is _ge_restoredEq
+    .
+    return _ge_bundle
+.
+</textarea>
+    </div><div role="tabpanel" id="panel-1" aria-labelledby="tab-1" class="lib-code-panel is-hidden" data-file-panel="1">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">otter.pack.json · json</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-1">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="json">{
+  <span class="tok-key">&quot;schemaVersion&quot;</span>: <span class="tok-num">2</span>,
+  <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;game-entity&quot;</span>,
+  <span class="tok-key">&quot;publisher&quot;</span>: <span class="tok-str">&quot;otter-official&quot;</span>,
+  <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.1</span>.<span class="tok-num">0</span>&quot;</span>,
+  <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack&quot;</span>,
+  <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.&quot;</span>,
+  <span class="tok-key">&quot;entry&quot;</span>: <span class="tok-str">&quot;src/main.ot&quot;</span>,
+  <span class="tok-key">&quot;license&quot;</span>: <span class="tok-str">&quot;MIT&quot;</span>,
+  <span class="tok-key">&quot;requiresOtter&quot;</span>: <span class="tok-str">&quot;&gt;=<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span>,
+  <span class="tok-key">&quot;platforms&quot;</span>: [
+    &quot;console&quot;,
+    &quot;desktop&quot;,
+    &quot;web&quot;
+  ],
+  <span class="tok-key">&quot;variablePrefix&quot;</span>: <span class="tok-str">&quot;_ge_&quot;</span>,
+  <span class="tok-key">&quot;provides&quot;</span>: {
+    <span class="tok-key">&quot;capabilities&quot;</span>: [
+      &quot;game.entity&quot;,
+      &quot;game.combat&quot;,
+      &quot;game.inventory&quot;,
+      &quot;game.equipment&quot;,
+      &quot;game.serialization&quot;
+    ],
+    <span class="tok-key">&quot;types&quot;</span>: [
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span>,
+        <span class="tok-key">&quot;fields&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;name&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;health&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;maxHealth&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;level&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isAlive&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;attackBonus&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;defenseBonus&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;experience&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ]
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span>,
+        <span class="tok-key">&quot;fields&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemKind&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemPower&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isStackable&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemCount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;maxStack&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ]
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;Cooldown&quot;</span>,
+        <span class="tok-key">&quot;fields&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;skillName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;cooldownSeconds&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;lastUsedSeconds&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ]
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span>,
+        <span class="tok-key">&quot;fields&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;capacity&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;currentCount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;items&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;list&quot;</span> }
+        ]
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span>,
+        <span class="tok-key">&quot;fields&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;weapon&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;armor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;accessory&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span> }
+        ]
+      }
+    ],
+    <span class="tok-key">&quot;operations&quot;</span>: [
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;createActor&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Creates a new living Actor with the given name, starting/max health, and level.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;name&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;hp&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;lvl&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;createItem&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Creates a non-stackable InventoryItem with name, kind, and power.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemKind&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemPower&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;createStackableItem&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Creates a stackable InventoryItem with initial stack count and maximum stack size.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemKind&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;itemPower&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;countVal&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;maxStackVal&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;applyDamage&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Applies positive damage to an Actor, clamping health at <span class="tok-num">0</span> and setting isAlive to <span class="tok-kw">false</span> on defeat.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;amount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;restoreHealth&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Heals a living Actor up to maxHealth; returns <span class="tok-num">0</span> without reviving if Actor is dead.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;amount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;reviveActor&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Revives an Actor with positive hp capped at maxHealth; returns <span class="tok-num">0</span> if hp is at most <span class="tok-num">0</span>.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;hp&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;levelUp&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Increments Actor level, boosts maxHealth/attack/defense, and refills health.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;gainExperience&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Adds experience to an Actor and triggers one or more level-ups when thresholds are reached.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;amount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;neededPerLevel&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;createCooldown&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Creates a ready-to-use skill Cooldown tracker with duration cd seconds.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;name&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;cd&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Cooldown&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isCooldownReady&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Returns <span class="tok-kw">true</span> if cooldownObj has elapsed at nowSeconds.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;cooldownObj&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Cooldown&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;nowSeconds&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;triggerCooldown&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Activates cooldownObj at nowSeconds if ready, returning <span class="tok-kw">true</span> on success or <span class="tok-kw">false</span> if still cooling.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;cooldownObj&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Cooldown&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;nowSeconds&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;createInventory&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Creates an empty Inventory container with the specified slot capacity.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;slots&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;getInventoryCount&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Returns the number of currently occupied slots in inv.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;getInventoryCapacity&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Returns the maximum slot capacity of inv.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;findItemInInventory&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Finds an InventoryItem by name in inv, or returns gone if absent.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;targetName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span>, <span class="tok-key">&quot;nullable&quot;</span>: <span class="tok-kw">true</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-gone&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;addItemToInventory&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Adds an item to inv (merging into an existing stack if possible), returning <span class="tok-kw">false</span> if capacity is full.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;item&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;removeItemFromInventory&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Removes the first matching item named targetName from inv, returning <span class="tok-kw">true</span> if removed.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;targetName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;consumeItemFromInventory&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Consumes amount units of targetName from inv, removing the slot if depleted.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;targetName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;amount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;createEquipment&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Creates an Equipment loadout with empty weapon, armor, and accessory slots.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;equipItem&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Equips an InventoryItem into its matching equipment slot, returning <span class="tok-kw">false</span> for unsupported kinds.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;equipment&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;item&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;unequipSlot&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Clears the named equipment slot and returns the previously equipped item or gone.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;equipment&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;slotName&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span>, <span class="tok-key">&quot;nullable&quot;</span>: <span class="tok-kw">true</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;state:mutation&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-gone&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;getEquipmentAttackBonus&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Computes total attack power bonus from equipped weapon and attack accessories.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;equipment&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;getEquipmentDefenseBonus&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Computes total defense power bonus from equipped armor and defense accessories.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;equipment&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;buildItemRecord&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Converts an InventoryItem into a JSON-serializable thing record.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;it&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;InventoryItem&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;thing&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;serializeGameState&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Serializes Actor, Inventory, and Equipment state into a JSON-compatible thing snapshot.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;actor&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Actor&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;inv&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Inventory&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;equip&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;object&quot;</span>, <span class="tok-key">&quot;objectType&quot;</span>: <span class="tok-str">&quot;Equipment&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;thing&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;deserializeGameState&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Reconstructs Actor, Inventory, and Equipment objects from a serialized stateData thing.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;stateData&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;thing&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;thing&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      }
+    ]
+  },
+  <span class="tok-key">&quot;requires&quot;</span>: {
+    <span class="tok-key">&quot;capabilities&quot;</span>: [],
+    <span class="tok-key">&quot;packages&quot;</span>: {}
+  },
+  <span class="tok-key">&quot;capabilities&quot;</span>: [],
+  <span class="tok-key">&quot;dependencies&quot;</span>: {},
+  <span class="tok-key">&quot;tags&quot;</span>: [
+    &quot;game&quot;,
+    &quot;rpg&quot;,
+    &quot;entity&quot;,
+    &quot;actor&quot;,
+    &quot;health&quot;,
+    &quot;combat&quot;,
+    &quot;damage&quot;,
+    &quot;level&quot;,
+    &quot;inventory&quot;,
+    &quot;equipment&quot;
+  ],
+  <span class="tok-key">&quot;examples&quot;</span>: [
+    &quot;examples/demo.ot&quot;
+  ]
+}
+</code></pre>
+      <textarea id="raw-code-1" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;name&quot;: &quot;game-entity&quot;,
+  &quot;publisher&quot;: &quot;otter-official&quot;,
+  &quot;version&quot;: &quot;1.1.0&quot;,
+  &quot;kind&quot;: &quot;pack&quot;,
+  &quot;description&quot;: &quot;Reusable entity and combat mechanics: Actor, InventoryItem, Cooldown, Inventory, Equipment, damage/healing, leveling, inventory containers, equipment bonuses, and state serialization.&quot;,
+  &quot;entry&quot;: &quot;src/main.ot&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;requiresOtter&quot;: &quot;&gt;=1.0.1&quot;,
+  &quot;platforms&quot;: [
+    &quot;console&quot;,
+    &quot;desktop&quot;,
+    &quot;web&quot;
+  ],
+  &quot;variablePrefix&quot;: &quot;_ge_&quot;,
+  &quot;provides&quot;: {
+    &quot;capabilities&quot;: [
+      &quot;game.entity&quot;,
+      &quot;game.combat&quot;,
+      &quot;game.inventory&quot;,
+      &quot;game.equipment&quot;,
+      &quot;game.serialization&quot;
+    ],
+    &quot;types&quot;: [
+      {
+        &quot;name&quot;: &quot;Actor&quot;,
+        &quot;fields&quot;: [
+          { &quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;health&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;maxHealth&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;level&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;isAlive&quot;, &quot;type&quot;: &quot;boolean&quot; },
+          { &quot;name&quot;: &quot;attackBonus&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;defenseBonus&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;experience&quot;, &quot;type&quot;: &quot;number&quot; }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;InventoryItem&quot;,
+        &quot;fields&quot;: [
+          { &quot;name&quot;: &quot;itemName&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;itemKind&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;itemPower&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;isStackable&quot;, &quot;type&quot;: &quot;boolean&quot; },
+          { &quot;name&quot;: &quot;itemCount&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;maxStack&quot;, &quot;type&quot;: &quot;number&quot; }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;Cooldown&quot;,
+        &quot;fields&quot;: [
+          { &quot;name&quot;: &quot;skillName&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;cooldownSeconds&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;lastUsedSeconds&quot;, &quot;type&quot;: &quot;number&quot; }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;Inventory&quot;,
+        &quot;fields&quot;: [
+          { &quot;name&quot;: &quot;capacity&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;currentCount&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;items&quot;, &quot;type&quot;: &quot;list&quot; }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;Equipment&quot;,
+        &quot;fields&quot;: [
+          { &quot;name&quot;: &quot;weapon&quot;, &quot;type&quot;: &quot;object&quot; },
+          { &quot;name&quot;: &quot;armor&quot;, &quot;type&quot;: &quot;object&quot; },
+          { &quot;name&quot;: &quot;accessory&quot;, &quot;type&quot;: &quot;object&quot; }
+        ]
+      }
+    ],
+    &quot;operations&quot;: [
+      {
+        &quot;name&quot;: &quot;createActor&quot;,
+        &quot;description&quot;: &quot;Creates a new living Actor with the given name, starting/max health, and level.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;hp&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;lvl&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;createItem&quot;,
+        &quot;description&quot;: &quot;Creates a non-stackable InventoryItem with name, kind, and power.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;itemName&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;itemKind&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;itemPower&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;createStackableItem&quot;,
+        &quot;description&quot;: &quot;Creates a stackable InventoryItem with initial stack count and maximum stack size.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;itemName&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;itemKind&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;itemPower&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;countVal&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;maxStackVal&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;applyDamage&quot;,
+        &quot;description&quot;: &quot;Applies positive damage to an Actor, clamping health at 0 and setting isAlive to false on defeat.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; },
+          { &quot;name&quot;: &quot;amount&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;restoreHealth&quot;,
+        &quot;description&quot;: &quot;Heals a living Actor up to maxHealth; returns 0 without reviving if Actor is dead.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; },
+          { &quot;name&quot;: &quot;amount&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;reviveActor&quot;,
+        &quot;description&quot;: &quot;Revives an Actor with positive hp capped at maxHealth; returns 0 if hp is at most 0.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; },
+          { &quot;name&quot;: &quot;hp&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;levelUp&quot;,
+        &quot;description&quot;: &quot;Increments Actor level, boosts maxHealth/attack/defense, and refills health.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;gainExperience&quot;,
+        &quot;description&quot;: &quot;Adds experience to an Actor and triggers one or more level-ups when thresholds are reached.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; },
+          { &quot;name&quot;: &quot;amount&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;neededPerLevel&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;createCooldown&quot;,
+        &quot;description&quot;: &quot;Creates a ready-to-use skill Cooldown tracker with duration cd seconds.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;cd&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Cooldown&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;isCooldownReady&quot;,
+        &quot;description&quot;: &quot;Returns true if cooldownObj has elapsed at nowSeconds.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;cooldownObj&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Cooldown&quot; },
+          { &quot;name&quot;: &quot;nowSeconds&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;triggerCooldown&quot;,
+        &quot;description&quot;: &quot;Activates cooldownObj at nowSeconds if ready, returning true on success or false if still cooling.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;cooldownObj&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Cooldown&quot; },
+          { &quot;name&quot;: &quot;nowSeconds&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;createInventory&quot;,
+        &quot;description&quot;: &quot;Creates an empty Inventory container with the specified slot capacity.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;slots&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;getInventoryCount&quot;,
+        &quot;description&quot;: &quot;Returns the number of currently occupied slots in inv.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;getInventoryCapacity&quot;,
+        &quot;description&quot;: &quot;Returns the maximum slot capacity of inv.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;findItemInInventory&quot;,
+        &quot;description&quot;: &quot;Finds an InventoryItem by name in inv, or returns gone if absent.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; },
+          { &quot;name&quot;: &quot;targetName&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot;, &quot;nullable&quot;: true },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-gone&quot;
+      },
+      {
+        &quot;name&quot;: &quot;addItemToInventory&quot;,
+        &quot;description&quot;: &quot;Adds an item to inv (merging into an existing stack if possible), returning false if capacity is full.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; },
+          { &quot;name&quot;: &quot;item&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;removeItemFromInventory&quot;,
+        &quot;description&quot;: &quot;Removes the first matching item named targetName from inv, returning true if removed.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; },
+          { &quot;name&quot;: &quot;targetName&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;consumeItemFromInventory&quot;,
+        &quot;description&quot;: &quot;Consumes amount units of targetName from inv, removing the slot if depleted.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; },
+          { &quot;name&quot;: &quot;targetName&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;amount&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;createEquipment&quot;,
+        &quot;description&quot;: &quot;Creates an Equipment loadout with empty weapon, armor, and accessory slots.&quot;,
+        &quot;parameters&quot;: [],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Equipment&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;equipItem&quot;,
+        &quot;description&quot;: &quot;Equips an InventoryItem into its matching equipment slot, returning false for unsupported kinds.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;equipment&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Equipment&quot; },
+          { &quot;name&quot;: &quot;item&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;unequipSlot&quot;,
+        &quot;description&quot;: &quot;Clears the named equipment slot and returns the previously equipped item or gone.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;equipment&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Equipment&quot; },
+          { &quot;name&quot;: &quot;slotName&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot;, &quot;nullable&quot;: true },
+        &quot;sideEffects&quot;: [&quot;state:mutation&quot;],
+        &quot;errorMode&quot;: &quot;returns-gone&quot;
+      },
+      {
+        &quot;name&quot;: &quot;getEquipmentAttackBonus&quot;,
+        &quot;description&quot;: &quot;Computes total attack power bonus from equipped weapon and attack accessories.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;equipment&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Equipment&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;getEquipmentDefenseBonus&quot;,
+        &quot;description&quot;: &quot;Computes total defense power bonus from equipped armor and defense accessories.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;equipment&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Equipment&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;buildItemRecord&quot;,
+        &quot;description&quot;: &quot;Converts an InventoryItem into a JSON-serializable thing record.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;it&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;InventoryItem&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;thing&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;serializeGameState&quot;,
+        &quot;description&quot;: &quot;Serializes Actor, Inventory, and Equipment state into a JSON-compatible thing snapshot.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;actor&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Actor&quot; },
+          { &quot;name&quot;: &quot;inv&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Inventory&quot; },
+          { &quot;name&quot;: &quot;equip&quot;, &quot;type&quot;: &quot;object&quot;, &quot;objectType&quot;: &quot;Equipment&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;thing&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;deserializeGameState&quot;,
+        &quot;description&quot;: &quot;Reconstructs Actor, Inventory, and Equipment objects from a serialized stateData thing.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;stateData&quot;, &quot;type&quot;: &quot;thing&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;thing&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      }
+    ]
+  },
+  &quot;requires&quot;: {
+    &quot;capabilities&quot;: [],
+    &quot;packages&quot;: {}
+  },
+  &quot;capabilities&quot;: [],
+  &quot;dependencies&quot;: {},
+  &quot;tags&quot;: [
+    &quot;game&quot;,
+    &quot;rpg&quot;,
+    &quot;entity&quot;,
+    &quot;actor&quot;,
+    &quot;health&quot;,
+    &quot;combat&quot;,
+    &quot;damage&quot;,
+    &quot;level&quot;,
+    &quot;inventory&quot;,
+    &quot;equipment&quot;
+  ],
+  &quot;examples&quot;: [
+    &quot;examples/demo.ot&quot;
+  ]
+}
+</textarea>
+    </div><div role="tabpanel" id="panel-2" aria-labelledby="tab-2" class="lib-code-panel is-hidden" data-file-panel="2">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">tests/test.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-2">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># Tests for game-entity (Strict Behavioral Assertions)</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../src/main.ot&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Running game-entity behavioral tests...&quot;</span>
+
+<span class="tok-com"># 1. Actor creation</span>
+hero <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Sir Galahad&quot;</span> <span class="tok-num">100</span> <span class="tok-num">1</span>
+<span class="tok-kw">if</span> name <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;Sir Galahad&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;createActor failed: name mismatch&quot;</span>
+.
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">100</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;createActor failed: health mismatch&quot;</span>
+.
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;createActor failed: expected isAlive to be true&quot;</span>
+.
+
+<span class="tok-com"># 2. Damage &amp; Death State</span>
+applyDamage hero <span class="tok-num">40</span>
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">60</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;applyDamage failed: expected 60 HP&quot;</span>
+.
+applyDamage hero <span class="tok-num">70</span>
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">0</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;applyDamage death failed: expected 0 HP&quot;</span>
+.
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;applyDamage death failed: expected isAlive to be false&quot;</span>
+.
+
+<span class="tok-com"># 3. Dead Actor cannot be healed without revive</span>
+healedDead <span class="tok-kw">is</span> restoreHealth hero <span class="tok-num">50</span>
+<span class="tok-kw">if</span> healedDead <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">0</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;restoreHealth failed: dead actor was healed&quot;</span>
+.
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;dead actor was unexpectedly revived by restoreHealth&quot;</span>
+.
+
+<span class="tok-com"># 4. Revive Actor &amp; Healing Cap</span>
+reviveActor hero <span class="tok-num">20</span>
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;reviveActor failed: expected isAlive to be true&quot;</span>
+.
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">20</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;reviveActor failed: expected 20 HP&quot;</span>
+.
+restoreHealth hero <span class="tok-num">200</span>
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">100</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;restoreHealth cap failed: health exceeded maxHealth 100&quot;</span>
+.
+
+<span class="tok-com"># 5. Experience &amp; Leveling</span>
+leveledUp <span class="tok-kw">is</span> gainExperience hero <span class="tok-num">150</span> <span class="tok-num">100</span>
+<span class="tok-kw">if</span> leveledUp <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;gainExperience failed: expected level-up to trigger&quot;</span>
+.
+<span class="tok-kw">if</span> level <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;levelUp failed: expected level 2&quot;</span>
+.
+<span class="tok-kw">if</span> maxHealth <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">125</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;levelUp failed: expected maxHealth 125&quot;</span>
+.
+<span class="tok-kw">if</span> attackBonus <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">5</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;levelUp failed: expected attackBonus 5&quot;</span>
+.
+<span class="tok-kw">if</span> defenseBonus <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">3</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;levelUp failed: expected defenseBonus 3&quot;</span>
+.
+<span class="tok-kw">if</span> experience <span class="tok-kw">of</span> hero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">50</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;gainExperience failed: expected 50 remaining experience&quot;</span>
+.
+
+<span class="tok-com"># 6. Cooldowns</span>
+slashCd <span class="tok-kw">is</span> createCooldown <span class="tok-str">&quot;Slash&quot;</span> <span class="tok-num">3</span>
+<span class="tok-kw">if</span> isCooldownReady slashCd <span class="tok-num">10</span> <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isCooldownReady initial check failed&quot;</span>
+.
+triggerCooldown slashCd <span class="tok-num">10</span>
+<span class="tok-kw">if</span> isCooldownReady slashCd <span class="tok-num">11</span> <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isCooldownReady check after 1s failed: should be cooling down&quot;</span>
+.
+<span class="tok-kw">if</span> isCooldownReady slashCd <span class="tok-num">13</span> <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isCooldownReady check after 3s failed: should be ready&quot;</span>
+.
+
+<span class="tok-com"># 7. Inventory &amp; Capacity</span>
+bag <span class="tok-kw">is</span> createInventory <span class="tok-num">2</span>
+potion1 <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Health Potion&quot;</span> <span class="tok-str">&quot;consumable&quot;</span> <span class="tok-num">25</span>
+potion2 <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Mana Potion&quot;</span> <span class="tok-str">&quot;consumable&quot;</span> <span class="tok-num">15</span>
+swordItem <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Broadsword&quot;</span> <span class="tok-str">&quot;weapon&quot;</span> <span class="tok-num">12</span>
+
+ok1 <span class="tok-kw">is</span> addItemToInventory bag potion1
+<span class="tok-kw">if</span> ok1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;addItemToInventory 1 failed&quot;</span>
+.
+ok2 <span class="tok-kw">is</span> addItemToInventory bag potion2
+<span class="tok-kw">if</span> ok2 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;addItemToInventory 2 failed&quot;</span>
+.
+<span class="tok-com"># Exceeds capacity</span>
+ok3 <span class="tok-kw">is</span> addItemToInventory bag swordItem
+<span class="tok-kw">if</span> ok3 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;addItemToInventory should fail when capacity is full&quot;</span>
+.
+<span class="tok-kw">if</span> getInventoryCount bag <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;getInventoryCount mismatch&quot;</span>
+.
+
+<span class="tok-com"># 8. Find and Remove Items</span>
+foundPot <span class="tok-kw">is</span> findItemInInventory bag <span class="tok-str">&quot;Health Potion&quot;</span>
+<span class="tok-kw">if</span> foundPot <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;findItemInInventory failed to find item&quot;</span>
+.
+remOk <span class="tok-kw">is</span> removeItemFromInventory bag <span class="tok-str">&quot;Health Potion&quot;</span>
+<span class="tok-kw">if</span> remOk <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;removeItemFromInventory failed to remove item&quot;</span>
+.
+<span class="tok-kw">if</span> getInventoryCount bag <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">1</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;getInventoryCount mismatch after removal&quot;</span>
+.
+missingPot <span class="tok-kw">is</span> findItemInInventory bag <span class="tok-str">&quot;Health Potion&quot;</span>
+<span class="tok-kw">if</span> missingPot <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">gone</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;removed item is still found in inventory&quot;</span>
+.
+
+<span class="tok-com"># 9. Stackable Items</span>
+arrow1 <span class="tok-kw">is</span> createStackableItem <span class="tok-str">&quot;Iron Arrow&quot;</span> <span class="tok-str">&quot;ammo&quot;</span> <span class="tok-num">1</span> <span class="tok-num">10</span> <span class="tok-num">30</span>
+arrow2 <span class="tok-kw">is</span> createStackableItem <span class="tok-str">&quot;Iron Arrow&quot;</span> <span class="tok-str">&quot;ammo&quot;</span> <span class="tok-num">1</span> <span class="tok-num">15</span> <span class="tok-num">30</span>
+addItemToInventory bag arrow1
+addItemToInventory bag arrow2
+stackedArrow <span class="tok-kw">is</span> findItemInInventory bag <span class="tok-str">&quot;Iron Arrow&quot;</span>
+<span class="tok-kw">if</span> itemCount <span class="tok-kw">of</span> stackedArrow <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">25</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;stackable item failed: expected stacked count 25&quot;</span>
+.
+
+<span class="tok-com"># 10. Equipment System &amp; Stat Bonuses</span>
+equip <span class="tok-kw">is</span> createEquipment
+weaponItem <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Excalibur&quot;</span> <span class="tok-str">&quot;weapon&quot;</span> <span class="tok-num">20</span>
+armorItem <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Dragon Plate&quot;</span> <span class="tok-str">&quot;armor&quot;</span> <span class="tok-num">15</span>
+equipItem equip weaponItem
+equipItem equip armorItem
+
+atkBonus <span class="tok-kw">is</span> getEquipmentAttackBonus equip
+<span class="tok-kw">if</span> atkBonus <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">20</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;getEquipmentAttackBonus failed: expected 20&quot;</span>
+.
+defBonus <span class="tok-kw">is</span> getEquipmentDefenseBonus equip
+<span class="tok-kw">if</span> defBonus <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">15</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;getEquipmentDefenseBonus failed: expected 15&quot;</span>
+.
+
+<span class="tok-com"># 11. State Serialization &amp; Deserialization</span>
+savedState <span class="tok-kw">is</span> serializeGameState hero bag equip
+<span class="tok-kw">if</span> name <span class="tok-kw">of</span> savedState <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;Sir Galahad&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;serializeGameState failed: name mismatch&quot;</span>
+.
+
+<span class="tok-com"># Restore into fresh objects</span>
+restoredBundle <span class="tok-kw">is</span> deserializeGameState savedState
+restoredHero <span class="tok-kw">is</span> actor <span class="tok-kw">of</span> restoredBundle
+restoredBag <span class="tok-kw">is</span> inventory <span class="tok-kw">of</span> restoredBundle
+restoredEquip <span class="tok-kw">is</span> equipment <span class="tok-kw">of</span> restoredBundle
+
+<span class="tok-kw">if</span> name <span class="tok-kw">of</span> restoredHero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;Sir Galahad&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;deserializeGameState failed: restored name mismatch&quot;</span>
+.
+<span class="tok-kw">if</span> level <span class="tok-kw">of</span> restoredHero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;deserializeGameState failed: restored level mismatch&quot;</span>
+.
+<span class="tok-kw">if</span> getEquipmentAttackBonus restoredEquip <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">20</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;deserializeGameState failed: restored equipment attack mismatch&quot;</span>
+.
+<span class="tok-kw">if</span> getEquipmentDefenseBonus restoredEquip <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">15</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;deserializeGameState failed: restored equipment defense mismatch&quot;</span>
+.
+
+<span class="tok-com"># 12. Bug 5 Test: reviveActor with 0 HP must not revive actor</span>
+fallen <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Fallen Knight&quot;</span> <span class="tok-num">50</span> <span class="tok-num">1</span>
+applyDamage fallen <span class="tok-num">50</span>
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> fallen <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;fallen actor expected dead&quot;</span>
+.
+reviveZeroRes <span class="tok-kw">is</span> reviveActor fallen <span class="tok-num">0</span>
+<span class="tok-kw">if</span> reviveZeroRes <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">0</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;reviveActor with 0 HP must return 0&quot;</span>
+.
+<span class="tok-kw">if</span> isAlive <span class="tok-kw">of</span> fallen <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;actor must remain dead when revived with 0 HP&quot;</span>
+.
+<span class="tok-kw">if</span> health <span class="tok-kw">of</span> fallen <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">0</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;dead actor HP must remain 0&quot;</span>
+.
+
+<span class="tok-com"># 13. Bug 4 Test: Multi-leveling in gainExperience (500 XP at 100/level -&gt; level 6)</span>
+novice <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Novice Mage&quot;</span> <span class="tok-num">60</span> <span class="tok-num">1</span>
+multiLvlOk <span class="tok-kw">is</span> gainExperience novice <span class="tok-num">500</span> <span class="tok-num">100</span>
+<span class="tok-kw">if</span> multiLvlOk <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;gainExperience failed to trigger multi-leveling&quot;</span>
+.
+<span class="tok-kw">if</span> level <span class="tok-kw">of</span> novice <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">6</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;multi-leveling expected level 6 from 500 XP at 100/level&quot;</span>
+.
+<span class="tok-kw">if</span> experience <span class="tok-kw">of</span> novice <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">0</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;multi-leveling expected 0 leftover experience&quot;</span>
+.
+
+<span class="tok-com"># 14. Bug 2 &amp; 3 Test: Accessory equipping, attack/defense bonuses, and savegame persistence</span>
+accEquip <span class="tok-kw">is</span> createEquipment
+fireRing <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Ring of Fire&quot;</span> <span class="tok-str">&quot;attack_accessory&quot;</span> <span class="tok-num">12</span>
+wardPendant <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Pendant of Warding&quot;</span> <span class="tok-str">&quot;defense_accessory&quot;</span> <span class="tok-num">8</span>
+
+equipFireOk <span class="tok-kw">is</span> equipItem accEquip fireRing
+<span class="tok-kw">if</span> equipFireOk <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;failed to equip attack_accessory into accessory slot&quot;</span>
+.
+atkWithAcc <span class="tok-kw">is</span> getEquipmentAttackBonus accEquip
+<span class="tok-kw">if</span> atkWithAcc <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">12</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;attack_accessory bonus failed: expected 12&quot;</span>
+.
+
+equipWardOk <span class="tok-kw">is</span> equipItem accEquip wardPendant
+<span class="tok-kw">if</span> equipWardOk <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;failed to equip defense_accessory into accessory slot&quot;</span>
+.
+defWithAcc <span class="tok-kw">is</span> getEquipmentDefenseBonus accEquip
+<span class="tok-kw">if</span> defWithAcc <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">8</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;defense_accessory bonus failed: expected 8&quot;</span>
+.
+
+<span class="tok-com"># Save and restore accessory slot</span>
+accSavedState <span class="tok-kw">is</span> serializeGameState novice bag accEquip
+accRestoredBundle <span class="tok-kw">is</span> deserializeGameState accSavedState
+accRestoredEquip <span class="tok-kw">is</span> equipment <span class="tok-kw">of</span> accRestoredBundle
+restoredDefAcc <span class="tok-kw">is</span> getEquipmentDefenseBonus accRestoredEquip
+<span class="tok-kw">if</span> restoredDefAcc <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">8</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;restored accessory defense bonus mismatch: expected 8&quot;</span>
+.
+restoredAccItem <span class="tok-kw">is</span> accessory <span class="tok-kw">of</span> accRestoredEquip
+<span class="tok-kw">if</span> itemName <span class="tok-kw">of</span> restoredAccItem <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;Pendant of Warding&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;restored accessory itemName mismatch: expected Pendant of Warding&quot;</span>
+.
+<span class="tok-kw">if</span> itemKind <span class="tok-kw">of</span> restoredAccItem <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;defense_accessory&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;restored accessory itemKind mismatch: expected defense_accessory&quot;</span>
+.
+
+<span class="tok-com"># 15. Bug 1 Test: Runtime Scoping &amp; Variable Clash Safety</span>
+<span class="tok-com"># Callers can have variables named b, inv, eq, item without clashing with library internal variables</span>
+inv <span class="tok-kw">is</span> <span class="tok-str">&quot;caller_inv_string&quot;</span>
+eq <span class="tok-kw">is</span> <span class="tok-str">&quot;caller_eq_string&quot;</span>
+item <span class="tok-kw">is</span> <span class="tok-str">&quot;caller_item_string&quot;</span>
+b <span class="tok-kw">is</span> createInventory <span class="tok-num">3</span>
+c <span class="tok-kw">is</span> createInventory <span class="tok-num">4</span>
+
+<span class="tok-kw">if</span> inv <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;caller_inv_string&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;caller inv variable was corrupted by library call&quot;</span>
+.
+<span class="tok-kw">if</span> eq <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;caller_eq_string&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;caller eq variable was corrupted by library call&quot;</span>
+.
+<span class="tok-kw">if</span> item <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;caller_item_string&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;caller item variable was corrupted by library call&quot;</span>
+.
+<span class="tok-kw">if</span> capacity <span class="tok-kw">of</span> b <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">3</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;first created inventory capacity mismatch&quot;</span>
+.
+<span class="tok-kw">if</span> capacity <span class="tok-kw">of</span> c <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">4</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;second created inventory capacity mismatch&quot;</span>
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;All game-entity behavioral tests passed successfully!&quot;</span>
+</code></pre>
+      <textarea id="raw-code-2" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># Tests for game-entity (Strict Behavioral Assertions)
+use &quot;../src/main.ot&quot;
+
+say &quot;Running game-entity behavioral tests...&quot;
+
+# 1. Actor creation
+hero is createActor &quot;Sir Galahad&quot; 100 1
+if name of hero is not &quot;Sir Galahad&quot;
+    fail with &quot;createActor failed: name mismatch&quot;
+.
+if health of hero is not 100
+    fail with &quot;createActor failed: health mismatch&quot;
+.
+if isAlive of hero is not true
+    fail with &quot;createActor failed: expected isAlive to be true&quot;
+.
+
+# 2. Damage &amp; Death State
+applyDamage hero 40
+if health of hero is not 60
+    fail with &quot;applyDamage failed: expected 60 HP&quot;
+.
+applyDamage hero 70
+if health of hero is not 0
+    fail with &quot;applyDamage death failed: expected 0 HP&quot;
+.
+if isAlive of hero is not false
+    fail with &quot;applyDamage death failed: expected isAlive to be false&quot;
+.
+
+# 3. Dead Actor cannot be healed without revive
+healedDead is restoreHealth hero 50
+if healedDead is not 0
+    fail with &quot;restoreHealth failed: dead actor was healed&quot;
+.
+if isAlive of hero is not false
+    fail with &quot;dead actor was unexpectedly revived by restoreHealth&quot;
+.
+
+# 4. Revive Actor &amp; Healing Cap
+reviveActor hero 20
+if isAlive of hero is not true
+    fail with &quot;reviveActor failed: expected isAlive to be true&quot;
+.
+if health of hero is not 20
+    fail with &quot;reviveActor failed: expected 20 HP&quot;
+.
+restoreHealth hero 200
+if health of hero is not 100
+    fail with &quot;restoreHealth cap failed: health exceeded maxHealth 100&quot;
+.
+
+# 5. Experience &amp; Leveling
+leveledUp is gainExperience hero 150 100
+if leveledUp is not true
+    fail with &quot;gainExperience failed: expected level-up to trigger&quot;
+.
+if level of hero is not 2
+    fail with &quot;levelUp failed: expected level 2&quot;
+.
+if maxHealth of hero is not 125
+    fail with &quot;levelUp failed: expected maxHealth 125&quot;
+.
+if attackBonus of hero is not 5
+    fail with &quot;levelUp failed: expected attackBonus 5&quot;
+.
+if defenseBonus of hero is not 3
+    fail with &quot;levelUp failed: expected defenseBonus 3&quot;
+.
+if experience of hero is not 50
+    fail with &quot;gainExperience failed: expected 50 remaining experience&quot;
+.
+
+# 6. Cooldowns
+slashCd is createCooldown &quot;Slash&quot; 3
+if isCooldownReady slashCd 10 is not true
+    fail with &quot;isCooldownReady initial check failed&quot;
+.
+triggerCooldown slashCd 10
+if isCooldownReady slashCd 11 is not false
+    fail with &quot;isCooldownReady check after 1s failed: should be cooling down&quot;
+.
+if isCooldownReady slashCd 13 is not true
+    fail with &quot;isCooldownReady check after 3s failed: should be ready&quot;
+.
+
+# 7. Inventory &amp; Capacity
+bag is createInventory 2
+potion1 is createItem &quot;Health Potion&quot; &quot;consumable&quot; 25
+potion2 is createItem &quot;Mana Potion&quot; &quot;consumable&quot; 15
+swordItem is createItem &quot;Broadsword&quot; &quot;weapon&quot; 12
+
+ok1 is addItemToInventory bag potion1
+if ok1 is not true
+    fail with &quot;addItemToInventory 1 failed&quot;
+.
+ok2 is addItemToInventory bag potion2
+if ok2 is not true
+    fail with &quot;addItemToInventory 2 failed&quot;
+.
+# Exceeds capacity
+ok3 is addItemToInventory bag swordItem
+if ok3 is not false
+    fail with &quot;addItemToInventory should fail when capacity is full&quot;
+.
+if getInventoryCount bag is not 2
+    fail with &quot;getInventoryCount mismatch&quot;
+.
+
+# 8. Find and Remove Items
+foundPot is findItemInInventory bag &quot;Health Potion&quot;
+if foundPot is gone
+    fail with &quot;findItemInInventory failed to find item&quot;
+.
+remOk is removeItemFromInventory bag &quot;Health Potion&quot;
+if remOk is not true
+    fail with &quot;removeItemFromInventory failed to remove item&quot;
+.
+if getInventoryCount bag is not 1
+    fail with &quot;getInventoryCount mismatch after removal&quot;
+.
+missingPot is findItemInInventory bag &quot;Health Potion&quot;
+if missingPot is not gone
+    fail with &quot;removed item is still found in inventory&quot;
+.
+
+# 9. Stackable Items
+arrow1 is createStackableItem &quot;Iron Arrow&quot; &quot;ammo&quot; 1 10 30
+arrow2 is createStackableItem &quot;Iron Arrow&quot; &quot;ammo&quot; 1 15 30
+addItemToInventory bag arrow1
+addItemToInventory bag arrow2
+stackedArrow is findItemInInventory bag &quot;Iron Arrow&quot;
+if itemCount of stackedArrow is not 25
+    fail with &quot;stackable item failed: expected stacked count 25&quot;
+.
+
+# 10. Equipment System &amp; Stat Bonuses
+equip is createEquipment
+weaponItem is createItem &quot;Excalibur&quot; &quot;weapon&quot; 20
+armorItem is createItem &quot;Dragon Plate&quot; &quot;armor&quot; 15
+equipItem equip weaponItem
+equipItem equip armorItem
+
+atkBonus is getEquipmentAttackBonus equip
+if atkBonus is not 20
+    fail with &quot;getEquipmentAttackBonus failed: expected 20&quot;
+.
+defBonus is getEquipmentDefenseBonus equip
+if defBonus is not 15
+    fail with &quot;getEquipmentDefenseBonus failed: expected 15&quot;
+.
+
+# 11. State Serialization &amp; Deserialization
+savedState is serializeGameState hero bag equip
+if name of savedState is not &quot;Sir Galahad&quot;
+    fail with &quot;serializeGameState failed: name mismatch&quot;
+.
+
+# Restore into fresh objects
+restoredBundle is deserializeGameState savedState
+restoredHero is actor of restoredBundle
+restoredBag is inventory of restoredBundle
+restoredEquip is equipment of restoredBundle
+
+if name of restoredHero is not &quot;Sir Galahad&quot;
+    fail with &quot;deserializeGameState failed: restored name mismatch&quot;
+.
+if level of restoredHero is not 2
+    fail with &quot;deserializeGameState failed: restored level mismatch&quot;
+.
+if getEquipmentAttackBonus restoredEquip is not 20
+    fail with &quot;deserializeGameState failed: restored equipment attack mismatch&quot;
+.
+if getEquipmentDefenseBonus restoredEquip is not 15
+    fail with &quot;deserializeGameState failed: restored equipment defense mismatch&quot;
+.
+
+# 12. Bug 5 Test: reviveActor with 0 HP must not revive actor
+fallen is createActor &quot;Fallen Knight&quot; 50 1
+applyDamage fallen 50
+if isAlive of fallen is not false
+    fail with &quot;fallen actor expected dead&quot;
+.
+reviveZeroRes is reviveActor fallen 0
+if reviveZeroRes is not 0
+    fail with &quot;reviveActor with 0 HP must return 0&quot;
+.
+if isAlive of fallen is not false
+    fail with &quot;actor must remain dead when revived with 0 HP&quot;
+.
+if health of fallen is not 0
+    fail with &quot;dead actor HP must remain 0&quot;
+.
+
+# 13. Bug 4 Test: Multi-leveling in gainExperience (500 XP at 100/level -&gt; level 6)
+novice is createActor &quot;Novice Mage&quot; 60 1
+multiLvlOk is gainExperience novice 500 100
+if multiLvlOk is not true
+    fail with &quot;gainExperience failed to trigger multi-leveling&quot;
+.
+if level of novice is not 6
+    fail with &quot;multi-leveling expected level 6 from 500 XP at 100/level&quot;
+.
+if experience of novice is not 0
+    fail with &quot;multi-leveling expected 0 leftover experience&quot;
+.
+
+# 14. Bug 2 &amp; 3 Test: Accessory equipping, attack/defense bonuses, and savegame persistence
+accEquip is createEquipment
+fireRing is createItem &quot;Ring of Fire&quot; &quot;attack_accessory&quot; 12
+wardPendant is createItem &quot;Pendant of Warding&quot; &quot;defense_accessory&quot; 8
+
+equipFireOk is equipItem accEquip fireRing
+if equipFireOk is not true
+    fail with &quot;failed to equip attack_accessory into accessory slot&quot;
+.
+atkWithAcc is getEquipmentAttackBonus accEquip
+if atkWithAcc is not 12
+    fail with &quot;attack_accessory bonus failed: expected 12&quot;
+.
+
+equipWardOk is equipItem accEquip wardPendant
+if equipWardOk is not true
+    fail with &quot;failed to equip defense_accessory into accessory slot&quot;
+.
+defWithAcc is getEquipmentDefenseBonus accEquip
+if defWithAcc is not 8
+    fail with &quot;defense_accessory bonus failed: expected 8&quot;
+.
+
+# Save and restore accessory slot
+accSavedState is serializeGameState novice bag accEquip
+accRestoredBundle is deserializeGameState accSavedState
+accRestoredEquip is equipment of accRestoredBundle
+restoredDefAcc is getEquipmentDefenseBonus accRestoredEquip
+if restoredDefAcc is not 8
+    fail with &quot;restored accessory defense bonus mismatch: expected 8&quot;
+.
+restoredAccItem is accessory of accRestoredEquip
+if itemName of restoredAccItem is not &quot;Pendant of Warding&quot;
+    fail with &quot;restored accessory itemName mismatch: expected Pendant of Warding&quot;
+.
+if itemKind of restoredAccItem is not &quot;defense_accessory&quot;
+    fail with &quot;restored accessory itemKind mismatch: expected defense_accessory&quot;
+.
+
+# 15. Bug 1 Test: Runtime Scoping &amp; Variable Clash Safety
+# Callers can have variables named b, inv, eq, item without clashing with library internal variables
+inv is &quot;caller_inv_string&quot;
+eq is &quot;caller_eq_string&quot;
+item is &quot;caller_item_string&quot;
+b is createInventory 3
+c is createInventory 4
+
+if inv is not &quot;caller_inv_string&quot;
+    fail with &quot;caller inv variable was corrupted by library call&quot;
+.
+if eq is not &quot;caller_eq_string&quot;
+    fail with &quot;caller eq variable was corrupted by library call&quot;
+.
+if item is not &quot;caller_item_string&quot;
+    fail with &quot;caller item variable was corrupted by library call&quot;
+.
+if capacity of b is not 3
+    fail with &quot;first created inventory capacity mismatch&quot;
+.
+if capacity of c is not 4
+    fail with &quot;second created inventory capacity mismatch&quot;
+.
+
+say &quot;All game-entity behavioral tests passed successfully!&quot;
+</textarea>
+    </div><div role="tabpanel" id="panel-3" aria-labelledby="tab-3" class="lib-code-panel is-hidden" data-file-panel="3">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">examples/demo.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-3">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># game-entity Demo</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../src/main.ot&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;=== game-entity Demo ===&quot;</span>
+player <span class="tok-kw">is</span> createActor <span class="tok-str">&quot;Paladin&quot;</span> <span class="tok-num">120</span> <span class="tok-num">1</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Hero created:&quot;</span> name <span class="tok-kw">of</span> player <span class="tok-str">&quot;HP:&quot;</span> health <span class="tok-kw">of</span> player <span class="tok-str">&quot;/&quot;</span> maxHealth <span class="tok-kw">of</span> player
+
+bag <span class="tok-kw">is</span> createInventory <span class="tok-num">6</span>
+potion <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Elixir of Life&quot;</span> <span class="tok-str">&quot;consumable&quot;</span> <span class="tok-num">50</span>
+sword <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Mithril Sword&quot;</span> <span class="tok-str">&quot;weapon&quot;</span> <span class="tok-num">25</span>
+shield <span class="tok-kw">is</span> createItem <span class="tok-str">&quot;Kite Shield&quot;</span> <span class="tok-str">&quot;armor&quot;</span> <span class="tok-num">15</span>
+arrows <span class="tok-kw">is</span> createStackableItem <span class="tok-str">&quot;Fire Arrow&quot;</span> <span class="tok-str">&quot;ammo&quot;</span> <span class="tok-num">5</span> <span class="tok-num">10</span> <span class="tok-num">20</span>
+
+addItemToInventory bag potion
+addItemToInventory bag sword
+addItemToInventory bag shield
+addItemToInventory bag arrows
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Inventory items count:&quot;</span> getInventoryCount bag
+
+equip <span class="tok-kw">is</span> createEquipment
+equipItem equip sword
+equipItem equip shield
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Equipment Attack Bonus: +&quot;</span> getEquipmentAttackBonus equip
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Equipment Defense Bonus: +&quot;</span> getEquipmentDefenseBonus equip
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Engaging in combat...&quot;</span>
+applyDamage player <span class="tok-num">35</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;HP after combat damage:&quot;</span> health <span class="tok-kw">of</span> player <span class="tok-str">&quot;/&quot;</span> maxHealth <span class="tok-kw">of</span> player
+
+restoreHealth player <span class="tok-num">20</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;HP after recovery:&quot;</span> health <span class="tok-kw">of</span> player <span class="tok-str">&quot;/&quot;</span> maxHealth <span class="tok-kw">of</span> player
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Awarding 120 experience...&quot;</span>
+gainExperience player <span class="tok-num">120</span> <span class="tok-num">100</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Hero is now Level&quot;</span> level <span class="tok-kw">of</span> player <span class="tok-str">&quot;with Max HP:&quot;</span> maxHealth <span class="tok-kw">of</span> player
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Saving full character and inventory state...&quot;</span>
+savedState <span class="tok-kw">is</span> serializeGameState player bag equip
+<span class="tok-kw">say</span> <span class="tok-str">&quot;State serialized for:&quot;</span> name <span class="tok-kw">of</span> savedState <span class="tok-str">&quot;Level:&quot;</span> level <span class="tok-kw">of</span> savedState
+
+bundle <span class="tok-kw">is</span> deserializeGameState savedState
+heroRestored <span class="tok-kw">is</span> actor <span class="tok-kw">of</span> bundle
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Restored hero name:&quot;</span> name <span class="tok-kw">of</span> heroRestored <span class="tok-str">&quot;Level:&quot;</span> level <span class="tok-kw">of</span> heroRestored
+</code></pre>
+      <textarea id="raw-code-3" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># game-entity Demo
+use &quot;../src/main.ot&quot;
+
+say &quot;=== game-entity Demo ===&quot;
+player is createActor &quot;Paladin&quot; 120 1
+say &quot;Hero created:&quot; name of player &quot;HP:&quot; health of player &quot;/&quot; maxHealth of player
+
+bag is createInventory 6
+potion is createItem &quot;Elixir of Life&quot; &quot;consumable&quot; 50
+sword is createItem &quot;Mithril Sword&quot; &quot;weapon&quot; 25
+shield is createItem &quot;Kite Shield&quot; &quot;armor&quot; 15
+arrows is createStackableItem &quot;Fire Arrow&quot; &quot;ammo&quot; 5 10 20
+
+addItemToInventory bag potion
+addItemToInventory bag sword
+addItemToInventory bag shield
+addItemToInventory bag arrows
+say &quot;Inventory items count:&quot; getInventoryCount bag
+
+equip is createEquipment
+equipItem equip sword
+equipItem equip shield
+say &quot;Equipment Attack Bonus: +&quot; getEquipmentAttackBonus equip
+say &quot;Equipment Defense Bonus: +&quot; getEquipmentDefenseBonus equip
+
+say &quot;Engaging in combat...&quot;
+applyDamage player 35
+say &quot;HP after combat damage:&quot; health of player &quot;/&quot; maxHealth of player
+
+restoreHealth player 20
+say &quot;HP after recovery:&quot; health of player &quot;/&quot; maxHealth of player
+
+say &quot;Awarding 120 experience...&quot;
+gainExperience player 120 100
+say &quot;Hero is now Level&quot; level of player &quot;with Max HP:&quot; maxHealth of player
+
+say &quot;Saving full character and inventory state...&quot;
+savedState is serializeGameState player bag equip
+say &quot;State serialized for:&quot; name of savedState &quot;Level:&quot; level of savedState
+
+bundle is deserializeGameState savedState
+heroRestored is actor of bundle
+say &quot;Restored hero name:&quot; name of heroRestored &quot;Level:&quot; level of heroRestored
+</textarea>
+    </div>
+  </section>
+
+        <section class="lib-panel" aria-labelledby="install-heading">
+          <div class="lib-panel-head">
+            <h2 id="install-heading">Installation &amp; Usage</h2>
+            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+          </div>
+          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> pack install <span class="tok-kw">otter</span>-official/game-entity
+<span class="tok-kw">otter</span> pack verify --contracts</code></pre>
+          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter pack install otter-official/game-entity
+otter pack verify --contracts</textarea>
+          <p class="lib-usage-text">use &quot;.otter/packages/otter-official/game-entity/1.1.0/src/main.ot&quot;
+
+# Inspect exported operation contracts:
+otter pack contract otter-official/game-entity</p>
+        </section>
+
+        <section class="lib-panel" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Components</h2>
+        <div class="lib-related-grid">
+          <a class="lib-related-card" href="/library/blueprint-otter-official-game-combat/">
+            <span class="lib-related-cat">Otter · Blueprints</span>
+            <strong>RPG Combat Starter Blueprint</strong>
+            <span>Connect actor creation, damage calculation, defeat conditions, and rewards.</span>
+          </a><a class="lib-related-card" href="/library/games-godot-health-combat/">
+            <span class="lib-related-cat">Games · Combat Systems</span>
+            <strong>Godot 4 Health &amp; Damage Component</strong>
+            <span>Signal-driven Godot 4 GDScript HealthComponent node with invulnerability frames, armor mitigation, healing cap…</span>
+          </a><a class="lib-related-card" href="/library/games-roblox-quest-tracker/">
+            <span class="lib-related-cat">Games · Quest Systems</span>
+            <strong>Roblox Luau Quest &amp; Objective Tracker</strong>
+            <span>Typed Roblox Luau ModuleScript service for tracking per-player quest states, incrementing objective counters, …</span>
+          </a><a class="lib-related-card" href="/library/games-unity-inventory-system/">
+            <span class="lib-related-cat">Games · Inventory Systems</span>
+            <strong>Unity C# Stackable Inventory Container</strong>
+            <span>Data-driven Unity C# inventory system using ScriptableObject item definitions, stack merging, slot capacity li…</span>
+          </a><a class="lib-related-card" href="/library/recipe-otter-official-rpg-adventure/">
+            <span class="lib-related-cat">Otter · Recipes</span>
+            <strong>RPG Adventure Game Engine Recipe</strong>
+            <span>Complete RPG adventure featuring combat with ability cooldowns, inventory equipment, enemy loot drops, and exp…</span>
+          </a><a class="lib-related-card" href="/library/workflow-game-actor-save-state/">
+            <span class="lib-related-cat">Otter · Workflows</span>
+            <strong>Game Actor Combat and Save-State Workflow</strong>
+            <span>Demonstrates 3-pack composition with explicit state-mutation ordering: creates an Actor, inventory, and equipm…</span>
+          </a>
+        </div>
+      </section>
+      </div>
+
+      <aside class="lib-detail-aside" aria-label="Component metadata">
+        <section class="lib-aside-card">
+          <h3>Verification Status</h3>
+          <p class="lib-ver-badge-block lib-badge-verified">Upstream Contract &amp; Behavioral Tests</p>
+          <p class="lib-aside-copy">Verified in Heavens-Lava/otter-net (pinned commit 6fec852) via &#39;otter pack verify --contracts&#39; (26 AST-checked operations, prefix &#39;_ge_&#39;) and tools/test-packs.ps1; imported into otter-docs with SHA-256 provenance verification.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Dependencies</h3>
+          <p class="lib-meta-muted">No external dependencies required.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Compatibility &amp; Platforms</h3>
+          <ul class="lib-meta-list">
+            <li>Otter (console)</li><li>Otter (desktop)</li><li>Otter (web)</li>
+          </ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Tags</h3>
+          <div class="lib-tags-wrap">
+            <a class="lib-tag" href="/library/?q=game">#game</a><a class="lib-tag" href="/library/?q=rpg">#rpg</a><a class="lib-tag" href="/library/?q=entity">#entity</a><a class="lib-tag" href="/library/?q=actor">#actor</a><a class="lib-tag" href="/library/?q=health">#health</a><a class="lib-tag" href="/library/?q=combat">#combat</a><a class="lib-tag" href="/library/?q=damage">#damage</a><a class="lib-tag" href="/library/?q=level">#level</a><a class="lib-tag" href="/library/?q=inventory">#inventory</a><a class="lib-tag" href="/library/?q=equipment">#equipment</a><a class="lib-tag" href="/library/?q=game.entity">#game.entity</a><a class="lib-tag" href="/library/?q=game.combat">#game.combat</a><a class="lib-tag" href="/library/?q=game.inventory">#game.inventory</a><a class="lib-tag" href="/library/?q=game.equipment">#game.equipment</a><a class="lib-tag" href="/library/?q=game.serialization">#game.serialization</a><a class="lib-tag" href="/library/?q=pack">#pack</a><a class="lib-tag" href="/library/?q=schema-v2">#schema-v2</a>
+          </div>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Catalog Provenance</h3>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
+      <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="footerLibraryLink" class="otter-link" href="/library/" style="color: #b7c4d8; font-size: 13px;">Library</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerQuickRef" class="otter-link" href="/quick-reference/" style="color: #b7c4d8; font-size: 13px;">Quick reference</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerPrivacy" class="otter-link" href="/privacy/" style="color: #b7c4d8; font-size: 13px;">Privacy</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+</div>
+</body>
+</html>

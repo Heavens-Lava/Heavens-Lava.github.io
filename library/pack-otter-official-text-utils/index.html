@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>text-utils Pack - Otter Component Library</title>
+<meta name="description" content="Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.">
+<link rel="canonical" href="https://otterprogramming.com/library/pack-otter-official-text-utils/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otter Programming Language">
+<meta property="og:title" content="text-utils Pack - Otter Component Library">
+<meta property="og:description" content="Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.">
+<meta property="og:url" content="https://otterprogramming.com/library/pack-otter-official-text-utils/">
+<meta property="og:image" content="https://otterprogramming.com/static/images/otter-site-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="text-utils Pack - Otter Component Library">
+<meta name="twitter:description" content="Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"text-utils Pack","description":"Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.","url":"https://otterprogramming.com/library/pack-otter-official-text-utils/","programmingLanguage":"Otter","runtimePlatform":"Otter (console), Otter (desktop), Otter (web)","version":"1.0.1","license":"MIT","codeRepository":"https://github.com/Heavens-Lava/otter-net"}</script>
+<style>
+    :root {
+      --otter-bg: #f4f7fb;
+      --otter-card-bg: #1e293b;
+      --otter-text: #0f1f36;
+      --otter-text-muted: #94a3b8;
+      --otter-primary: #2563eb;
+      --otter-primary-hover: #1d4ed8;
+      --otter-input-bg: #0f172a;
+      --otter-border: #334155;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #0f1f36;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    body.otter-has-page {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body.otter-has-page.otter-doc-scroll {
+      height: auto;
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .otter-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-column {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-window {
+      background-color: #1e293b;
+      border: 1px solid var(--otter-border);
+      width: 100%;
+      max-width: 520px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-page {
+      background: transparent;
+      border: none;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-card {
+      background-color: var(--otter-card-bg);
+      border: 1px solid var(--otter-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .otter-button {
+      background-color: var(--otter-primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.08s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .otter-button:hover { background-color: var(--otter-primary-hover); }
+    .otter-button:active { transform: scale(0.98); }
+    .otter-text-box {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .otter-text-box:focus {
+      border-color: var(--otter-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .otter-text {
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .otter-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
+    .otter-button-primary, .otter-btn-primary {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-primary:hover, .otter-btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .otter-button-secondary, .otter-btn-secondary {
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otter-button-secondary:hover, .otter-btn-secondary:hover {
+      background-color: #475569;
+    }
+    .otter-button-danger, .otter-btn-danger {
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-danger:hover, .otter-btn-danger:hover {
+      background-color: #b91c1c;
+    }
+    .otter-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-conditional {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .otter-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--otter-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .otter-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    .otter-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .otter-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    .otter-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+    .otter-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-select {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .otter-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-text-area,
+    .otter-textarea {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .otter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(37,99,235,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .otter-canvas {
+      background: #020617;
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      max-width: 100%;
+      display: block;
+    }
+    .otter-progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--otter-border);
+      background: var(--otter-input-bg);
+    }
+    .otter-progress::-webkit-progress-bar {
+      background: var(--otter-input-bg);
+      border-radius: 9999px;
+    }
+    .otter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .otter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+    }
+    .otter-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .otter-toggle-track {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .otter-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .otter-toggle:checked + .otter-toggle-track {
+      background: var(--otter-primary);
+    }
+    .otter-toggle:checked + .otter-toggle-track .otter-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .otter-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-radio {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .otter-toast {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      animation: otterToastIn 0.25s ease-out;
+      max-width: 320px;
+    }
+    @keyframes otterToastIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #otter-live-output {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: none;
+    }
+
+  </style>
+<link rel="icon" href="/static/images/otter-site-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/static/images/otter-site-icon.png">
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<link rel="stylesheet" href="/static/library-app.css">
+<script defer src="/static/docs-enhancements.js"></script>
+<script type="module" src="/static/library-app.js"></script>
+</head>
+<body class="otter-has-page otter-doc-scroll lib-body">
+<div class="otter-page" id="app" style="width:100%;max-width:100%;background:#f4f7fb;color:#0f1f36;padding:0px;gap:0px;">
+  <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
+      <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
+</div>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navLibrary" class="otter-link" href="/library/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Library</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 214px; text-align: left;;">Search docs &amp; library...  Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+  <main class="lib-detail-main" id="libraryDetailMain">
+    <nav class="lib-crumbs" aria-label="Breadcrumb">
+      <a href="/library/">Otter Library</a>
+      <span aria-hidden="true">/</span>
+      <a href="/library/?category=otter">Otter</a>
+      <span aria-hidden="true">/</span>
+      <span>text-utils Pack</span>
+    </nav>
+
+    <header class="lib-detail-hero">
+      <div class="lib-detail-badges">
+        <span class="lib-cat-chip lib-cat-otter">Otter</span>
+        <span class="lib-sub-chip">Packs</span>
+        <span class="lib-lang-chip">Otter</span>
+        <span class="lib-ver-chip lib-badge-verified">Upstream Contract &amp; Behavioral Tests</span>
+      </div>
+      <h1>text-utils Pack</h1>
+      <p class="lib-detail-desc">Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.</p>
+      <div class="lib-detail-quickmeta">
+        <span><strong>ID:</strong> <code>otter-official/text-utils</code></span>
+        <span><strong>Version:</strong> 1.0.1</span>
+        <span><strong>License:</strong> MIT</span>
+        <span><strong>Framework:</strong> Otter &gt;=1.0.1</span>
+      </div>
+    </header>
+
+    <div class="lib-detail-layout">
+      <div class="lib-detail-primary">
+        <section class="lib-panel" aria-labelledby="preview-heading">
+      <div class="lib-panel-head">
+        <h2 id="preview-heading">Schema v2 Operation Contract (15 operations)</h2>
+        <span class="lib-pill">Scoping Prefix: <code>_tu_</code></span>
+      </div>
+      <p class="lib-preview-caption">Schema v2 Pack exposing 15 structurally AST-verified Otter 1.0.1 operations with isolated prefix &#39;_tu_&#39;.</p>
+      <div class="lib-table-wrap">
+        <table class="lib-contract-table">
+          <thead><tr><th>Operation Signature</th><th>Returns</th><th>Side Effects</th><th>Error Mode</th></tr></thead>
+          <tbody><tr>
+        <td><code>repeatText(src: text, timesCount: number)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>padLeft(text: text, targetLen: number, padChar: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>padRight(text: text, targetLen: number, padChar: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>normalizeSpaces(text: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>slugify(text: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>toUpper(text: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>toLower(text: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>isEqualIgnoreCase(left: text, right: text)</code></td>
+        <td><code>boolean</code></td>
+        <td>none</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>isNonEmpty(text: any)</code></td>
+        <td><code>boolean</code></td>
+        <td>none</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>replaceText(source: text, findStr: text, replaceStr: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>containsText(source: text, searchStr: text)</code></td>
+        <td><code>boolean</code></td>
+        <td>none</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>startsWithText(text: text, prefix: text)</code></td>
+        <td><code>boolean</code></td>
+        <td>none</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>endsWithText(text: text, suffix: text)</code></td>
+        <td><code>boolean</code></td>
+        <td>none</td>
+        <td><code>returns-false</code></td>
+      </tr><tr>
+        <td><code>splitText(text: text, separator: text)</code></td>
+        <td><code>list</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr><tr>
+        <td><code>joinText(parts: list, separator: text)</code></td>
+        <td><code>text</code></td>
+        <td>none</td>
+        <td><code>returns-fallback</code></td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+        <section class="lib-panel" aria-labelledby="source-heading">
+    <div class="lib-panel-head">
+      <h2 id="source-heading">Source Code (4 files)</h2>
+      <span class="lib-copy-live" aria-live="polite"></span>
+    </div>
+    <div class="lib-tabs" role="tablist" aria-label="Component source files"><button type="button" role="tab" class="lib-tab is-active" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0" data-file-index="0">src/main.ot</button><button type="button" role="tab" class="lib-tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1" data-file-index="1">otter.pack.json</button><button type="button" role="tab" class="lib-tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1" data-file-index="2">tests/test.ot</button><button type="button" role="tab" class="lib-tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1" data-file-index="3">examples/demo.ot</button></div>
+    <div role="tabpanel" id="panel-0" aria-labelledby="tab-0" class="lib-code-panel" data-file-panel="0">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">src/main.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-0">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># text-utils - Otter Reusable String Library</span>
+<span class="tok-com"># Provides repeatText, padLeft, padRight, slugify, toUpper, toLower,</span>
+<span class="tok-com"># isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText,</span>
+<span class="tok-com"># endsWithText, splitText, joinText, and normalizeSpaces</span>
+<span class="tok-com"># Internal variables use &#39;_tu_&#39; prefix to prevent collisions with caller/outer variables.</span>
+
+<span class="tok-kw">to</span> repeatText src timesCount
+    <span class="tok-kw">if</span> timesCount <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">most</span> <span class="tok-num">0</span>
+        <span class="tok-kw">return</span> <span class="tok-str">&quot;&quot;</span>
+    .
+    _tu_result <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+    <span class="tok-kw">count</span> <span class="tok-kw">from</span> <span class="tok-num">1</span> <span class="tok-kw">to</span> timesCount <span class="tok-kw">as</span> _tu_idx
+        _tu_result <span class="tok-kw">is</span> _tu_result <span class="tok-kw">plus</span> src
+    .
+    <span class="tok-kw">return</span> _tu_result
+.
+
+<span class="tok-kw">to</span> padLeft text targetLen padChar
+    _tu_curLen <span class="tok-kw">is</span> length <span class="tok-kw">of</span> text
+    <span class="tok-kw">if</span> _tu_curLen <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">least</span> targetLen
+        <span class="tok-kw">return</span> text
+    .
+    _tu_needed <span class="tok-kw">is</span> targetLen <span class="tok-kw">minus</span> _tu_curLen
+    _tu_padding <span class="tok-kw">is</span> repeatText padChar _tu_needed
+    <span class="tok-kw">return</span> _tu_padding <span class="tok-kw">plus</span> text
+.
+
+<span class="tok-kw">to</span> padRight text targetLen padChar
+    _tu_curLen <span class="tok-kw">is</span> length <span class="tok-kw">of</span> text
+    <span class="tok-kw">if</span> _tu_curLen <span class="tok-kw">is</span> <span class="tok-kw">at</span> <span class="tok-kw">least</span> targetLen
+        <span class="tok-kw">return</span> text
+    .
+    _tu_needed <span class="tok-kw">is</span> targetLen <span class="tok-kw">minus</span> _tu_curLen
+    _tu_padding <span class="tok-kw">is</span> repeatText padChar _tu_needed
+    <span class="tok-kw">return</span> text <span class="tok-kw">plus</span> _tu_padding
+.
+
+<span class="tok-kw">to</span> normalizeSpaces text
+    split text by <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">into</span> _tu_parts
+    _tu_valid <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    <span class="tok-kw">for</span> <span class="tok-kw">each</span> _tu_p <span class="tok-kw">in</span> _tu_parts
+        <span class="tok-kw">if</span> length <span class="tok-kw">of</span> _tu_p <span class="tok-kw">is</span> <span class="tok-kw">greater</span> <span class="tok-kw">than</span> <span class="tok-num">0</span>
+            <span class="tok-kw">add</span> _tu_p <span class="tok-kw">to</span> _tu_valid
+        .
+    .
+    join _tu_valid <span class="tok-kw">with</span> <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">into</span> _tu_trimmed
+    <span class="tok-kw">return</span> _tu_trimmed
+.
+
+<span class="tok-kw">to</span> slugify text
+    _tu_clean <span class="tok-kw">is</span> lowercase <span class="tok-kw">of</span> text
+    replace <span class="tok-str">&quot;.&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;,&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;!&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;?&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;:&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;;&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;(&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;)&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;[&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;]&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;{&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;}&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;_&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;/&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;\\&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">in</span> _tu_clean
+    replace <span class="tok-str">&quot;-&quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">in</span> _tu_clean
+    _tu_norm <span class="tok-kw">is</span> normalizeSpaces _tu_clean
+    replace <span class="tok-str">&quot; &quot;</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;-&quot;</span> <span class="tok-kw">in</span> _tu_norm
+    <span class="tok-kw">return</span> _tu_norm
+.
+
+<span class="tok-kw">to</span> toUpper text
+    <span class="tok-kw">return</span> uppercase <span class="tok-kw">of</span> text
+.
+
+<span class="tok-kw">to</span> toLower text
+    <span class="tok-kw">return</span> lowercase <span class="tok-kw">of</span> text
+.
+
+<span class="tok-kw">to</span> isEqualIgnoreCase left right
+    _tu_lLeft <span class="tok-kw">is</span> lowercase <span class="tok-kw">of</span> left
+    _tu_lRight <span class="tok-kw">is</span> lowercase <span class="tok-kw">of</span> right
+    <span class="tok-kw">if</span> _tu_lLeft <span class="tok-kw">is</span> _tu_lRight
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> isNonEmpty text
+    <span class="tok-kw">if</span> text <span class="tok-kw">is</span> <span class="tok-kw">gone</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> length <span class="tok-kw">of</span> text <span class="tok-kw">is</span> <span class="tok-num">0</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> replaceText source findStr replaceStr
+    _tu_buf <span class="tok-kw">is</span> source
+    replace findStr <span class="tok-kw">with</span> replaceStr <span class="tok-kw">in</span> _tu_buf
+    <span class="tok-kw">return</span> _tu_buf
+.
+
+<span class="tok-kw">to</span> containsText source searchStr
+    <span class="tok-kw">if</span> source <span class="tok-kw">contains</span> searchStr
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> startsWithText text prefix
+    <span class="tok-kw">if</span> text starts <span class="tok-kw">with</span> prefix
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> endsWithText text suffix
+    <span class="tok-kw">if</span> text ends <span class="tok-kw">with</span> suffix
+        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+.
+
+<span class="tok-kw">to</span> splitText text separator
+    split text by separator <span class="tok-kw">into</span> _tu_parts
+    <span class="tok-kw">return</span> _tu_parts
+.
+
+<span class="tok-kw">to</span> joinText parts separator
+    join parts <span class="tok-kw">with</span> separator <span class="tok-kw">into</span> _tu_result
+    <span class="tok-kw">return</span> _tu_result
+.
+</code></pre>
+      <textarea id="raw-code-0" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># text-utils - Otter Reusable String Library
+# Provides repeatText, padLeft, padRight, slugify, toUpper, toLower,
+# isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText,
+# endsWithText, splitText, joinText, and normalizeSpaces
+# Internal variables use &#39;_tu_&#39; prefix to prevent collisions with caller/outer variables.
+
+to repeatText src timesCount
+    if timesCount is at most 0
+        return &quot;&quot;
+    .
+    _tu_result is &quot;&quot;
+    count from 1 to timesCount as _tu_idx
+        _tu_result is _tu_result plus src
+    .
+    return _tu_result
+.
+
+to padLeft text targetLen padChar
+    _tu_curLen is length of text
+    if _tu_curLen is at least targetLen
+        return text
+    .
+    _tu_needed is targetLen minus _tu_curLen
+    _tu_padding is repeatText padChar _tu_needed
+    return _tu_padding plus text
+.
+
+to padRight text targetLen padChar
+    _tu_curLen is length of text
+    if _tu_curLen is at least targetLen
+        return text
+    .
+    _tu_needed is targetLen minus _tu_curLen
+    _tu_padding is repeatText padChar _tu_needed
+    return text plus _tu_padding
+.
+
+to normalizeSpaces text
+    split text by &quot; &quot; into _tu_parts
+    _tu_valid are empty
+    for each _tu_p in _tu_parts
+        if length of _tu_p is greater than 0
+            add _tu_p to _tu_valid
+        .
+    .
+    join _tu_valid with &quot; &quot; into _tu_trimmed
+    return _tu_trimmed
+.
+
+to slugify text
+    _tu_clean is lowercase of text
+    replace &quot;.&quot; with &quot;&quot; in _tu_clean
+    replace &quot;,&quot; with &quot;&quot; in _tu_clean
+    replace &quot;!&quot; with &quot;&quot; in _tu_clean
+    replace &quot;?&quot; with &quot;&quot; in _tu_clean
+    replace &quot;:&quot; with &quot;&quot; in _tu_clean
+    replace &quot;;&quot; with &quot;&quot; in _tu_clean
+    replace &quot;(&quot; with &quot;&quot; in _tu_clean
+    replace &quot;)&quot; with &quot;&quot; in _tu_clean
+    replace &quot;[&quot; with &quot;&quot; in _tu_clean
+    replace &quot;]&quot; with &quot;&quot; in _tu_clean
+    replace &quot;{&quot; with &quot;&quot; in _tu_clean
+    replace &quot;}&quot; with &quot;&quot; in _tu_clean
+    replace &quot;_&quot; with &quot; &quot; in _tu_clean
+    replace &quot;/&quot; with &quot; &quot; in _tu_clean
+    replace &quot;\\&quot; with &quot; &quot; in _tu_clean
+    replace &quot;-&quot; with &quot; &quot; in _tu_clean
+    _tu_norm is normalizeSpaces _tu_clean
+    replace &quot; &quot; with &quot;-&quot; in _tu_norm
+    return _tu_norm
+.
+
+to toUpper text
+    return uppercase of text
+.
+
+to toLower text
+    return lowercase of text
+.
+
+to isEqualIgnoreCase left right
+    _tu_lLeft is lowercase of left
+    _tu_lRight is lowercase of right
+    if _tu_lLeft is _tu_lRight
+        return true
+    .
+    return false
+.
+
+to isNonEmpty text
+    if text is gone
+        return false
+    .
+    if length of text is 0
+        return false
+    .
+    return true
+.
+
+to replaceText source findStr replaceStr
+    _tu_buf is source
+    replace findStr with replaceStr in _tu_buf
+    return _tu_buf
+.
+
+to containsText source searchStr
+    if source contains searchStr
+        return true
+    .
+    return false
+.
+
+to startsWithText text prefix
+    if text starts with prefix
+        return true
+    .
+    return false
+.
+
+to endsWithText text suffix
+    if text ends with suffix
+        return true
+    .
+    return false
+.
+
+to splitText text separator
+    split text by separator into _tu_parts
+    return _tu_parts
+.
+
+to joinText parts separator
+    join parts with separator into _tu_result
+    return _tu_result
+.
+</textarea>
+    </div><div role="tabpanel" id="panel-1" aria-labelledby="tab-1" class="lib-code-panel is-hidden" data-file-panel="1">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">otter.pack.json · json</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-1">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="json">{
+  <span class="tok-key">&quot;schemaVersion&quot;</span>: <span class="tok-num">2</span>,
+  <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text-utils&quot;</span>,
+  <span class="tok-key">&quot;publisher&quot;</span>: <span class="tok-str">&quot;otter-official&quot;</span>,
+  <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span>,
+  <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack&quot;</span>,
+  <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.&quot;</span>,
+  <span class="tok-key">&quot;entry&quot;</span>: <span class="tok-str">&quot;src/main.ot&quot;</span>,
+  <span class="tok-key">&quot;license&quot;</span>: <span class="tok-str">&quot;MIT&quot;</span>,
+  <span class="tok-key">&quot;requiresOtter&quot;</span>: <span class="tok-str">&quot;&gt;=<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span>,
+  <span class="tok-key">&quot;platforms&quot;</span>: [
+    &quot;console&quot;,
+    &quot;desktop&quot;,
+    &quot;web&quot;
+  ],
+  <span class="tok-key">&quot;variablePrefix&quot;</span>: <span class="tok-str">&quot;_tu_&quot;</span>,
+  <span class="tok-key">&quot;provides&quot;</span>: {
+    <span class="tok-key">&quot;capabilities&quot;</span>: [
+      &quot;text.formatting&quot;,
+      &quot;text.manipulation&quot;,
+      &quot;text.search&quot;
+    ],
+    <span class="tok-key">&quot;operations&quot;</span>: [
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;repeatText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Repeats a source string timesCount times.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;src&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;timesCount&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;padLeft&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Pads text on the left with padChar until reaching targetLen.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;targetLen&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;padChar&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;padRight&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Pads text on the right with padChar until reaching targetLen.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;targetLen&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;padChar&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;normalizeSpaces&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Collapses multiple consecutive whitespace characters and trims boundaries.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;slugify&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Converts string to lowercase ASCII kebab-case URL slug.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;toUpper&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Converts string characters to uppercase.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;toLower&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Converts string characters to lowercase.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isEqualIgnoreCase&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Performs case-insensitive equality comparison between two strings.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;left&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;right&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;isNonEmpty&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Checks whether text is defined and contains at least one character.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;any&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;replaceText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Replaces all occurrences of findStr with replaceStr in source.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;source&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;findStr&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;replaceStr&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;containsText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Checks whether source string contains searchStr substring.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;source&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;searchStr&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;startsWithText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Checks whether text begins with prefix substring.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;prefix&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;endsWithText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Checks whether text finishes with suffix substring.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;suffix&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-<span class="tok-kw">false</span>&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;splitText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Splits text by separator into a list of substrings.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;separator&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;list&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      },
+      {
+        <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;joinText&quot;</span>,
+        <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Joins list elements into a single string separated by separator.&quot;</span>,
+        <span class="tok-key">&quot;parameters&quot;</span>: [
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;parts&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;list&quot;</span> },
+          { <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;separator&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }
+        ],
+        <span class="tok-key">&quot;returns&quot;</span>: { <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> },
+        <span class="tok-key">&quot;sideEffects&quot;</span>: [&quot;none&quot;],
+        <span class="tok-key">&quot;errorMode&quot;</span>: <span class="tok-str">&quot;returns-fallback&quot;</span>
+      }
+    ]
+  },
+  <span class="tok-key">&quot;requires&quot;</span>: {
+    <span class="tok-key">&quot;capabilities&quot;</span>: [],
+    <span class="tok-key">&quot;packages&quot;</span>: {}
+  },
+  <span class="tok-key">&quot;tags&quot;</span>: [
+    &quot;text&quot;,
+    &quot;string&quot;,
+    &quot;slugify&quot;,
+    &quot;padding&quot;,
+    &quot;repeat&quot;,
+    &quot;format&quot;
+  ],
+  <span class="tok-key">&quot;examples&quot;</span>: [
+    &quot;examples/demo.ot&quot;
+  ]
+}
+</code></pre>
+      <textarea id="raw-code-1" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;name&quot;: &quot;text-utils&quot;,
+  &quot;publisher&quot;: &quot;otter-official&quot;,
+  &quot;version&quot;: &quot;1.0.1&quot;,
+  &quot;kind&quot;: &quot;pack&quot;,
+  &quot;description&quot;: &quot;Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpper, toLower, isEqualIgnoreCase, isNonEmpty, replaceText, containsText, startsWithText, endsWithText, splitText, and joinText.&quot;,
+  &quot;entry&quot;: &quot;src/main.ot&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;requiresOtter&quot;: &quot;&gt;=1.0.1&quot;,
+  &quot;platforms&quot;: [
+    &quot;console&quot;,
+    &quot;desktop&quot;,
+    &quot;web&quot;
+  ],
+  &quot;variablePrefix&quot;: &quot;_tu_&quot;,
+  &quot;provides&quot;: {
+    &quot;capabilities&quot;: [
+      &quot;text.formatting&quot;,
+      &quot;text.manipulation&quot;,
+      &quot;text.search&quot;
+    ],
+    &quot;operations&quot;: [
+      {
+        &quot;name&quot;: &quot;repeatText&quot;,
+        &quot;description&quot;: &quot;Repeats a source string timesCount times.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;src&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;timesCount&quot;, &quot;type&quot;: &quot;number&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;padLeft&quot;,
+        &quot;description&quot;: &quot;Pads text on the left with padChar until reaching targetLen.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;targetLen&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;padChar&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;padRight&quot;,
+        &quot;description&quot;: &quot;Pads text on the right with padChar until reaching targetLen.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;targetLen&quot;, &quot;type&quot;: &quot;number&quot; },
+          { &quot;name&quot;: &quot;padChar&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;normalizeSpaces&quot;,
+        &quot;description&quot;: &quot;Collapses multiple consecutive whitespace characters and trims boundaries.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;slugify&quot;,
+        &quot;description&quot;: &quot;Converts string to lowercase ASCII kebab-case URL slug.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;toUpper&quot;,
+        &quot;description&quot;: &quot;Converts string characters to uppercase.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;toLower&quot;,
+        &quot;description&quot;: &quot;Converts string characters to lowercase.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;isEqualIgnoreCase&quot;,
+        &quot;description&quot;: &quot;Performs case-insensitive equality comparison between two strings.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;left&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;right&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;isNonEmpty&quot;,
+        &quot;description&quot;: &quot;Checks whether text is defined and contains at least one character.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;any&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;replaceText&quot;,
+        &quot;description&quot;: &quot;Replaces all occurrences of findStr with replaceStr in source.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;source&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;findStr&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;replaceStr&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;containsText&quot;,
+        &quot;description&quot;: &quot;Checks whether source string contains searchStr substring.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;source&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;searchStr&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;startsWithText&quot;,
+        &quot;description&quot;: &quot;Checks whether text begins with prefix substring.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;prefix&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;endsWithText&quot;,
+        &quot;description&quot;: &quot;Checks whether text finishes with suffix substring.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;suffix&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-false&quot;
+      },
+      {
+        &quot;name&quot;: &quot;splitText&quot;,
+        &quot;description&quot;: &quot;Splits text by separator into a list of substrings.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;text&quot;, &quot;type&quot;: &quot;text&quot; },
+          { &quot;name&quot;: &quot;separator&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;list&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      },
+      {
+        &quot;name&quot;: &quot;joinText&quot;,
+        &quot;description&quot;: &quot;Joins list elements into a single string separated by separator.&quot;,
+        &quot;parameters&quot;: [
+          { &quot;name&quot;: &quot;parts&quot;, &quot;type&quot;: &quot;list&quot; },
+          { &quot;name&quot;: &quot;separator&quot;, &quot;type&quot;: &quot;text&quot; }
+        ],
+        &quot;returns&quot;: { &quot;type&quot;: &quot;text&quot; },
+        &quot;sideEffects&quot;: [&quot;none&quot;],
+        &quot;errorMode&quot;: &quot;returns-fallback&quot;
+      }
+    ]
+  },
+  &quot;requires&quot;: {
+    &quot;capabilities&quot;: [],
+    &quot;packages&quot;: {}
+  },
+  &quot;tags&quot;: [
+    &quot;text&quot;,
+    &quot;string&quot;,
+    &quot;slugify&quot;,
+    &quot;padding&quot;,
+    &quot;repeat&quot;,
+    &quot;format&quot;
+  ],
+  &quot;examples&quot;: [
+    &quot;examples/demo.ot&quot;
+  ]
+}
+</textarea>
+    </div><div role="tabpanel" id="panel-2" aria-labelledby="tab-2" class="lib-code-panel is-hidden" data-file-panel="2">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">tests/test.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-2">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># Tests for text-utils (Strict Behavioral Assertions)</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../src/main.ot&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Running text-utils behavioral tests...&quot;</span>
+
+<span class="tok-com"># 1. RepeatText</span>
+r1 <span class="tok-kw">is</span> repeatText <span class="tok-str">&quot;*&quot;</span> <span class="tok-num">4</span>
+<span class="tok-kw">if</span> r1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;****&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;repeatText failed: expected ****&quot;</span>
+.
+rZero <span class="tok-kw">is</span> repeatText <span class="tok-str">&quot;*&quot;</span> <span class="tok-num">0</span>
+<span class="tok-kw">if</span> rZero <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;repeatText at 0 failed: expected empty string&quot;</span>
+.
+
+<span class="tok-com"># 2. PadLeft</span>
+p1 <span class="tok-kw">is</span> padLeft <span class="tok-str">&quot;item&quot;</span> <span class="tok-num">7</span> <span class="tok-str">&quot;x&quot;</span>
+<span class="tok-kw">if</span> p1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;xxxitem&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;padLeft shorter string failed: expected xxxitem&quot;</span>
+.
+<span class="tok-kw">if</span> length <span class="tok-kw">of</span> p1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">7</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;padLeft length failed: expected 7&quot;</span>
+.
+p2 <span class="tok-kw">is</span> padLeft <span class="tok-str">&quot;12345&quot;</span> <span class="tok-num">3</span> <span class="tok-str">&quot;0&quot;</span>
+<span class="tok-kw">if</span> p2 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;12345&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;padLeft longer string failed: expected 12345&quot;</span>
+.
+
+<span class="tok-com"># 3. PadRight</span>
+p3 <span class="tok-kw">is</span> padRight <span class="tok-str">&quot;Hi&quot;</span> <span class="tok-num">5</span> <span class="tok-str">&quot;!&quot;</span>
+<span class="tok-kw">if</span> p3 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;Hi!!!&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;padRight failed: expected Hi!!!&quot;</span>
+.
+
+<span class="tok-com"># 4. Slugify</span>
+s1 <span class="tok-kw">is</span> slugify <span class="tok-str">&quot;Hello World Project&quot;</span>
+<span class="tok-kw">if</span> s1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;hello-world-project&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;slugify spaces failed: expected hello-world-project&quot;</span>
+.
+s2 <span class="tok-kw">is</span> slugify <span class="tok-str">&quot;user_auth_token&quot;</span>
+<span class="tok-kw">if</span> s2 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;user-auth-token&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;slugify underscores failed: expected user-auth-token&quot;</span>
+.
+s3 <span class="tok-kw">is</span> slugify <span class="tok-str">&quot;Otter 1.0 Reusable Library... Release 2026!&quot;</span>
+<span class="tok-kw">if</span> s3 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;otter-10-reusable-library-release-2026&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;slugify punctuation stripping failed&quot;</span>
+.
+
+<span class="tok-com"># 5. Case conversion (toUpper, toLower)</span>
+up <span class="tok-kw">is</span> toUpper <span class="tok-str">&quot;hello otter&quot;</span>
+<span class="tok-kw">if</span> up <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;HELLO OTTER&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;toUpper failed: expected HELLO OTTER&quot;</span>
+.
+low <span class="tok-kw">is</span> toLower <span class="tok-str">&quot;HELLO OTTER&quot;</span>
+<span class="tok-kw">if</span> low <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;hello otter&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;toLower failed: expected hello otter&quot;</span>
+.
+
+<span class="tok-com"># 6. Case-insensitive equality</span>
+eq1 <span class="tok-kw">is</span> isEqualIgnoreCase <span class="tok-str">&quot;OtterLang&quot;</span> <span class="tok-str">&quot;otterlang&quot;</span>
+<span class="tok-kw">if</span> eq1 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isEqualIgnoreCase failed for matching text&quot;</span>
+.
+eq2 <span class="tok-kw">is</span> isEqualIgnoreCase <span class="tok-str">&quot;OtterLang&quot;</span> <span class="tok-str">&quot;csharp&quot;</span>
+<span class="tok-kw">if</span> eq2 <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isEqualIgnoreCase failed for non-matching text&quot;</span>
+.
+
+<span class="tok-com"># 7. isNonEmpty validation</span>
+<span class="tok-kw">if</span> isNonEmpty <span class="tok-str">&quot;&quot;</span> <span class="tok-kw">is</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isNonEmpty failed: empty string reported as non-empty&quot;</span>
+.
+<span class="tok-kw">if</span> isNonEmpty <span class="tok-str">&quot;valid&quot;</span> <span class="tok-kw">is</span> <span class="tok-kw">false</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;isNonEmpty failed: valid string reported as empty&quot;</span>
+.
+
+<span class="tok-com"># 8. replaceText</span>
+rep <span class="tok-kw">is</span> replaceText <span class="tok-str">&quot;foo bar baz&quot;</span> <span class="tok-str">&quot;bar&quot;</span> <span class="tok-str">&quot;qux&quot;</span>
+<span class="tok-kw">if</span> rep <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;foo qux baz&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;replaceText failed: expected foo qux baz&quot;</span>
+.
+
+<span class="tok-com"># 9. containsText, startsWithText, endsWithText</span>
+cCheck <span class="tok-kw">is</span> containsText <span class="tok-str">&quot;The quick brown fox&quot;</span> <span class="tok-str">&quot;brown&quot;</span>
+<span class="tok-kw">if</span> cCheck <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;containsText failed: expected true&quot;</span>
+.
+swCheck <span class="tok-kw">is</span> startsWithText <span class="tok-str">&quot;HelloWorld&quot;</span> <span class="tok-str">&quot;Hello&quot;</span>
+<span class="tok-kw">if</span> swCheck <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;startsWithText failed: expected true&quot;</span>
+.
+ewCheck <span class="tok-kw">is</span> endsWithText <span class="tok-str">&quot;HelloWorld&quot;</span> <span class="tok-str">&quot;World&quot;</span>
+<span class="tok-kw">if</span> ewCheck <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-kw">true</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;endsWithText failed: expected true&quot;</span>
+.
+
+<span class="tok-com"># 10. splitText and joinText</span>
+parts <span class="tok-kw">is</span> splitText <span class="tok-str">&quot;alpha,beta,gamma&quot;</span> <span class="tok-str">&quot;,&quot;</span>
+<span class="tok-kw">if</span> length <span class="tok-kw">of</span> parts <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">3</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;splitText failed: expected 3 items&quot;</span>
+.
+rejoined <span class="tok-kw">is</span> joinText parts <span class="tok-str">&quot; - &quot;</span>
+<span class="tok-kw">if</span> rejoined <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;alpha - beta - gamma&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;joinText failed: expected alpha - beta - gamma&quot;</span>
+.
+
+<span class="tok-com"># 11. normalizeSpaces</span>
+norm <span class="tok-kw">is</span> normalizeSpaces <span class="tok-str">&quot;hello    world   otter&quot;</span>
+<span class="tok-kw">if</span> norm <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;hello world otter&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;normalizeSpaces failed: expected single spaces&quot;</span>
+.
+normTrim <span class="tok-kw">is</span> normalizeSpaces <span class="tok-str">&quot;   leading and trailing spaces   &quot;</span>
+<span class="tok-kw">if</span> normTrim <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-str">&quot;leading and trailing spaces&quot;</span>
+    <span class="tok-kw">fail</span> <span class="tok-kw">with</span> <span class="tok-str">&quot;normalizeSpaces failed: expected trimmed leading and trailing spaces&quot;</span>
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;All text-utils behavioral tests passed successfully!&quot;</span>
+</code></pre>
+      <textarea id="raw-code-2" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># Tests for text-utils (Strict Behavioral Assertions)
+use &quot;../src/main.ot&quot;
+
+say &quot;Running text-utils behavioral tests...&quot;
+
+# 1. RepeatText
+r1 is repeatText &quot;*&quot; 4
+if r1 is not &quot;****&quot;
+    fail with &quot;repeatText failed: expected ****&quot;
+.
+rZero is repeatText &quot;*&quot; 0
+if rZero is not &quot;&quot;
+    fail with &quot;repeatText at 0 failed: expected empty string&quot;
+.
+
+# 2. PadLeft
+p1 is padLeft &quot;item&quot; 7 &quot;x&quot;
+if p1 is not &quot;xxxitem&quot;
+    fail with &quot;padLeft shorter string failed: expected xxxitem&quot;
+.
+if length of p1 is not 7
+    fail with &quot;padLeft length failed: expected 7&quot;
+.
+p2 is padLeft &quot;12345&quot; 3 &quot;0&quot;
+if p2 is not &quot;12345&quot;
+    fail with &quot;padLeft longer string failed: expected 12345&quot;
+.
+
+# 3. PadRight
+p3 is padRight &quot;Hi&quot; 5 &quot;!&quot;
+if p3 is not &quot;Hi!!!&quot;
+    fail with &quot;padRight failed: expected Hi!!!&quot;
+.
+
+# 4. Slugify
+s1 is slugify &quot;Hello World Project&quot;
+if s1 is not &quot;hello-world-project&quot;
+    fail with &quot;slugify spaces failed: expected hello-world-project&quot;
+.
+s2 is slugify &quot;user_auth_token&quot;
+if s2 is not &quot;user-auth-token&quot;
+    fail with &quot;slugify underscores failed: expected user-auth-token&quot;
+.
+s3 is slugify &quot;Otter 1.0 Reusable Library... Release 2026!&quot;
+if s3 is not &quot;otter-10-reusable-library-release-2026&quot;
+    fail with &quot;slugify punctuation stripping failed&quot;
+.
+
+# 5. Case conversion (toUpper, toLower)
+up is toUpper &quot;hello otter&quot;
+if up is not &quot;HELLO OTTER&quot;
+    fail with &quot;toUpper failed: expected HELLO OTTER&quot;
+.
+low is toLower &quot;HELLO OTTER&quot;
+if low is not &quot;hello otter&quot;
+    fail with &quot;toLower failed: expected hello otter&quot;
+.
+
+# 6. Case-insensitive equality
+eq1 is isEqualIgnoreCase &quot;OtterLang&quot; &quot;otterlang&quot;
+if eq1 is not true
+    fail with &quot;isEqualIgnoreCase failed for matching text&quot;
+.
+eq2 is isEqualIgnoreCase &quot;OtterLang&quot; &quot;csharp&quot;
+if eq2 is not false
+    fail with &quot;isEqualIgnoreCase failed for non-matching text&quot;
+.
+
+# 7. isNonEmpty validation
+if isNonEmpty &quot;&quot; is true
+    fail with &quot;isNonEmpty failed: empty string reported as non-empty&quot;
+.
+if isNonEmpty &quot;valid&quot; is false
+    fail with &quot;isNonEmpty failed: valid string reported as empty&quot;
+.
+
+# 8. replaceText
+rep is replaceText &quot;foo bar baz&quot; &quot;bar&quot; &quot;qux&quot;
+if rep is not &quot;foo qux baz&quot;
+    fail with &quot;replaceText failed: expected foo qux baz&quot;
+.
+
+# 9. containsText, startsWithText, endsWithText
+cCheck is containsText &quot;The quick brown fox&quot; &quot;brown&quot;
+if cCheck is not true
+    fail with &quot;containsText failed: expected true&quot;
+.
+swCheck is startsWithText &quot;HelloWorld&quot; &quot;Hello&quot;
+if swCheck is not true
+    fail with &quot;startsWithText failed: expected true&quot;
+.
+ewCheck is endsWithText &quot;HelloWorld&quot; &quot;World&quot;
+if ewCheck is not true
+    fail with &quot;endsWithText failed: expected true&quot;
+.
+
+# 10. splitText and joinText
+parts is splitText &quot;alpha,beta,gamma&quot; &quot;,&quot;
+if length of parts is not 3
+    fail with &quot;splitText failed: expected 3 items&quot;
+.
+rejoined is joinText parts &quot; - &quot;
+if rejoined is not &quot;alpha - beta - gamma&quot;
+    fail with &quot;joinText failed: expected alpha - beta - gamma&quot;
+.
+
+# 11. normalizeSpaces
+norm is normalizeSpaces &quot;hello    world   otter&quot;
+if norm is not &quot;hello world otter&quot;
+    fail with &quot;normalizeSpaces failed: expected single spaces&quot;
+.
+normTrim is normalizeSpaces &quot;   leading and trailing spaces   &quot;
+if normTrim is not &quot;leading and trailing spaces&quot;
+    fail with &quot;normalizeSpaces failed: expected trimmed leading and trailing spaces&quot;
+.
+
+say &quot;All text-utils behavioral tests passed successfully!&quot;
+</textarea>
+    </div><div role="tabpanel" id="panel-3" aria-labelledby="tab-3" class="lib-code-panel is-hidden" data-file-panel="3">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">examples/demo.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-3">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># text-utils Demo</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../src/main.ot&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;=== text-utils Demo ===&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Repeat 5 times:&quot;</span> repeatText <span class="tok-str">&quot;*=&quot;</span> <span class="tok-num">5</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Pad left number:&quot;</span> padLeft <span class="tok-str">&quot;42&quot;</span> <span class="tok-num">6</span> <span class="tok-str">&quot;0&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Pad right tag:&quot;</span> padRight <span class="tok-str">&quot;INFO&quot;</span> <span class="tok-num">8</span> <span class="tok-str">&quot;.&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Slugify title:&quot;</span> slugify <span class="tok-str">&quot;Otter 1.0 Reusable Library Release&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Uppercase:&quot;</span> toUpper <span class="tok-str">&quot;make it loud&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Lowercase:&quot;</span> toLower <span class="tok-str">&quot;KEEP IT CALM&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Case-insensitive equal:&quot;</span> isEqualIgnoreCase <span class="tok-str">&quot;Release&quot;</span> <span class="tok-str">&quot;RELEASE&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Normalize spaces:&quot;</span> normalizeSpaces <span class="tok-str">&quot;Clean    extra   spacing&quot;</span>
+
+tags <span class="tok-kw">is</span> splitText <span class="tok-str">&quot;parser,lexer,runtime,cli&quot;</span> <span class="tok-str">&quot;,&quot;</span>
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Split count:&quot;</span> length <span class="tok-kw">of</span> tags
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Rejoined with arrow:&quot;</span> joinText tags <span class="tok-str">&quot; -&gt; &quot;</span>
+</code></pre>
+      <textarea id="raw-code-3" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># text-utils Demo
+use &quot;../src/main.ot&quot;
+
+say &quot;=== text-utils Demo ===&quot;
+say &quot;Repeat 5 times:&quot; repeatText &quot;*=&quot; 5
+say &quot;Pad left number:&quot; padLeft &quot;42&quot; 6 &quot;0&quot;
+say &quot;Pad right tag:&quot; padRight &quot;INFO&quot; 8 &quot;.&quot;
+say &quot;Slugify title:&quot; slugify &quot;Otter 1.0 Reusable Library Release&quot;
+say &quot;Uppercase:&quot; toUpper &quot;make it loud&quot;
+say &quot;Lowercase:&quot; toLower &quot;KEEP IT CALM&quot;
+say &quot;Case-insensitive equal:&quot; isEqualIgnoreCase &quot;Release&quot; &quot;RELEASE&quot;
+say &quot;Normalize spaces:&quot; normalizeSpaces &quot;Clean    extra   spacing&quot;
+
+tags is splitText &quot;parser,lexer,runtime,cli&quot; &quot;,&quot;
+say &quot;Split count:&quot; length of tags
+say &quot;Rejoined with arrow:&quot; joinText tags &quot; -&gt; &quot;
+</textarea>
+    </div>
+  </section>
+
+        <section class="lib-panel" aria-labelledby="install-heading">
+          <div class="lib-panel-head">
+            <h2 id="install-heading">Installation &amp; Usage</h2>
+            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+          </div>
+          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> pack install <span class="tok-kw">otter</span>-official/text-utils
+<span class="tok-kw">otter</span> pack verify --contracts</code></pre>
+          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter pack install otter-official/text-utils
+otter pack verify --contracts</textarea>
+          <p class="lib-usage-text">use &quot;.otter/packages/otter-official/text-utils/1.0.1/src/main.ot&quot;
+
+# Inspect exported operation contracts:
+otter pack contract otter-official/text-utils</p>
+        </section>
+
+        <section class="lib-panel" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Components</h2>
+        <div class="lib-related-grid">
+          <a class="lib-related-card" href="/library/blueprint-otter-official-text-cleanup/">
+            <span class="lib-related-cat">Otter · Blueprints</span>
+            <strong>Text Sanitization and Slug Generator Blueprint</strong>
+            <span>Clean raw user input into URL-safe slugs and padded identifier codes.</span>
+          </a><a class="lib-related-card" href="/library/recipe-otter-official-contact-manager/">
+            <span class="lib-related-cat">Otter · Recipes</span>
+            <strong>Contact Manager with Validation Recipe</strong>
+            <span>Desktop contact management application with input validation and file-backed persistence.</span>
+          </a><a class="lib-related-card" href="/library/recipe-otter-official-task-tracker/">
+            <span class="lib-related-cat">Otter · Recipes</span>
+            <strong>Personal Task Manager Application Recipe</strong>
+            <span>Complete CLI task tracking application with persistent JSON storage and formatted listings.</span>
+          </a><a class="lib-related-card" href="/library/workflow-collection-analytics-persistence/">
+            <span class="lib-related-cat">Otter · Workflows</span>
+            <strong>Collection Analytics and Persistence Workflow</strong>
+            <span>Demonstrates 4-pack composition: deduplicates and sums numeric collections with otter-official/list-utils, cla…</span>
+          </a><a class="lib-related-card" href="/library/workflow-numeric-calculation-formatting/">
+            <span class="lib-related-cat">Otter · Workflows</span>
+            <strong>Numeric Calculation and Formatting Workflow</strong>
+            <span>Demonstrates multi-pack numeric composition: clamps an input value with otter-official/math-utils and formats …</span>
+          </a><a class="lib-related-card" href="/library/workflow-text-processing-persistence/">
+            <span class="lib-related-cat">Otter · Workflows</span>
+            <strong>Text Processing and Persistence Workflow</strong>
+            <span>Demonstrates multi-pack composition: normalizes and slugifies text using otter-official/text-utils, then persi…</span>
+          </a>
+        </div>
+      </section>
+      </div>
+
+      <aside class="lib-detail-aside" aria-label="Component metadata">
+        <section class="lib-aside-card">
+          <h3>Verification Status</h3>
+          <p class="lib-ver-badge-block lib-badge-verified">Upstream Contract &amp; Behavioral Tests</p>
+          <p class="lib-aside-copy">Verified in Heavens-Lava/otter-net (pinned commit 6fec852) via &#39;otter pack verify --contracts&#39; (15 AST-checked operations, prefix &#39;_tu_&#39;) and tools/test-packs.ps1; imported into otter-docs with SHA-256 provenance verification.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Dependencies</h3>
+          <p class="lib-meta-muted">No external dependencies required.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Compatibility &amp; Platforms</h3>
+          <ul class="lib-meta-list">
+            <li>Otter (console)</li><li>Otter (desktop)</li><li>Otter (web)</li>
+          </ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Tags</h3>
+          <div class="lib-tags-wrap">
+            <a class="lib-tag" href="/library/?q=text">#text</a><a class="lib-tag" href="/library/?q=string">#string</a><a class="lib-tag" href="/library/?q=slugify">#slugify</a><a class="lib-tag" href="/library/?q=padding">#padding</a><a class="lib-tag" href="/library/?q=repeat">#repeat</a><a class="lib-tag" href="/library/?q=format">#format</a><a class="lib-tag" href="/library/?q=text.formatting">#text.formatting</a><a class="lib-tag" href="/library/?q=text.manipulation">#text.manipulation</a><a class="lib-tag" href="/library/?q=text.search">#text.search</a><a class="lib-tag" href="/library/?q=pack">#pack</a><a class="lib-tag" href="/library/?q=schema-v2">#schema-v2</a>
+          </div>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Catalog Provenance</h3>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
+      <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="footerLibraryLink" class="otter-link" href="/library/" style="color: #b7c4d8; font-size: 13px;">Library</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerQuickRef" class="otter-link" href="/quick-reference/" style="color: #b7c4d8; font-size: 13px;">Quick reference</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerPrivacy" class="otter-link" href="/privacy/" style="color: #b7c4d8; font-size: 13px;">Privacy</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+</div>
+</body>
+</html>

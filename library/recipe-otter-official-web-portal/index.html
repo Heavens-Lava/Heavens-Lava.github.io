@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Portal Application Recipe - Otter Component Library</title>
+<meta name="description" content="Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.">
+<link rel="canonical" href="https://otterprogramming.com/library/recipe-otter-official-web-portal/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otter Programming Language">
+<meta property="og:title" content="Web Portal Application Recipe - Otter Component Library">
+<meta property="og:description" content="Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.">
+<meta property="og:url" content="https://otterprogramming.com/library/recipe-otter-official-web-portal/">
+<meta property="og:image" content="https://otterprogramming.com/static/images/otter-site-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web Portal Application Recipe - Otter Component Library">
+<meta name="twitter:description" content="Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Web Portal Application Recipe","description":"Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.","url":"https://otterprogramming.com/library/recipe-otter-official-web-portal/","programmingLanguage":"Otter","runtimePlatform":"Otter (server)","version":"1.0.0","license":"MIT","codeRepository":"https://github.com/Heavens-Lava/otter-net"}</script>
+<style>
+    :root {
+      --otter-bg: #f4f7fb;
+      --otter-card-bg: #1e293b;
+      --otter-text: #0f1f36;
+      --otter-text-muted: #94a3b8;
+      --otter-primary: #2563eb;
+      --otter-primary-hover: #1d4ed8;
+      --otter-input-bg: #0f172a;
+      --otter-border: #334155;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #0f1f36;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    body.otter-has-page {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body.otter-has-page.otter-doc-scroll {
+      height: auto;
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .otter-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-column {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-window {
+      background-color: #1e293b;
+      border: 1px solid var(--otter-border);
+      width: 100%;
+      max-width: 520px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-page {
+      background: transparent;
+      border: none;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-card {
+      background-color: var(--otter-card-bg);
+      border: 1px solid var(--otter-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .otter-button {
+      background-color: var(--otter-primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.08s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .otter-button:hover { background-color: var(--otter-primary-hover); }
+    .otter-button:active { transform: scale(0.98); }
+    .otter-text-box {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .otter-text-box:focus {
+      border-color: var(--otter-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .otter-text {
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .otter-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    /* No !important on the variant buttons: these rules come after
+       .otter-button, so they already win over it, and a button's own
+       settings (background, foreground, border) and customstyle must win
+       over them. */
+    .otter-button-primary, .otter-btn-primary {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-primary:hover, .otter-btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .otter-button-secondary, .otter-btn-secondary {
+      background-color: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otter-button-secondary:hover, .otter-btn-secondary:hover {
+      background-color: #475569;
+    }
+    .otter-button-danger, .otter-btn-danger {
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otter-button-danger:hover, .otter-btn-danger:hover {
+      background-color: #b91c1c;
+    }
+    .otter-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .otter-conditional {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .otter-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--otter-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .otter-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    .otter-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .otter-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    .otter-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+    .otter-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-select {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .otter-slider {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-text-area,
+    .otter-textarea {
+      background-color: var(--otter-input-bg);
+      color: var(--otter-text);
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .otter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(37,99,235,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .otter-canvas {
+      background: #020617;
+      border: 1px solid var(--otter-border);
+      border-radius: 8px;
+      max-width: 100%;
+      display: block;
+    }
+    .otter-progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--otter-border);
+      background: var(--otter-input-bg);
+    }
+    .otter-progress::-webkit-progress-bar {
+      background: var(--otter-input-bg);
+      border-radius: 9999px;
+    }
+    .otter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .otter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 9999px;
+    }
+    .otter-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .otter-toggle-track {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .otter-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .otter-toggle:checked + .otter-toggle-track {
+      background: var(--otter-primary);
+    }
+    .otter-toggle:checked + .otter-toggle-track .otter-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .otter-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .otter-radio {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--otter-primary);
+    }
+    .otter-toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .otter-toast {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      animation: otterToastIn 0.25s ease-out;
+      max-width: 320px;
+    }
+    @keyframes otterToastIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #otter-live-output {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: none;
+    }
+
+  </style>
+<link rel="icon" href="/static/images/otter-site-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/static/images/otter-site-icon.png">
+<link rel="stylesheet" href="/static/docs-enhancements.css">
+<link rel="stylesheet" href="/static/library-app.css">
+<script defer src="/static/docs-enhancements.js"></script>
+<script type="module" src="/static/library-app.js"></script>
+</head>
+<body class="otter-has-page otter-doc-scroll lib-body">
+<div class="otter-page" id="app" style="width:100%;max-width:100%;background:#f4f7fb;color:#0f1f36;padding:0px;gap:0px;">
+  <div id="topBar" class="otter-row" style="width: 100%; max-width: 100%; height: 64px; background: #0b1d36; padding: 0 40px; text-align: middle; box-sizing: border-box; position: sticky; top: 0; z-index: 50;; display: flex; flex-direction: row; gap: 36px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="brandGroup" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <img id="brandMark" class="otter-image" src="/static/images/otter-explorer-icon.png" alt="Otter" style="width: 34px; height: 34px; border-radius: 17px;" />
+      <a id="brandName" class="otter-link" href="/" style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Otter</a>
+</div>
+      <div id="navLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="navLibrary" class="otter-link" href="/library/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid #4d8dff; color: #ffffff;;">Library</a>
+      <a id="navDocs" class="otter-link" href="/docs/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Documentation</a>
+      <a id="navDownload" class="otter-link" href="/download/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Download</a>
+      <a id="navCommunity" class="otter-link" href="/support/" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;">Community</a>
+      <a id="navBlog" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #d7e3f4; font-size: 14px; font-weight: 500; padding: 22px 0; border-bottom: 2px solid transparent;;" target="_blank" rel="noopener noreferrer">Blog</a>
+      <button id="docsSearchButton" class="otter-button" style="background: #173252; color: #dbeafe; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; border: 1px solid #315377; min-width: 214px; text-align: left;;">Search docs &amp; library...  Ctrl K</button>
+      <a id="navGitHub" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 0;;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+  <main class="lib-detail-main" id="libraryDetailMain">
+    <nav class="lib-crumbs" aria-label="Breadcrumb">
+      <a href="/library/">Otter Library</a>
+      <span aria-hidden="true">/</span>
+      <a href="/library/?category=otter">Otter</a>
+      <span aria-hidden="true">/</span>
+      <span>Web Portal Application Recipe</span>
+    </nav>
+
+    <header class="lib-detail-hero">
+      <div class="lib-detail-badges">
+        <span class="lib-cat-chip lib-cat-otter">Otter</span>
+        <span class="lib-sub-chip">Recipes</span>
+        <span class="lib-lang-chip">Otter</span>
+        <span class="lib-ver-chip lib-badge-tested">Upstream Recipe Tested</span>
+      </div>
+      <h1>Web Portal Application Recipe</h1>
+      <p class="lib-detail-desc">Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.</p>
+      <div class="lib-detail-quickmeta">
+        <span><strong>ID:</strong> <code>otter-official/web-portal</code></span>
+        <span><strong>Version:</strong> 1.0.0</span>
+        <span><strong>License:</strong> MIT</span>
+        <span><strong>Framework:</strong> Otter &gt;=1.0.1</span>
+      </div>
+    </header>
+
+    <div class="lib-detail-layout">
+      <div class="lib-detail-primary">
+        <section class="lib-panel" aria-labelledby="preview-heading">
+    <div class="lib-panel-head">
+      <h2 id="preview-heading">Architecture &amp; Runtime Preview</h2>
+      <span class="lib-pill">Otter &gt;=1.0.1</span>
+    </div>
+    <p class="lib-preview-caption">The recipe combines Otter&#39;s native HTTP routing and static file serving with `otter-official/file-helpers` for saving form submissions and `otter-official/text-utils` for string formatting.</p>
+    
+    <ol class="lib-arch-list"><li class="lib-arch-step"><span class="lib-arch-num">1</span><span>setup-routes: Establish HTTP endpoints for portal pages, submission forms, and JSON API (otter-official/text-utils)</span></li><li class="lib-arch-step"><span class="lib-arch-num">2</span><span>persist-submissions: Store validated feedback and form submissions in persistent JSON storage (otter-official/file-helpers)</span></li></ol>
+    
+  </section>
+        <section class="lib-panel" aria-labelledby="source-heading">
+    <div class="lib-panel-head">
+      <h2 id="source-heading">Source Code (5 files)</h2>
+      <span class="lib-copy-live" aria-live="polite"></span>
+    </div>
+    <div class="lib-tabs" role="tablist" aria-label="Component source files"><button type="button" role="tab" class="lib-tab is-active" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0" data-file-index="0">otter.recipe.json</button><button type="button" role="tab" class="lib-tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1" data-file-index="1">templates/server.ot.tmpl</button><button type="button" role="tab" class="lib-tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1" data-file-index="2">templates/index.html.tmpl</button><button type="button" role="tab" class="lib-tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1" data-file-index="3">tests/test.ot</button><button type="button" role="tab" class="lib-tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1" data-file-index="4">examples/demo.ot</button></div>
+    <div role="tabpanel" id="panel-0" aria-labelledby="tab-0" class="lib-code-panel" data-file-panel="0">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">otter.recipe.json · json</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-0">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="json">{
+  <span class="tok-key">&quot;schemaVersion&quot;</span>: <span class="tok-num">1</span>,
+  <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/web-portal&quot;</span>,
+  <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">0</span>&quot;</span>,
+  <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Web Portal Application&quot;</span>,
+  <span class="tok-key">&quot;summary&quot;</span>: <span class="tok-str">&quot;Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.&quot;</span>,
+  <span class="tok-key">&quot;target&quot;</span>: <span class="tok-str">&quot;server&quot;</span>,
+  <span class="tok-key">&quot;requiresOtter&quot;</span>: <span class="tok-str">&quot;&gt;=<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span>,
+  <span class="tok-key">&quot;capabilities&quot;</span>: [&quot;web&quot;, &quot;files&quot;],
+  <span class="tok-key">&quot;packs&quot;</span>: [
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/file-helpers&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;otter-official/text-utils&quot;</span>, <span class="tok-key">&quot;version&quot;</span>: <span class="tok-str">&quot;<span class="tok-num">1.0</span>.<span class="tok-num">1</span>&quot;</span> }
+  ],
+  <span class="tok-key">&quot;configuration&quot;</span>: [
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;portalName&quot;</span>, <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;Portal Title&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span>, <span class="tok-key">&quot;default&quot;</span>: <span class="tok-str">&quot;Community Hub&quot;</span>, <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Brand title for portal header and pages&quot;</span> },
+    { <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;portNumber&quot;</span>, <span class="tok-key">&quot;title&quot;</span>: <span class="tok-str">&quot;HTTP Port&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;number&quot;</span>, <span class="tok-key">&quot;default&quot;</span>: <span class="tok-num">8080</span>, <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Local TCP port for web server&quot;</span> }
+  ],
+  <span class="tok-key">&quot;steps&quot;</span>: [
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;setup-routes&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Establish HTTP endpoints for portal pages, submission forms, and JSON API&quot;</span>,
+      <span class="tok-key">&quot;source&quot;</span>: <span class="tok-str">&quot;otter-official/text-utils&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;routePath&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;response&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;text&quot;</span> }]
+    },
+    {
+      <span class="tok-key">&quot;id&quot;</span>: <span class="tok-str">&quot;persist-submissions&quot;</span>,
+      <span class="tok-key">&quot;kind&quot;</span>: <span class="tok-str">&quot;pack-call&quot;</span>,
+      <span class="tok-key">&quot;description&quot;</span>: <span class="tok-str">&quot;Store validated feedback and form submissions in persistent JSON storage&quot;</span>,
+      <span class="tok-key">&quot;source&quot;</span>: <span class="tok-str">&quot;otter-official/file-helpers&quot;</span>,
+      <span class="tok-key">&quot;inputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;submissions&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;list&quot;</span> }],
+      <span class="tok-key">&quot;outputs&quot;</span>: [{ <span class="tok-key">&quot;name&quot;</span>: <span class="tok-str">&quot;saved&quot;</span>, <span class="tok-key">&quot;type&quot;</span>: <span class="tok-str">&quot;boolean&quot;</span> }]
+    }
+  ],
+  <span class="tok-key">&quot;generatedFiles&quot;</span>: [
+    { <span class="tok-key">&quot;path&quot;</span>: <span class="tok-str">&quot;src/server.ot&quot;</span>, <span class="tok-key">&quot;template&quot;</span>: <span class="tok-str">&quot;templates/server.ot.tmpl&quot;</span> },
+    { <span class="tok-key">&quot;path&quot;</span>: <span class="tok-str">&quot;public/index.html&quot;</span>, <span class="tok-key">&quot;template&quot;</span>: <span class="tok-str">&quot;templates/index.html.tmpl&quot;</span> }
+  ],
+  <span class="tok-key">&quot;tests&quot;</span>: [
+    &quot;tests/test.ot&quot;
+  ],
+  <span class="tok-key">&quot;explanations&quot;</span>: {
+    <span class="tok-key">&quot;beginner&quot;</span>: <span class="tok-str">&quot;This application creates a web website with multiple pages, a navigation bar, and an online submission form. Messages sent through the form are checked for valid email addresses and saved to a file.&quot;</span>,
+    <span class="tok-key">&quot;intermediate&quot;</span>: <span class="tok-str">&quot;The recipe combines Otter&#<span class="tok-num">39</span>;s native HTTP routing and static file serving with `otter-official/file-helpers` for saving form submissions and `otter-official/text-utils` for string formatting.&quot;</span>,
+    <span class="tok-key">&quot;advanced&quot;</span>: <span class="tok-str">&quot;Implements RESTful HTTP routes on Kestrel/HttpListener. Static assets are served from the `public` directory while API routes validate payloads and persist records into JSON storage.&quot;</span>
+  }
+}
+</code></pre>
+      <textarea id="raw-code-0" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;id&quot;: &quot;otter-official/web-portal&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;title&quot;: &quot;Web Portal Application&quot;,
+  &quot;summary&quot;: &quot;Full-stack web portal with HTTP routes, navigation menus, feedback forms, input validation, and persistent JSON storage.&quot;,
+  &quot;target&quot;: &quot;server&quot;,
+  &quot;requiresOtter&quot;: &quot;&gt;=1.0.1&quot;,
+  &quot;capabilities&quot;: [&quot;web&quot;, &quot;files&quot;],
+  &quot;packs&quot;: [
+    { &quot;id&quot;: &quot;otter-official/file-helpers&quot;, &quot;version&quot;: &quot;1.0.1&quot; },
+    { &quot;id&quot;: &quot;otter-official/text-utils&quot;, &quot;version&quot;: &quot;1.0.1&quot; }
+  ],
+  &quot;configuration&quot;: [
+    { &quot;id&quot;: &quot;portalName&quot;, &quot;title&quot;: &quot;Portal Title&quot;, &quot;type&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Community Hub&quot;, &quot;description&quot;: &quot;Brand title for portal header and pages&quot; },
+    { &quot;id&quot;: &quot;portNumber&quot;, &quot;title&quot;: &quot;HTTP Port&quot;, &quot;type&quot;: &quot;number&quot;, &quot;default&quot;: 8080, &quot;description&quot;: &quot;Local TCP port for web server&quot; }
+  ],
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;setup-routes&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;description&quot;: &quot;Establish HTTP endpoints for portal pages, submission forms, and JSON API&quot;,
+      &quot;source&quot;: &quot;otter-official/text-utils&quot;,
+      &quot;inputs&quot;: [{ &quot;name&quot;: &quot;routePath&quot;, &quot;type&quot;: &quot;text&quot; }],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;response&quot;, &quot;type&quot;: &quot;text&quot; }]
+    },
+    {
+      &quot;id&quot;: &quot;persist-submissions&quot;,
+      &quot;kind&quot;: &quot;pack-call&quot;,
+      &quot;description&quot;: &quot;Store validated feedback and form submissions in persistent JSON storage&quot;,
+      &quot;source&quot;: &quot;otter-official/file-helpers&quot;,
+      &quot;inputs&quot;: [{ &quot;name&quot;: &quot;submissions&quot;, &quot;type&quot;: &quot;list&quot; }],
+      &quot;outputs&quot;: [{ &quot;name&quot;: &quot;saved&quot;, &quot;type&quot;: &quot;boolean&quot; }]
+    }
+  ],
+  &quot;generatedFiles&quot;: [
+    { &quot;path&quot;: &quot;src/server.ot&quot;, &quot;template&quot;: &quot;templates/server.ot.tmpl&quot; },
+    { &quot;path&quot;: &quot;public/index.html&quot;, &quot;template&quot;: &quot;templates/index.html.tmpl&quot; }
+  ],
+  &quot;tests&quot;: [
+    &quot;tests/test.ot&quot;
+  ],
+  &quot;explanations&quot;: {
+    &quot;beginner&quot;: &quot;This application creates a web website with multiple pages, a navigation bar, and an online submission form. Messages sent through the form are checked for valid email addresses and saved to a file.&quot;,
+    &quot;intermediate&quot;: &quot;The recipe combines Otter&#39;s native HTTP routing and static file serving with `otter-official/file-helpers` for saving form submissions and `otter-official/text-utils` for string formatting.&quot;,
+    &quot;advanced&quot;: &quot;Implements RESTful HTTP routes on Kestrel/HttpListener. Static assets are served from the `public` directory while API routes validate payloads and persist records into JSON storage.&quot;
+  }
+}
+</textarea>
+    </div><div role="tabpanel" id="panel-1" aria-labelledby="tab-1" class="lib-code-panel is-hidden" data-file-panel="1">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">templates/server.ot.tmpl · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-1">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># ==============================================================================</span>
+<span class="tok-com"># Generated by Otter Application Recipe: web-portal 1.0.0</span>
+<span class="tok-com"># Target: Native HTTP Web Portal with Form Submissions and File Persistence</span>
+<span class="tok-com"># ==============================================================================</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/file-helpers}&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;${import:otter-official/text-utils}&quot;</span>
+
+<span class="tok-kw">a</span> Submission <span class="tok-kw">has</span>
+    name
+    email
+    message
+    timestamp
+.
+
+<span class="tok-kw">to</span> validateSubmission name email message
+    <span class="tok-kw">if</span> name <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> <span class="tok-kw">not</span> email <span class="tok-kw">contains</span> <span class="tok-str">&quot;@&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> <span class="tok-kw">not</span> email <span class="tok-kw">contains</span> <span class="tok-str">&quot;.&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> message <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> createSubmission name email message
+    s <span class="tok-kw">is</span> <span class="tok-kw">a</span> Submission
+    name <span class="tok-kw">of</span> s <span class="tok-kw">is</span> name
+    email <span class="tok-kw">of</span> s <span class="tok-kw">is</span> email
+    message <span class="tok-kw">of</span> s <span class="tok-kw">is</span> message
+    timestamp <span class="tok-kw">of</span> s <span class="tok-kw">is</span> <span class="tok-str">&quot;2026-11-10T18:00:00Z&quot;</span>
+    <span class="tok-kw">return</span> s
+.
+
+<span class="tok-kw">to</span> saveSubmissions list filePath
+    <span class="tok-kw">convert</span> list <span class="tok-kw">to</span> json <span class="tok-kw">into</span> rawJson
+    writeSafe filePath rawJson
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> loadSubmissions filePath
+    raw <span class="tok-kw">is</span> readOrFallback filePath <span class="tok-str">&quot;[]&quot;</span>
+    loaded <span class="tok-kw">is</span> <span class="tok-kw">a</span> thing
+    <span class="tok-kw">convert</span> raw <span class="tok-kw">from</span> json <span class="tok-kw">into</span> loaded
+    <span class="tok-kw">return</span> loaded
+.
+
+<span class="tok-kw">to</span> getNavigation
+    nav <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Home&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Submissions API&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Contact&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">return</span> nav
+.
+
+<span class="tok-com"># Web server declaration (Executed when started via `otter serve`)</span>
+site <span class="tok-kw">is</span> <span class="tok-kw">a</span> web server
+    port <span class="tok-kw">is</span> ${config:portNumber}
+    host <span class="tok-kw">is</span> <span class="tok-str">&quot;127.0.0.1&quot;</span>
+    static <span class="tok-kw">is</span> <span class="tok-str">&quot;public&quot;</span>
+.
+
+when site receives GET <span class="tok-kw">at</span> <span class="tok-str">&quot;/api/nav&quot;</span>
+    nav <span class="tok-kw">is</span> getNavigation
+    respond <span class="tok-kw">with</span> nav <span class="tok-kw">as</span> json
+.
+
+when site receives GET <span class="tok-kw">at</span> <span class="tok-str">&quot;/api/submissions&quot;</span>
+    subs <span class="tok-kw">is</span> loadSubmissions <span class="tok-str">&quot;submissions_store.json&quot;</span>
+    respond <span class="tok-kw">with</span> subs <span class="tok-kw">as</span> json
+.
+
+when site receives POST <span class="tok-kw">at</span> <span class="tok-str">&quot;/api/submit&quot;</span> <span class="tok-kw">into</span> req
+    bodyData <span class="tok-kw">is</span> <span class="tok-kw">a</span> thing
+    <span class="tok-kw">convert</span> body <span class="tok-kw">of</span> req <span class="tok-kw">from</span> json <span class="tok-kw">into</span> bodyData
+    subName <span class="tok-kw">is</span> name <span class="tok-kw">of</span> bodyData
+    subEmail <span class="tok-kw">is</span> email <span class="tok-kw">of</span> bodyData
+    subMsg <span class="tok-kw">is</span> message <span class="tok-kw">of</span> bodyData
+    <span class="tok-kw">if</span> validateSubmission subName subEmail subMsg
+        newSub <span class="tok-kw">is</span> createSubmission subName subEmail subMsg
+        currentSubs <span class="tok-kw">is</span> loadSubmissions <span class="tok-str">&quot;submissions_store.json&quot;</span>
+        <span class="tok-kw">add</span> newSub <span class="tok-kw">to</span> currentSubs
+        saveSubmissions currentSubs <span class="tok-str">&quot;submissions_store.json&quot;</span>
+        respond <span class="tok-kw">with</span> newSub <span class="tok-kw">as</span> json <span class="tok-kw">and</span> status <span class="tok-num">201</span>
+    <span class="tok-kw">otherwise</span>
+        err <span class="tok-kw">has</span>
+            error <span class="tok-kw">is</span> <span class="tok-str">&quot;Validation failed: invalid name, email, or message&quot;</span>
+        .
+        respond <span class="tok-kw">with</span> err <span class="tok-kw">as</span> json <span class="tok-kw">and</span> status <span class="tok-num">400</span>
+    .
+.
+</code></pre>
+      <textarea id="raw-code-1" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># ==============================================================================
+# Generated by Otter Application Recipe: web-portal 1.0.0
+# Target: Native HTTP Web Portal with Form Submissions and File Persistence
+# ==============================================================================
+
+use &quot;${import:otter-official/file-helpers}&quot;
+use &quot;${import:otter-official/text-utils}&quot;
+
+a Submission has
+    name
+    email
+    message
+    timestamp
+.
+
+to validateSubmission name email message
+    if name is &quot;&quot;
+        return false
+    .
+    if not email contains &quot;@&quot;
+        return false
+    .
+    if not email contains &quot;.&quot;
+        return false
+    .
+    if message is &quot;&quot;
+        return false
+    .
+    return true
+.
+
+to createSubmission name email message
+    s is a Submission
+    name of s is name
+    email of s is email
+    message of s is message
+    timestamp of s is &quot;2026-11-10T18:00:00Z&quot;
+    return s
+.
+
+to saveSubmissions list filePath
+    convert list to json into rawJson
+    writeSafe filePath rawJson
+    return true
+.
+
+to loadSubmissions filePath
+    raw is readOrFallback filePath &quot;[]&quot;
+    loaded is a thing
+    convert raw from json into loaded
+    return loaded
+.
+
+to getNavigation
+    nav are empty
+    add &quot;Home&quot; to nav
+    add &quot;Submissions API&quot; to nav
+    add &quot;Contact&quot; to nav
+    return nav
+.
+
+# Web server declaration (Executed when started via `otter serve`)
+site is a web server
+    port is ${config:portNumber}
+    host is &quot;127.0.0.1&quot;
+    static is &quot;public&quot;
+.
+
+when site receives GET at &quot;/api/nav&quot;
+    nav is getNavigation
+    respond with nav as json
+.
+
+when site receives GET at &quot;/api/submissions&quot;
+    subs is loadSubmissions &quot;submissions_store.json&quot;
+    respond with subs as json
+.
+
+when site receives POST at &quot;/api/submit&quot; into req
+    bodyData is a thing
+    convert body of req from json into bodyData
+    subName is name of bodyData
+    subEmail is email of bodyData
+    subMsg is message of bodyData
+    if validateSubmission subName subEmail subMsg
+        newSub is createSubmission subName subEmail subMsg
+        currentSubs is loadSubmissions &quot;submissions_store.json&quot;
+        add newSub to currentSubs
+        saveSubmissions currentSubs &quot;submissions_store.json&quot;
+        respond with newSub as json and status 201
+    otherwise
+        err has
+            error is &quot;Validation failed: invalid name, email, or message&quot;
+        .
+        respond with err as json and status 400
+    .
+.
+</textarea>
+    </div><div role="tabpanel" id="panel-2" aria-labelledby="tab-2" class="lib-code-panel is-hidden" data-file-panel="2">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">templates/index.html.tmpl · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-2">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter">&lt;!DOCTYPE html&gt;
+&lt;html lang=<span class="tok-str">&quot;en&quot;</span>&gt;
+&lt;head&gt;
+  &lt;meta charset=<span class="tok-str">&quot;UTF-8&quot;</span>&gt;
+  &lt;meta name=<span class="tok-str">&quot;viewport&quot;</span> content=<span class="tok-str">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;
+  &lt;title&gt;${config:portalName}&lt;/title&gt;
+  &lt;style&gt;
+    :root {
+      --bg: <span class="tok-com">#0f172a;</span>
+      --card-bg: <span class="tok-com">#1e293b;</span>
+      --text: <span class="tok-com">#f8fafc;</span>
+      --text-muted: <span class="tok-com">#94a3b8;</span>
+      --primary: <span class="tok-com">#38bdf8;</span>
+      --primary-hover: <span class="tok-com">#0ea5e9;</span>
+      --border: <span class="tok-com">#334155;</span>
+    }
+    body {
+      margin: <span class="tok-num">0</span>;
+      font-family: -apple-system, BlinkMacSystemFont, <span class="tok-str">&quot;Segoe UI&quot;</span>, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-size: <span class="tok-num">1</span>.25rem;
+      font-weight: <span class="tok-num">700</span>;
+      color: var(--primary);
+    }
+    nav <span class="tok-kw">a</span> {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: <span class="tok-num">1</span>.5rem;
+      transition: color <span class="tok-num">0</span>.2s;
+    }
+    nav <span class="tok-kw">a</span>:hover, nav <span class="tok-kw">a</span>.active {
+      color: var(--text);
+    }
+    main {
+      flex: <span class="tok-num">1</span>;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: <span class="tok-num">0</span> 1rem;
+      width: <span class="tok-num">100</span>%;
+      box-sizing: border-box;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: <span class="tok-num">1</span>.5rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      margin-top: <span class="tok-num">0</span>;
+      color: var(--text);
+    }
+    label {
+      display: block;
+      margin-bottom: <span class="tok-num">0</span>.5rem;
+      color: var(--text-muted);
+      font-size: <span class="tok-num">0</span>.9rem;
+    }
+    input, textarea, button {
+      width: <span class="tok-num">100</span>%;
+      padding: <span class="tok-num">0</span>.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: <span class="tok-com">#0b1120;</span>
+      color: var(--text);
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      background: var(--primary);
+      color: <span class="tok-com">#0f172a;</span>
+      font-weight: <span class="tok-num">600</span>;
+      cursor: pointer;
+      border: none;
+      transition: background <span class="tok-num">0</span>.2s;
+    }
+    button:hover {
+      background: var(--primary-hover);
+    }
+    footer {
+      text-align: center;
+      padding: <span class="tok-num">1</span>.5rem;
+      color: var(--text-muted);
+      font-size: <span class="tok-num">0</span>.85rem;
+      border-top: 1px solid var(--border);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;div class=<span class="tok-str">&quot;brand&quot;</span>&gt;${config:portalName}&lt;/div&gt;
+    &lt;nav&gt;
+      &lt;<span class="tok-kw">a</span> href=<span class="tok-str">&quot;/&quot;</span> class=<span class="tok-str">&quot;active&quot;</span>&gt;Home&lt;/<span class="tok-kw">a</span>&gt;
+      &lt;<span class="tok-kw">a</span> href=<span class="tok-str">&quot;/api/submissions&quot;</span>&gt;Submissions API&lt;/<span class="tok-kw">a</span>&gt;
+      &lt;<span class="tok-kw">a</span> href=<span class="tok-str">&quot;#contact&quot;</span>&gt;Contact&lt;/<span class="tok-kw">a</span>&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;div class=<span class="tok-str">&quot;card&quot;</span>&gt;
+      &lt;h2&gt;Welcome <span class="tok-kw">to</span> ${config:portalName}&lt;/h2&gt;
+      &lt;p&gt;This web portal <span class="tok-kw">is</span> generated by Otter <span class="tok-num">1.0</span>.<span class="tok-num">1</span> <span class="tok-kw">and</span> served natively <span class="tok-kw">with</span> persistent form submissions.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=<span class="tok-str">&quot;card&quot;</span> id=<span class="tok-str">&quot;contact&quot;</span>&gt;
+      &lt;h2&gt;Submit Feedback&lt;/h2&gt;
+      &lt;form action=<span class="tok-str">&quot;/api/submit&quot;</span> method=<span class="tok-str">&quot;POST&quot;</span>&gt;
+        &lt;label <span class="tok-kw">for</span>=<span class="tok-str">&quot;name&quot;</span>&gt;Your Name&lt;/label&gt;
+        &lt;input type=<span class="tok-str">&quot;text&quot;</span> id=<span class="tok-str">&quot;name&quot;</span> name=<span class="tok-str">&quot;name&quot;</span> required placeholder=<span class="tok-str">&quot;Ada Lovelace&quot;</span>&gt;
+        &lt;label <span class="tok-kw">for</span>=<span class="tok-str">&quot;email&quot;</span>&gt;Email Address&lt;/label&gt;
+        &lt;input type=<span class="tok-str">&quot;email&quot;</span> id=<span class="tok-str">&quot;email&quot;</span> name=<span class="tok-str">&quot;email&quot;</span> required placeholder=<span class="tok-str">&quot;ada@analytical.org&quot;</span>&gt;
+        &lt;label <span class="tok-kw">for</span>=<span class="tok-str">&quot;message&quot;</span>&gt;Message&lt;/label&gt;
+        &lt;textarea id=<span class="tok-str">&quot;message&quot;</span> name=<span class="tok-str">&quot;message&quot;</span> rows=<span class="tok-str">&quot;4&quot;</span> required placeholder=<span class="tok-str">&quot;Enter your feedback here...&quot;</span>&gt;&lt;/textarea&gt;
+        &lt;button type=<span class="tok-str">&quot;submit&quot;</span>&gt;Submit Feedback&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    Powered by Otter Native Web Runtime &amp;copy; <span class="tok-num">2026</span>
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+      <textarea id="raw-code-2" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;${config:portalName}&lt;/title&gt;
+  &lt;style&gt;
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --border: #334155;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active {
+      color: var(--text);
+    }
+    main {
+      flex: 1;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--text);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #0b1120;
+      color: var(--text);
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      background: var(--primary);
+      color: #0f172a;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: var(--primary-hover);
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;div class=&quot;brand&quot;&gt;${config:portalName}&lt;/div&gt;
+    &lt;nav&gt;
+      &lt;a href=&quot;/&quot; class=&quot;active&quot;&gt;Home&lt;/a&gt;
+      &lt;a href=&quot;/api/submissions&quot;&gt;Submissions API&lt;/a&gt;
+      &lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;h2&gt;Welcome to ${config:portalName}&lt;/h2&gt;
+      &lt;p&gt;This web portal is generated by Otter 1.0.1 and served natively with persistent form submissions.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card&quot; id=&quot;contact&quot;&gt;
+      &lt;h2&gt;Submit Feedback&lt;/h2&gt;
+      &lt;form action=&quot;/api/submit&quot; method=&quot;POST&quot;&gt;
+        &lt;label for=&quot;name&quot;&gt;Your Name&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required placeholder=&quot;Ada Lovelace&quot;&gt;
+        &lt;label for=&quot;email&quot;&gt;Email Address&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required placeholder=&quot;ada@analytical.org&quot;&gt;
+        &lt;label for=&quot;message&quot;&gt;Message&lt;/label&gt;
+        &lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;4&quot; required placeholder=&quot;Enter your feedback here...&quot;&gt;&lt;/textarea&gt;
+        &lt;button type=&quot;submit&quot;&gt;Submit Feedback&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    Powered by Otter Native Web Runtime &amp;copy; 2026
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+    </div><div role="tabpanel" id="panel-3" aria-labelledby="tab-3" class="lib-code-panel is-hidden" data-file-panel="3">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">tests/test.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-3">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># ==============================================================================</span>
+<span class="tok-com"># Test: Web Portal Application Logic</span>
+<span class="tok-com"># ==============================================================================</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/text-utils/src/main.ot&quot;</span>
+
+<span class="tok-kw">a</span> Submission <span class="tok-kw">has</span>
+    name
+    email
+    message
+    timestamp
+.
+
+<span class="tok-kw">to</span> validateSubmission name email message
+    <span class="tok-kw">if</span> name <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> <span class="tok-kw">not</span> email <span class="tok-kw">contains</span> <span class="tok-str">&quot;@&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> <span class="tok-kw">not</span> email <span class="tok-kw">contains</span> <span class="tok-str">&quot;.&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> message <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> createSubmission name email message
+    s <span class="tok-kw">is</span> <span class="tok-kw">a</span> Submission
+    name <span class="tok-kw">of</span> s <span class="tok-kw">is</span> name
+    email <span class="tok-kw">of</span> s <span class="tok-kw">is</span> email
+    message <span class="tok-kw">of</span> s <span class="tok-kw">is</span> message
+    timestamp <span class="tok-kw">of</span> s <span class="tok-kw">is</span> <span class="tok-str">&quot;2026-11-10T18:00:00Z&quot;</span>
+    <span class="tok-kw">return</span> s
+.
+
+<span class="tok-kw">to</span> saveSubmissions list filePath
+    <span class="tok-kw">convert</span> list <span class="tok-kw">to</span> json <span class="tok-kw">into</span> rawJson
+    writeSafe filePath rawJson
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> loadSubmissions filePath
+    raw <span class="tok-kw">is</span> readOrFallback filePath <span class="tok-str">&quot;[]&quot;</span>
+    loaded <span class="tok-kw">is</span> <span class="tok-kw">a</span> thing
+    <span class="tok-kw">convert</span> raw <span class="tok-kw">from</span> json <span class="tok-kw">into</span> loaded
+    <span class="tok-kw">return</span> loaded
+.
+
+<span class="tok-kw">to</span> getNavigation
+    nav <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Home&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Submissions API&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Contact&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">return</span> nav
+.
+
+<span class="tok-com"># Test 1: Navigation routes</span>
+navItems <span class="tok-kw">is</span> getNavigation
+<span class="tok-kw">if</span> length <span class="tok-kw">of</span> navItems <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">3</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected 3 navigation items&quot;</span>
+.
+
+<span class="tok-com"># Test 2: Form validation</span>
+validPass <span class="tok-kw">is</span> validateSubmission <span class="tok-str">&quot;Ada&quot;</span> <span class="tok-str">&quot;ada@analytical.org&quot;</span> <span class="tok-str">&quot;Great portal!&quot;</span>
+<span class="tok-kw">if</span> <span class="tok-kw">not</span> validPass
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected valid submission to pass&quot;</span>
+.
+
+invalidEmail <span class="tok-kw">is</span> validateSubmission <span class="tok-str">&quot;Charles&quot;</span> <span class="tok-str">&quot;charles-no-at&quot;</span> <span class="tok-str">&quot;Missing at&quot;</span>
+<span class="tok-kw">if</span> invalidEmail
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected invalid email to fail&quot;</span>
+.
+
+invalidMessage <span class="tok-kw">is</span> validateSubmission <span class="tok-str">&quot;Alan&quot;</span> <span class="tok-str">&quot;alan@bletchley.uk&quot;</span> <span class="tok-str">&quot;&quot;</span>
+<span class="tok-kw">if</span> invalidMessage
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected empty message to fail&quot;</span>
+.
+
+<span class="tok-com"># Test 3: Data persistence</span>
+storeFile <span class="tok-kw">is</span> <span class="tok-str">&quot;test_web_submissions.json&quot;</span>
+testSubs <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+s1 <span class="tok-kw">is</span> createSubmission <span class="tok-str">&quot;Ada Lovelace&quot;</span> <span class="tok-str">&quot;ada@analytical.org&quot;</span> <span class="tok-str">&quot;First comment&quot;</span>
+<span class="tok-kw">add</span> s1 <span class="tok-kw">to</span> testSubs
+s2 <span class="tok-kw">is</span> createSubmission <span class="tok-str">&quot;Charles Babbage&quot;</span> <span class="tok-str">&quot;charles@engines.org&quot;</span> <span class="tok-str">&quot;Second comment&quot;</span>
+<span class="tok-kw">add</span> s2 <span class="tok-kw">to</span> testSubs
+
+saveSubmissions testSubs storeFile
+loadedSubs <span class="tok-kw">is</span> loadSubmissions storeFile
+
+<span class="tok-kw">if</span> length <span class="tok-kw">of</span> loadedSubs <span class="tok-kw">is</span> <span class="tok-kw">not</span> <span class="tok-num">2</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;FAIL: expected 2 loaded submissions&quot;</span>
+.
+
+writeSafe storeFile <span class="tok-str">&quot;&quot;</span>
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Web-portal tests passed.&quot;</span>
+</code></pre>
+      <textarea id="raw-code-3" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># ==============================================================================
+# Test: Web Portal Application Logic
+# ==============================================================================
+
+use &quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/text-utils/src/main.ot&quot;
+
+a Submission has
+    name
+    email
+    message
+    timestamp
+.
+
+to validateSubmission name email message
+    if name is &quot;&quot;
+        return false
+    .
+    if not email contains &quot;@&quot;
+        return false
+    .
+    if not email contains &quot;.&quot;
+        return false
+    .
+    if message is &quot;&quot;
+        return false
+    .
+    return true
+.
+
+to createSubmission name email message
+    s is a Submission
+    name of s is name
+    email of s is email
+    message of s is message
+    timestamp of s is &quot;2026-11-10T18:00:00Z&quot;
+    return s
+.
+
+to saveSubmissions list filePath
+    convert list to json into rawJson
+    writeSafe filePath rawJson
+    return true
+.
+
+to loadSubmissions filePath
+    raw is readOrFallback filePath &quot;[]&quot;
+    loaded is a thing
+    convert raw from json into loaded
+    return loaded
+.
+
+to getNavigation
+    nav are empty
+    add &quot;Home&quot; to nav
+    add &quot;Submissions API&quot; to nav
+    add &quot;Contact&quot; to nav
+    return nav
+.
+
+# Test 1: Navigation routes
+navItems is getNavigation
+if length of navItems is not 3
+    say &quot;FAIL: expected 3 navigation items&quot;
+.
+
+# Test 2: Form validation
+validPass is validateSubmission &quot;Ada&quot; &quot;ada@analytical.org&quot; &quot;Great portal!&quot;
+if not validPass
+    say &quot;FAIL: expected valid submission to pass&quot;
+.
+
+invalidEmail is validateSubmission &quot;Charles&quot; &quot;charles-no-at&quot; &quot;Missing at&quot;
+if invalidEmail
+    say &quot;FAIL: expected invalid email to fail&quot;
+.
+
+invalidMessage is validateSubmission &quot;Alan&quot; &quot;alan@bletchley.uk&quot; &quot;&quot;
+if invalidMessage
+    say &quot;FAIL: expected empty message to fail&quot;
+.
+
+# Test 3: Data persistence
+storeFile is &quot;test_web_submissions.json&quot;
+testSubs are empty
+s1 is createSubmission &quot;Ada Lovelace&quot; &quot;ada@analytical.org&quot; &quot;First comment&quot;
+add s1 to testSubs
+s2 is createSubmission &quot;Charles Babbage&quot; &quot;charles@engines.org&quot; &quot;Second comment&quot;
+add s2 to testSubs
+
+saveSubmissions testSubs storeFile
+loadedSubs is loadSubmissions storeFile
+
+if length of loadedSubs is not 2
+    say &quot;FAIL: expected 2 loaded submissions&quot;
+.
+
+writeSafe storeFile &quot;&quot;
+
+say &quot;Web-portal tests passed.&quot;
+</textarea>
+    </div><div role="tabpanel" id="panel-4" aria-labelledby="tab-4" class="lib-code-panel is-hidden" data-file-panel="4">
+      <div class="lib-code-toolbar">
+        <span class="lib-code-lang">examples/demo.ot · otter</span>
+        <div class="lib-code-actions">
+          <button type="button" class="lib-btn-copy" data-copy-target="raw-code-4">Copy file</button>
+          <button type="button" class="lib-btn-copy lib-btn-copy-all" data-copy-all="true">Copy all files</button>
+        </div>
+      </div>
+      <pre class="lib-code-pre"><code data-lang="otter"><span class="tok-com"># ==============================================================================</span>
+<span class="tok-com"># Demo: Web Portal Logic &amp; Form Handler</span>
+<span class="tok-com"># ==============================================================================</span>
+
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;</span>
+<span class="tok-kw">use</span> <span class="tok-str">&quot;../../../../packs/otter-official/text-utils/src/main.ot&quot;</span>
+
+<span class="tok-kw">a</span> Submission <span class="tok-kw">has</span>
+    name
+    email
+    message
+    timestamp
+.
+
+<span class="tok-kw">to</span> validateSubmission name email message
+    <span class="tok-kw">if</span> name <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> <span class="tok-kw">not</span> email <span class="tok-kw">contains</span> <span class="tok-str">&quot;@&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> <span class="tok-kw">not</span> email <span class="tok-kw">contains</span> <span class="tok-str">&quot;.&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">if</span> message <span class="tok-kw">is</span> <span class="tok-str">&quot;&quot;</span>
+        <span class="tok-kw">return</span> <span class="tok-kw">false</span>
+    .
+    <span class="tok-kw">return</span> <span class="tok-kw">true</span>
+.
+
+<span class="tok-kw">to</span> createSubmission name email message
+    s <span class="tok-kw">is</span> <span class="tok-kw">a</span> Submission
+    name <span class="tok-kw">of</span> s <span class="tok-kw">is</span> name
+    email <span class="tok-kw">of</span> s <span class="tok-kw">is</span> email
+    message <span class="tok-kw">of</span> s <span class="tok-kw">is</span> message
+    timestamp <span class="tok-kw">of</span> s <span class="tok-kw">is</span> <span class="tok-str">&quot;2026-11-10T18:00:00Z&quot;</span>
+    <span class="tok-kw">return</span> s
+.
+
+<span class="tok-kw">to</span> getNavigation
+    nav <span class="tok-kw">are</span> <span class="tok-kw">empty</span>
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Home&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Submissions API&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">add</span> <span class="tok-str">&quot;Contact&quot;</span> <span class="tok-kw">to</span> nav
+    <span class="tok-kw">return</span> nav
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;=== Web Portal Demo ===&quot;</span>
+nav <span class="tok-kw">is</span> getNavigation
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Portal Navigation:&quot;</span>
+<span class="tok-kw">for</span> <span class="tok-kw">each</span> item <span class="tok-kw">in</span> nav
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;  - &quot;</span> <span class="tok-kw">plus</span> item
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Validating incoming contact submission...&quot;</span>
+isValid <span class="tok-kw">is</span> validateSubmission <span class="tok-str">&quot;Ada Lovelace&quot;</span> <span class="tok-str">&quot;ada@analytical.org&quot;</span> <span class="tok-str">&quot;Enjoying the portal design!&quot;</span>
+<span class="tok-kw">if</span> isValid
+    sub <span class="tok-kw">is</span> createSubmission <span class="tok-str">&quot;Ada Lovelace&quot;</span> <span class="tok-str">&quot;ada@analytical.org&quot;</span> <span class="tok-str">&quot;Enjoying the portal design!&quot;</span>
+    <span class="tok-kw">say</span> <span class="tok-str">&quot;Submission accepted from: &quot;</span> <span class="tok-kw">plus</span> name <span class="tok-kw">of</span> sub
+.
+
+<span class="tok-kw">say</span> <span class="tok-str">&quot;Web-portal demo finished successfully.&quot;</span>
+</code></pre>
+      <textarea id="raw-code-4" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1"># ==============================================================================
+# Demo: Web Portal Logic &amp; Form Handler
+# ==============================================================================
+
+use &quot;../../../../packs/otter-official/file-helpers/src/main.ot&quot;
+use &quot;../../../../packs/otter-official/text-utils/src/main.ot&quot;
+
+a Submission has
+    name
+    email
+    message
+    timestamp
+.
+
+to validateSubmission name email message
+    if name is &quot;&quot;
+        return false
+    .
+    if not email contains &quot;@&quot;
+        return false
+    .
+    if not email contains &quot;.&quot;
+        return false
+    .
+    if message is &quot;&quot;
+        return false
+    .
+    return true
+.
+
+to createSubmission name email message
+    s is a Submission
+    name of s is name
+    email of s is email
+    message of s is message
+    timestamp of s is &quot;2026-11-10T18:00:00Z&quot;
+    return s
+.
+
+to getNavigation
+    nav are empty
+    add &quot;Home&quot; to nav
+    add &quot;Submissions API&quot; to nav
+    add &quot;Contact&quot; to nav
+    return nav
+.
+
+say &quot;=== Web Portal Demo ===&quot;
+nav is getNavigation
+say &quot;Portal Navigation:&quot;
+for each item in nav
+    say &quot;  - &quot; plus item
+.
+
+say &quot;Validating incoming contact submission...&quot;
+isValid is validateSubmission &quot;Ada Lovelace&quot; &quot;ada@analytical.org&quot; &quot;Enjoying the portal design!&quot;
+if isValid
+    sub is createSubmission &quot;Ada Lovelace&quot; &quot;ada@analytical.org&quot; &quot;Enjoying the portal design!&quot;
+    say &quot;Submission accepted from: &quot; plus name of sub
+.
+
+say &quot;Web-portal demo finished successfully.&quot;
+</textarea>
+    </div>
+  </section>
+
+        <section class="lib-panel" aria-labelledby="install-heading">
+          <div class="lib-panel-head">
+            <h2 id="install-heading">Installation &amp; Usage</h2>
+            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+          </div>
+          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> recipe inspect <span class="tok-kw">otter</span>-official/web-portal
+<span class="tok-kw">otter</span> recipe apply <span class="tok-kw">otter</span>-official/web-portal --project ./my-app</code></pre>
+          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter recipe inspect otter-official/web-portal
+otter recipe apply otter-official/web-portal --project ./my-app</textarea>
+          <p class="lib-usage-text">This application creates a web website with multiple pages, a navigation bar, and an online submission form. Messages sent through the form are checked for valid email addresses and saved to a file.</p>
+        </section>
+
+        <section class="lib-panel" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Components</h2>
+        <div class="lib-related-grid">
+          <a class="lib-related-card" href="/library/pack-otter-official-file-helpers/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>file-helpers Pack</strong>
+            <span>Safe file I/O and JSON storage utilities: readOrFallback, writeSafe, appendSafe, deleteFileSafe, fileExistsSaf…</span>
+          </a><a class="lib-related-card" href="/library/pack-otter-official-text-utils/">
+            <span class="lib-related-cat">Otter · Packs</span>
+            <strong>text-utils Pack</strong>
+            <span>Essential string and text formatting utilities: repeatText, padLeft, padRight, normalizeSpaces, slugify, toUpp…</span>
+          </a>
+        </div>
+      </section>
+      </div>
+
+      <aside class="lib-detail-aside" aria-label="Component metadata">
+        <section class="lib-aside-card">
+          <h3>Verification Status</h3>
+          <p class="lib-ver-badge-block lib-badge-tested">Upstream Recipe Tested</p>
+          <p class="lib-aside-copy">Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-recipes.ps1; imported with SHA-256 provenance verification.</p>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Dependencies</h3>
+          <ul class="lib-meta-list"><li><code>otter-official/file-helpers</code> <span>1.0.1</span></li><li><code>otter-official/text-utils</code> <span>1.0.1</span></li></ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Compatibility &amp; Platforms</h3>
+          <ul class="lib-meta-list">
+            <li>Otter (server)</li>
+          </ul>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Tags</h3>
+          <div class="lib-tags-wrap">
+            <a class="lib-tag" href="/library/?q=recipe">#recipe</a><a class="lib-tag" href="/library/?q=server">#server</a><a class="lib-tag" href="/library/?q=web">#web</a><a class="lib-tag" href="/library/?q=files">#files</a>
+          </div>
+        </section>
+
+        <section class="lib-aside-card">
+          <h3>Catalog Provenance</h3>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <div id="siteFooter" class="otter-row" style="width: 100%; max-width: 100%; background: #0b1d36; padding: 26px 40px; text-align: middle; box-sizing: border-box; margin-top: 40px;; display: flex; flex-direction: row; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+      <div id="footerNote" class="otter-text" style="color: #8fa3c2; font-size: 13px;">Otter is free to use, including for commercial software. Created by Jeffrey Macy.</div>
+      <div id="footerLinks" class="otter-row" style="text-align: middle; display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: flex-start; flex-wrap: nowrap;">
+      <a id="footerLibraryLink" class="otter-link" href="/library/" style="color: #b7c4d8; font-size: 13px;">Library</a>
+      <a id="footerDocsLink" class="otter-link" href="/docs/" style="color: #b7c4d8; font-size: 13px;">Docs</a>
+      <a id="footerQuickRef" class="otter-link" href="/quick-reference/" style="color: #b7c4d8; font-size: 13px;">Quick reference</a>
+      <a id="footerDownloadLink" class="otter-link" href="/download/" style="color: #b7c4d8; font-size: 13px;">Download</a>
+      <a id="footerLicense" class="otter-link" href="/license/" style="color: #b7c4d8; font-size: 13px;">License</a>
+      <a id="footerPrivacy" class="otter-link" href="/privacy/" style="color: #b7c4d8; font-size: 13px;">Privacy</a>
+      <a id="footerAbout" class="otter-link" href="/about/" style="color: #b7c4d8; font-size: 13px;">About</a>
+      <a id="footerContact" class="otter-link" href="/support/" style="color: #b7c4d8; font-size: 13px;">Contact</a>
+      <a id="footerSource" class="otter-link" href="https://github.com/Heavens-Lava/otterPS" style="color: #b7c4d8; font-size: 13px;" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</div>
+</div>
+</body>
+</html>
