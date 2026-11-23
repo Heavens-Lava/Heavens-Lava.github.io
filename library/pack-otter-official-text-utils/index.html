@@ -469,9 +469,17 @@
       </div>
     </header>
 
+    <div class="lib-view-tabs" role="tablist" aria-label="Component page views">
+      <button type="button" role="tab" class="lib-view-tab is-active" id="view-tab-all" aria-selected="true" tabindex="0" data-view-target="all">All Sections</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-preview" aria-selected="false" tabindex="-1" data-view-target="preview">Contract</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-source" aria-selected="false" tabindex="-1" data-view-target="source">Source Code (4)</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-install" aria-selected="false" tabindex="-1" data-view-target="install">Install &amp; Usage</button>
+    </div>
+
     <div class="lib-detail-layout">
       <div class="lib-detail-primary">
-        <section class="lib-panel" aria-labelledby="preview-heading">
+        <div class="lib-view-section" data-view-section="preview">
+          <section class="lib-panel" aria-labelledby="preview-heading">
       <div class="lib-panel-head">
         <h2 id="preview-heading">Schema v2 Operation Contract (15 operations)</h2>
         <span class="lib-pill">Scoping Prefix: <code>_tu_</code></span>
@@ -559,7 +567,9 @@
         </table>
       </div>
     </section>
-        <section class="lib-panel" aria-labelledby="source-heading">
+        </div>
+        <div class="lib-view-section" data-view-section="source">
+          <section class="lib-panel" aria-labelledby="source-heading">
     <div class="lib-panel-head">
       <h2 id="source-heading">Source Code (4 files)</h2>
       <span class="lib-copy-live" aria-live="polite"></span>
@@ -1551,23 +1561,24 @@ say &quot;Rejoined with arrow:&quot; joinText tags &quot; -&gt; &quot;
 </textarea>
     </div>
   </section>
-
-        <section class="lib-panel" aria-labelledby="install-heading">
-          <div class="lib-panel-head">
-            <h2 id="install-heading">Installation &amp; Usage</h2>
-            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
-          </div>
-          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> pack install <span class="tok-kw">otter</span>-official/text-utils
+        </div>
+        <div class="lib-view-section" data-view-section="install">
+          <section class="lib-panel" aria-labelledby="install-heading">
+            <div class="lib-panel-head">
+              <h2 id="install-heading">Installation &amp; Usage</h2>
+              <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+            </div>
+            <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> pack install <span class="tok-kw">otter</span>-official/text-utils
 <span class="tok-kw">otter</span> pack verify --contracts</code></pre>
-          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter pack install otter-official/text-utils
+            <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter pack install otter-official/text-utils
 otter pack verify --contracts</textarea>
-          <p class="lib-usage-text">use &quot;.otter/packages/otter-official/text-utils/1.0.1/src/main.ot&quot;
+            <p class="lib-usage-text">use &quot;.otter/packages/otter-official/text-utils/1.0.1/src/main.ot&quot;
 
 # Inspect exported operation contracts:
 otter pack contract otter-official/text-utils</p>
-        </section>
+          </section>
 
-        <section class="lib-panel" aria-labelledby="related-heading">
+          <section class="lib-panel" aria-labelledby="related-heading">
         <h2 id="related-heading">Related Components</h2>
         <div class="lib-related-grid">
           <a class="lib-related-card" href="/library/blueprint-otter-official-text-cleanup/">
@@ -1597,6 +1608,7 @@ otter pack contract otter-official/text-utils</p>
           </a>
         </div>
       </section>
+        </div>
       </div>
 
       <aside class="lib-detail-aside" aria-label="Component metadata">
@@ -1627,7 +1639,7 @@ otter pack contract otter-official/text-utils</p>
 
         <section class="lib-aside-card">
           <h3>Catalog Provenance</h3>
-          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>79727ce</code> (tree <code>081a4c0cdfd7</code>).</p>
           <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
         </section>
       </aside>

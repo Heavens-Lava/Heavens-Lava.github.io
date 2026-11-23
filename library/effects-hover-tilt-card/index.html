@@ -469,9 +469,17 @@
       </div>
     </header>
 
+    <div class="lib-view-tabs" role="tablist" aria-label="Component page views">
+      <button type="button" role="tab" class="lib-view-tab is-active" id="view-tab-all" aria-selected="true" tabindex="0" data-view-target="all">All Sections</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-preview" aria-selected="false" tabindex="-1" data-view-target="preview">Live Preview</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-source" aria-selected="false" tabindex="-1" data-view-target="source">Source Code (3)</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-install" aria-selected="false" tabindex="-1" data-view-target="install">Install &amp; Usage</button>
+    </div>
+
     <div class="lib-detail-layout">
       <div class="lib-detail-primary">
-        <section class="lib-panel" aria-labelledby="preview-heading">
+        <div class="lib-view-section" data-view-section="preview">
+          <section class="lib-panel" aria-labelledby="preview-heading">
       <div class="lib-panel-head">
         <h2 id="preview-heading">Sandboxed Live Preview</h2>
         <span class="lib-pill">Isolated iframe (CSP + no same-origin)</span>
@@ -604,7 +612,9 @@ if (!reducedMotion) {
       <p class="lib-preview-caption">Interactive live preview — move your pointer across the card to inspect the 3D tilt and specular highlight.</p>
       
     </section>
-        <section class="lib-panel" aria-labelledby="source-heading">
+        </div>
+        <div class="lib-view-section" data-view-section="source">
+          <section class="lib-panel" aria-labelledby="source-heading">
     <div class="lib-panel-head">
       <h2 id="source-heading">Source Code (3 files)</h2>
       <span class="lib-copy-live" aria-live="polite"></span>
@@ -792,18 +802,19 @@ if (!reducedMotion) {
 </textarea>
     </div>
   </section>
+        </div>
+        <div class="lib-view-section" data-view-section="install">
+          <section class="lib-panel" aria-labelledby="install-heading">
+            <div class="lib-panel-head">
+              <h2 id="install-heading">Installation &amp; Usage</h2>
+              <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+            </div>
+            <pre class="lib-code-pre"><code data-lang="bash">Copy tilt.html, tilt.css, and tilt.js into your project.</code></pre>
+            <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">Copy tilt.html, tilt.css, and tilt.js into your project.</textarea>
+            <p class="lib-usage-text">Add data-otter-tilt to any card element; tilt.js binds pointermove/pointerleave listeners while respecting prefers-reduced-motion.</p>
+          </section>
 
-        <section class="lib-panel" aria-labelledby="install-heading">
-          <div class="lib-panel-head">
-            <h2 id="install-heading">Installation &amp; Usage</h2>
-            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
-          </div>
-          <pre class="lib-code-pre"><code data-lang="bash">Copy tilt.html, tilt.css, and tilt.js into your project.</code></pre>
-          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">Copy tilt.html, tilt.css, and tilt.js into your project.</textarea>
-          <p class="lib-usage-text">Add data-otter-tilt to any card element; tilt.js binds pointermove/pointerleave listeners while respecting prefers-reduced-motion.</p>
-        </section>
-
-        <section class="lib-panel" aria-labelledby="related-heading">
+          <section class="lib-panel" aria-labelledby="related-heading">
         <h2 id="related-heading">Related Components</h2>
         <div class="lib-related-grid">
           <a class="lib-related-card" href="/library/effects-glassmorphism-card/">
@@ -817,6 +828,7 @@ if (!reducedMotion) {
           </a>
         </div>
       </section>
+        </div>
       </div>
 
       <aside class="lib-detail-aside" aria-label="Component metadata">
@@ -847,7 +859,7 @@ if (!reducedMotion) {
 
         <section class="lib-aside-card">
           <h3>Catalog Provenance</h3>
-          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>79727ce</code> (tree <code>081a4c0cdfd7</code>).</p>
           <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
         </section>
       </aside>

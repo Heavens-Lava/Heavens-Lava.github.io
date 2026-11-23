@@ -3,8 +3,8 @@
   "provenance": {
     "canonicalRepo": "Heavens-Lava/otter-net",
     "expectedCommit": "6fec8528f25f59806c9e8e9bc7d83b6d8bd178d6",
-    "sourceCommit": "6fec8528f25f59806c9e8e9bc7d83b6d8bd178d6",
-    "sourceBranch": "HEAD",
+    "sourceCommit": "79727ce0985d0de4c7749fdfdb99dbfa216cbe29",
+    "sourceBranch": "main",
     "ancestorVerified": true,
     "expectedOtterVersion": "1.0.1",
     "libraryTreeSha256": "081a4c0cdfd761969cf1ffd65c740dee60b38f56de6cec82449df1800cf1d9a5",
@@ -118,7 +118,16 @@
       "languages": [
         "CSS",
         "HTML"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/web-animated-gradient-button.webp",
+        "kind": "rendered-preview",
+        "label": "Rendered Preview",
+        "width": 640,
+        "height": 360,
+        "bytes": 4214,
+        "alt": "Rendered browser preview of Animated Gradient Button (HTML / CSS)"
+      }
     },
     {
       "id": "web/responsive-navbar",
@@ -189,7 +198,16 @@
         "CSS",
         "HTML",
         "JavaScript"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/web-responsive-navbar.webp",
+        "kind": "rendered-preview",
+        "label": "Rendered Preview",
+        "width": 640,
+        "height": 360,
+        "bytes": 4178,
+        "alt": "Rendered browser preview of Responsive Navigation Bar (HTML / CSS / JS)"
+      }
     },
     {
       "id": "web/command-palette",
@@ -267,7 +285,16 @@
         "HTML",
         "JavaScript",
         "TypeScript"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/web-command-palette.webp",
+        "kind": "rendered-preview",
+        "label": "Rendered Preview",
+        "width": 640,
+        "height": 360,
+        "bytes": 10854,
+        "alt": "Rendered browser preview of Accessible Command Palette (TypeScript)"
+      }
     },
     {
       "id": "effects/glassmorphism-card",
@@ -360,7 +387,16 @@
       "languages": [
         "CSS",
         "HTML"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/effects-glassmorphism-card.webp",
+        "kind": "rendered-preview",
+        "label": "Rendered Preview",
+        "width": 640,
+        "height": 360,
+        "bytes": 9124,
+        "alt": "Rendered browser preview of Glassmorphism Metric Card (CSS)"
+      }
     },
     {
       "id": "effects/hover-tilt-card",
@@ -432,7 +468,16 @@
         "CSS",
         "HTML",
         "JavaScript"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/effects-hover-tilt-card.webp",
+        "kind": "rendered-preview",
+        "label": "Rendered Preview",
+        "width": 640,
+        "height": 360,
+        "bytes": 8418,
+        "alt": "Rendered browser preview of 3D Specular Hover Tilt Card (CSS / JS)"
+      }
     },
     {
       "id": "desktop/wpf-data-grid",
@@ -509,7 +554,16 @@
         "C#",
         "WPF/XAML",
         "XAML"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/desktop-wpf-data-grid.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2943,
+        "alt": "Desktop architecture diagram for WPF Filterable Data Grid Panel (WPF (.NET 8/10))"
+      }
     },
     {
       "id": "desktop/wpf-settings-shell",
@@ -579,7 +633,16 @@
         "C#",
         "WPF/XAML",
         "XAML"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/desktop-wpf-settings-shell.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2946,
+        "alt": "Desktop architecture diagram for WPF Settings Dialog Shell (WPF (.NET 8/10))"
+      }
     },
     {
       "id": "games/godot-health-combat",
@@ -650,7 +713,16 @@
       ],
       "languages": [
         "GDScript"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/games-godot-health-combat.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2974,
+        "alt": "Games architecture diagram for Godot 4 Health & Damage Component (Godot 4.x)"
+      }
     },
     {
       "id": "games/unity-inventory-system",
@@ -719,7 +791,16 @@
       ],
       "languages": [
         "C#"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/games-unity-inventory-system.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2988,
+        "alt": "Games architecture diagram for Unity C# Stackable Inventory Container (Unity 2022+ / Unity 6)"
+      }
     },
     {
       "id": "games/roblox-quest-tracker",
@@ -788,7 +869,16 @@
       ],
       "languages": [
         "Luau"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/games-roblox-quest-tracker.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2997,
+        "alt": "Games architecture diagram for Roblox Luau Quest & Objective Tracker (Roblox Studio)"
+      }
     },
     {
       "id": "otter-official/file-helpers",
@@ -1079,7 +1169,16 @@
         "workflow-collection-analytics-persistence",
         "workflow-game-actor-save-state",
         "workflow-text-processing-persistence"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/pack-otter-official-file-helpers.svg",
+        "kind": "contract-diagram",
+        "label": "10 Ops Contract",
+        "width": 640,
+        "height": 360,
+        "bytes": 2906,
+        "alt": "Schema v2 operation contract diagram for file-helpers Pack (10 operations)"
+      }
     },
     {
       "id": "otter-official/game-entity",
@@ -1869,7 +1968,16 @@
         "games-unity-inventory-system",
         "recipe-otter-official-rpg-adventure",
         "workflow-game-actor-save-state"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/pack-otter-official-game-entity.svg",
+        "kind": "contract-diagram",
+        "label": "26 Ops Contract",
+        "width": 640,
+        "height": 360,
+        "bytes": 2909,
+        "alt": "Schema v2 operation contract diagram for game-entity Pack (26 operations)"
+      }
     },
     {
       "id": "otter-official/list-utils",
@@ -2160,7 +2268,16 @@
       "related": [
         "desktop-wpf-data-grid",
         "workflow-collection-analytics-persistence"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/pack-otter-official-list-utils.svg",
+        "kind": "contract-diagram",
+        "label": "10 Ops Contract",
+        "width": 640,
+        "height": 360,
+        "bytes": 2875,
+        "alt": "Schema v2 operation contract diagram for list-utils Pack (10 operations)"
+      }
     },
     {
       "id": "otter-official/math-utils",
@@ -2487,7 +2604,16 @@
         "workflow-collection-analytics-persistence",
         "workflow-game-actor-save-state",
         "workflow-numeric-calculation-formatting"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/pack-otter-official-math-utils.svg",
+        "kind": "contract-diagram",
+        "label": "11 Ops Contract",
+        "width": 640,
+        "height": 360,
+        "bytes": 2894,
+        "alt": "Schema v2 operation contract diagram for math-utils Pack (11 operations)"
+      }
     },
     {
       "id": "otter-official/text-utils",
@@ -2888,7 +3014,16 @@
         "workflow-collection-analytics-persistence",
         "workflow-numeric-calculation-formatting",
         "workflow-text-processing-persistence"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/pack-otter-official-text-utils.svg",
+        "kind": "contract-diagram",
+        "label": "15 Ops Contract",
+        "width": 640,
+        "height": 360,
+        "bytes": 2894,
+        "alt": "Schema v2 operation contract diagram for text-utils Pack (15 operations)"
+      }
     },
     {
       "id": "workflow/collection-analytics-persistence",
@@ -2968,7 +3103,16 @@
         "pack-otter-official-list-utils",
         "pack-otter-official-math-utils",
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/workflow-collection-analytics-persistence.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 3008,
+        "alt": "Otter architecture diagram for Collection Analytics and Persistence Workflow (Otter Composition Planner (Phase 11))"
+      }
     },
     {
       "id": "workflow/game-actor-save-state",
@@ -3047,7 +3191,16 @@
         "pack-otter-official-file-helpers",
         "pack-otter-official-game-entity",
         "pack-otter-official-math-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/workflow-game-actor-save-state.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2986,
+        "alt": "Otter architecture diagram for Game Actor Combat and Save-State Workflow (Otter Composition Planner (Phase 11))"
+      }
     },
     {
       "id": "workflow/numeric-calculation-formatting",
@@ -3111,7 +3264,16 @@
       "related": [
         "pack-otter-official-math-utils",
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/workflow-numeric-calculation-formatting.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2351,
+        "alt": "Otter architecture diagram for Numeric Calculation and Formatting Workflow (Otter Composition Planner (Phase 11))"
+      }
     },
     {
       "id": "workflow/text-processing-persistence",
@@ -3177,7 +3339,16 @@
       "related": [
         "pack-otter-official-file-helpers",
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/workflow-text-processing-persistence.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 3002,
+        "alt": "Otter architecture diagram for Text Processing and Persistence Workflow (Otter Composition Planner (Phase 11))"
+      }
     },
     {
       "id": "otter-official/console-calculator",
@@ -3252,7 +3423,16 @@
       },
       "related": [
         "pack-otter-official-math-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/blueprint-otter-official-console-calculator.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2904,
+        "alt": "Otter architecture diagram for Console Calculator Blueprint (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/file-settings",
@@ -3331,7 +3511,16 @@
         "desktop-wpf-settings-shell",
         "pack-otter-official-file-helpers",
         "recipe-otter-official-task-tracker"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/blueprint-otter-official-file-settings.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2971,
+        "alt": "Otter architecture diagram for File-Backed JSON Application Settings Blueprint (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/game-combat",
@@ -3418,7 +3607,16 @@
         "pack-otter-official-game-entity",
         "pack-otter-official-math-utils",
         "recipe-otter-official-rpg-adventure"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/blueprint-otter-official-game-combat.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2920,
+        "alt": "Otter architecture diagram for RPG Combat Starter Blueprint (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/text-cleanup",
@@ -3498,7 +3696,16 @@
       },
       "related": [
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/blueprint-otter-official-text-cleanup.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2937,
+        "alt": "Otter architecture diagram for Text Sanitization and Slug Generator Blueprint (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/contact-manager",
@@ -3578,7 +3785,16 @@
       "related": [
         "pack-otter-official-file-helpers",
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/recipe-otter-official-contact-manager.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2322,
+        "alt": "Otter architecture diagram for Contact Manager with Validation Recipe (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/task-tracker",
@@ -3662,7 +3878,16 @@
         "blueprint-otter-official-file-settings",
         "pack-otter-official-file-helpers",
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/recipe-otter-official-task-tracker.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2320,
+        "alt": "Otter architecture diagram for Personal Task Manager Application Recipe (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/rpg-adventure",
@@ -3753,7 +3978,16 @@
         "pack-otter-official-file-helpers",
         "pack-otter-official-game-entity",
         "pack-otter-official-math-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/recipe-otter-official-rpg-adventure.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2969,
+        "alt": "Otter architecture diagram for RPG Adventure Game Engine Recipe (Otter >=1.0.1)"
+      }
     },
     {
       "id": "otter-official/web-portal",
@@ -3839,7 +4073,16 @@
       "related": [
         "pack-otter-official-file-helpers",
         "pack-otter-official-text-utils"
-      ]
+      ],
+      "thumbnail": {
+        "url": "/static/library-previews/recipe-otter-official-web-portal.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2294,
+        "alt": "Otter architecture diagram for Web Portal Application Recipe (Otter >=1.0.1)"
+      }
     },
     {
       "id": "snippet/game-cooldown-system",
@@ -3903,7 +4146,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-game-cooldown-system.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2890,
+        "alt": "Otter architecture diagram for Ability Cooldown System (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/date-add-days",
@@ -3966,7 +4218,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-date-add-days.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2892,
+        "alt": "Otter architecture diagram for Add Days to Calculate Due Date (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/date-diff-days",
@@ -4029,7 +4290,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-date-diff-days.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2898,
+        "alt": "Otter architecture diagram for Calculate Days Between Two Dates (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/math-calc-average",
@@ -4092,7 +4362,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-math-calc-average.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2888,
+        "alt": "Otter architecture diagram for Calculate List Average (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/list-contains-check",
@@ -4155,7 +4434,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-list-contains-check.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2910,
+        "alt": "Otter architecture diagram for Check if List Contains Element (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/math-clamp",
@@ -4218,7 +4506,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-math-clamp.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2880,
+        "alt": "Otter architecture diagram for Clamp Value Within Range (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/text-slugify",
@@ -4282,7 +4579,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-text-slugify.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2884,
+        "alt": "Otter architecture diagram for Convert Text to URL Slug (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/cf-count-range",
@@ -4346,7 +4652,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-cf-count-range.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2876,
+        "alt": "Otter architecture diagram for Count Range Counter Loop (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/ui-page-layout",
@@ -4410,7 +4725,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-ui-page-layout.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2884,
+        "alt": "Otter architecture diagram for Declarative UI Page Layout (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/list-deduplicate",
@@ -4473,7 +4797,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-list-deduplicate.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2893,
+        "alt": "Otter architecture diagram for Deduplicate List Items (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/data-custom-type",
@@ -4537,7 +4870,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-data-custom-type.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2911,
+        "alt": "Otter architecture diagram for Define & Instantiate Custom Type (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/data-object-thing",
@@ -4600,7 +4942,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-data-object-thing.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2909,
+        "alt": "Otter architecture diagram for Dynamic Object Literal (has block) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/conv-bytes-hex",
@@ -4664,7 +5015,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-conv-bytes-hex.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2894,
+        "alt": "Otter architecture diagram for Encode and Decode Hex Strings (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/list-filter-items",
@@ -4727,7 +5087,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-list-filter-items.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2897,
+        "alt": "Otter architecture diagram for Filter List by Condition (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/cf-for-each",
@@ -4792,7 +5161,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-cf-for-each.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2854,
+        "alt": "Otter architecture diagram for For Each Loop (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/conv-number-format",
@@ -4856,7 +5234,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-conv-number-format.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2896,
+        "alt": "Otter architecture diagram for Format Number as Currency (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/game-actor-damage",
@@ -4920,7 +5307,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-game-actor-damage.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2907,
+        "alt": "Otter architecture diagram for Game Actor Combat & Damage (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/http-get-request",
@@ -4983,7 +5379,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-http-get-request.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2916,
+        "alt": "Otter architecture diagram for HTTP GET Request with Client Lifecycle (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/list-sort-reverse",
@@ -5047,7 +5452,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-list-sort-reverse.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2899,
+        "alt": "Otter architecture diagram for In-Place Sort and Reverse List (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/game-inventory-capacity",
@@ -5111,7 +5525,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-game-inventory-capacity.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2918,
+        "alt": "Otter architecture diagram for Inventory Bag with Capacity Limits (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/math-lerp",
@@ -5174,7 +5597,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-math-lerp.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2884,
+        "alt": "Otter architecture diagram for Linear Interpolation (Lerp) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/math-map-range",
@@ -5237,7 +5669,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-math-map-range.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2886,
+        "alt": "Otter architecture diagram for Map Range (Scale Values) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/cf-if-otherwise",
@@ -5301,7 +5742,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-cf-if-otherwise.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2912,
+        "alt": "Otter architecture diagram for Multi-Branch Conditional (If / Otherwise) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/val-numeric-range",
@@ -5366,7 +5816,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-val-numeric-range.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2913,
+        "alt": "Otter architecture diagram for Numeric Range Boundary Assertion (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/text-pad-left",
@@ -5429,7 +5888,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-text-pad-left.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2880,
+        "alt": "Otter architecture diagram for Pad Number / Text Left (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/file-csv-parse",
@@ -5493,7 +5961,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-file-csv-parse.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2906,
+        "alt": "Otter architecture diagram for Parse CSV Text Into Structured Rows (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/file-json-storage",
@@ -5555,7 +6032,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-file-json-storage.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2915,
+        "alt": "Otter architecture diagram for Read & Write JSON Objects to File (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/text-replace-all",
@@ -5617,7 +6103,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-text-replace-all.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2885,
+        "alt": "Otter architecture diagram for Replace Text Substrings (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/file-append-log",
@@ -5679,7 +6174,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-file-append-log.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2897,
+        "alt": "Otter architecture diagram for Safe Append Line to Log File (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/cf-try-otherwise",
@@ -5743,7 +6247,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-cf-try-otherwise.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2912,
+        "alt": "Otter architecture diagram for Safe Error Handling (Try / Otherwise) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/file-read-safe",
@@ -5805,7 +6318,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-file-read-safe.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2888,
+        "alt": "Otter architecture diagram for Safe File Read with Fallback (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/text-split-join",
@@ -5869,7 +6391,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-text-split-join.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2909,
+        "alt": "Otter architecture diagram for Split Text and Rejoin with Delimiter (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/db-sqlite-transaction",
@@ -5931,7 +6462,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-db-sqlite-transaction.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2933,
+        "alt": "Otter architecture diagram for SQLite Atomic Transaction (Commit / Rollback) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/db-sqlite-query",
@@ -5995,7 +6535,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-db-sqlite-query.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2920,
+        "alt": "Otter architecture diagram for SQLite Table Query (Parameterized) (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/val-email-check",
@@ -6058,7 +6607,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-val-email-check.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2913,
+        "alt": "Otter architecture diagram for Structural Email Format Validation (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/web-http-json-response",
@@ -6121,7 +6679,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-web-http-json-response.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2896,
+        "alt": "Otter architecture diagram for Web Server JSON Route (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/cf-while-loop",
@@ -6183,7 +6750,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-cf-while-loop.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2847,
+        "alt": "Otter architecture diagram for While Loop (Otter 1.0.1)"
+      }
     },
     {
       "id": "snippet/file-write-text",
@@ -6245,7 +6821,16 @@
         "label": "Upstream Otter 1.0.1 Tested",
         "details": "Validated in Heavens-Lava/otter-net (pinned commit 6fec852) by tools/test-snippets.ps1; imported with SHA-256 provenance verification."
       },
-      "related": []
+      "related": [],
+      "thumbnail": {
+        "url": "/static/library-previews/snippet-file-write-text.svg",
+        "kind": "architecture-diagram",
+        "label": "Architecture Diagram",
+        "width": 640,
+        "height": 360,
+        "bytes": 2864,
+        "alt": "Otter architecture diagram for Write Text File (Otter 1.0.1)"
+      }
     }
   ]
 }

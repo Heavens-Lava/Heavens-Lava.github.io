@@ -469,9 +469,17 @@
       </div>
     </header>
 
+    <div class="lib-view-tabs" role="tablist" aria-label="Component page views">
+      <button type="button" role="tab" class="lib-view-tab is-active" id="view-tab-all" aria-selected="true" tabindex="0" data-view-target="all">All Sections</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-preview" aria-selected="false" tabindex="-1" data-view-target="preview">Architecture</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-source" aria-selected="false" tabindex="-1" data-view-target="source">Source Code (4)</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-install" aria-selected="false" tabindex="-1" data-view-target="install">Install &amp; Usage</button>
+    </div>
+
     <div class="lib-detail-layout">
       <div class="lib-detail-primary">
-        <section class="lib-panel" aria-labelledby="preview-heading">
+        <div class="lib-view-section" data-view-section="preview">
+          <section class="lib-panel" aria-labelledby="preview-heading">
     <div class="lib-panel-head">
       <h2 id="preview-heading">Architecture &amp; Runtime Preview</h2>
       <span class="lib-pill">Otter &gt;=1.0.1</span>
@@ -481,7 +489,9 @@
     <ol class="lib-arch-list"><li class="lib-arch-step"><span class="lib-arch-num">1</span><span>spawn-entities: Initialize player hero and enemy boss actors (otter-official/game-entity)</span></li><li class="lib-arch-step"><span class="lib-arch-num">2</span><span>resolve-combat-loop: Execute attack sequence applying equipment bonuses and ability cooldowns (otter-official/game-entity)</span></li><li class="lib-arch-step"><span class="lib-arch-num">3</span><span>award-loot-and-exp: Grant loot drop into inventory and level up hero upon victory (otter-official/game-entity)</span></li></ol>
     
   </section>
-        <section class="lib-panel" aria-labelledby="source-heading">
+        </div>
+        <div class="lib-view-section" data-view-section="source">
+          <section class="lib-panel" aria-labelledby="source-heading">
     <div class="lib-panel-head">
       <h2 id="source-heading">Source Code (4 files)</h2>
       <span class="lib-copy-live" aria-live="polite"></span>
@@ -1153,20 +1163,21 @@ say &quot;RPG adventure demo finished successfully.&quot;
 </textarea>
     </div>
   </section>
-
-        <section class="lib-panel" aria-labelledby="install-heading">
-          <div class="lib-panel-head">
-            <h2 id="install-heading">Installation &amp; Usage</h2>
-            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
-          </div>
-          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> recipe inspect <span class="tok-kw">otter</span>-official/rpg-adventure
+        </div>
+        <div class="lib-view-section" data-view-section="install">
+          <section class="lib-panel" aria-labelledby="install-heading">
+            <div class="lib-panel-head">
+              <h2 id="install-heading">Installation &amp; Usage</h2>
+              <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+            </div>
+            <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> recipe inspect <span class="tok-kw">otter</span>-official/rpg-adventure
 <span class="tok-kw">otter</span> recipe apply <span class="tok-kw">otter</span>-official/rpg-adventure --project ./my-app</code></pre>
-          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter recipe inspect otter-official/rpg-adventure
+            <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter recipe inspect otter-official/rpg-adventure
 otter recipe apply otter-official/rpg-adventure --project ./my-app</textarea>
-          <p class="lib-usage-text">This application creates an RPG battle game. Your hero fights monsters using special abilities with cooldowns, collects weapons into an inventory, equips items for extra power, and levels up when enemies are defeated.</p>
-        </section>
+            <p class="lib-usage-text">This application creates an RPG battle game. Your hero fights monsters using special abilities with cooldowns, collects weapons into an inventory, equips items for extra power, and levels up when enemies are defeated.</p>
+          </section>
 
-        <section class="lib-panel" aria-labelledby="related-heading">
+          <section class="lib-panel" aria-labelledby="related-heading">
         <h2 id="related-heading">Related Components</h2>
         <div class="lib-related-grid">
           <a class="lib-related-card" href="/library/blueprint-otter-official-game-combat/">
@@ -1188,6 +1199,7 @@ otter recipe apply otter-official/rpg-adventure --project ./my-app</textarea>
           </a>
         </div>
       </section>
+        </div>
       </div>
 
       <aside class="lib-detail-aside" aria-label="Component metadata">
@@ -1218,7 +1230,7 @@ otter recipe apply otter-official/rpg-adventure --project ./my-app</textarea>
 
         <section class="lib-aside-card">
           <h3>Catalog Provenance</h3>
-          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>79727ce</code> (tree <code>081a4c0cdfd7</code>).</p>
           <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
         </section>
       </aside>

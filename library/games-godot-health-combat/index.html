@@ -469,9 +469,17 @@
       </div>
     </header>
 
+    <div class="lib-view-tabs" role="tablist" aria-label="Component page views">
+      <button type="button" role="tab" class="lib-view-tab is-active" id="view-tab-all" aria-selected="true" tabindex="0" data-view-target="all">All Sections</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-preview" aria-selected="false" tabindex="-1" data-view-target="preview">Architecture</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-source" aria-selected="false" tabindex="-1" data-view-target="source">Source Code (2)</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-install" aria-selected="false" tabindex="-1" data-view-target="install">Install &amp; Usage</button>
+    </div>
+
     <div class="lib-detail-layout">
       <div class="lib-detail-primary">
-        <section class="lib-panel" aria-labelledby="preview-heading">
+        <div class="lib-view-section" data-view-section="preview">
+          <section class="lib-panel" aria-labelledby="preview-heading">
     <div class="lib-panel-head">
       <h2 id="preview-heading">Architecture &amp; Runtime Preview</h2>
       <span class="lib-pill">Godot 4.x</span>
@@ -481,7 +489,9 @@
     <ol class="lib-arch-list"><li class="lib-arch-step"><span class="lib-arch-num">1</span><span>Hitbox -&gt; HealthComponent.apply_damage(amount)</span></li><li class="lib-arch-step"><span class="lib-arch-num">2</span><span>Armor mitigation + i-frame guard -&gt; clamp(hp, 0, max_hp)</span></li><li class="lib-arch-step"><span class="lib-arch-num">3</span><span>Signals: health_changed(current, max) &amp; defeated() -&gt; HealthBarHUD</span></li></ol>
     <div class="lib-project-ref"><strong>Example Project Integration:</strong> Copy scripts into res://components/combat/ in any Godot 4 project.</div>
   </section>
-        <section class="lib-panel" aria-labelledby="source-heading">
+        </div>
+        <div class="lib-view-section" data-view-section="source">
+          <section class="lib-panel" aria-labelledby="source-heading">
     <div class="lib-panel-head">
       <h2 id="source-heading">Source Code (2 files)</h2>
       <span class="lib-copy-live" aria-live="polite"></span>
@@ -655,18 +665,19 @@ func _on_health_changed(current: int, maximum: int) -&gt; void:
 </textarea>
     </div>
   </section>
+        </div>
+        <div class="lib-view-section" data-view-section="install">
+          <section class="lib-panel" aria-labelledby="install-heading">
+            <div class="lib-panel-head">
+              <h2 id="install-heading">Installation &amp; Usage</h2>
+              <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+            </div>
+            <pre class="lib-code-pre"><code data-lang="bash">Copy health_component.gd and health_bar_hud.gd into res://components/combat/ in your Godot <span class="tok-num">4</span> project.</code></pre>
+            <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">Copy health_component.gd and health_bar_hud.gd into res://components/combat/ in your Godot 4 project.</textarea>
+            <p class="lib-usage-text">Add HealthComponent as a child node of your player or enemy scene, configure max_health and armor_reduction, and bind HealthBarHUD.health_component in the Inspector.</p>
+          </section>
 
-        <section class="lib-panel" aria-labelledby="install-heading">
-          <div class="lib-panel-head">
-            <h2 id="install-heading">Installation &amp; Usage</h2>
-            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
-          </div>
-          <pre class="lib-code-pre"><code data-lang="bash">Copy health_component.gd and health_bar_hud.gd into res://components/combat/ in your Godot <span class="tok-num">4</span> project.</code></pre>
-          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">Copy health_component.gd and health_bar_hud.gd into res://components/combat/ in your Godot 4 project.</textarea>
-          <p class="lib-usage-text">Add HealthComponent as a child node of your player or enemy scene, configure max_health and armor_reduction, and bind HealthBarHUD.health_component in the Inspector.</p>
-        </section>
-
-        <section class="lib-panel" aria-labelledby="related-heading">
+          <section class="lib-panel" aria-labelledby="related-heading">
         <h2 id="related-heading">Related Components</h2>
         <div class="lib-related-grid">
           <a class="lib-related-card" href="/library/blueprint-otter-official-game-combat/">
@@ -688,6 +699,7 @@ func _on_health_changed(current: int, maximum: int) -&gt; void:
           </a>
         </div>
       </section>
+        </div>
       </div>
 
       <aside class="lib-detail-aside" aria-label="Component metadata">
@@ -718,7 +730,7 @@ func _on_health_changed(current: int, maximum: int) -&gt; void:
 
         <section class="lib-aside-card">
           <h3>Catalog Provenance</h3>
-          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>79727ce</code> (tree <code>081a4c0cdfd7</code>).</p>
           <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
         </section>
       </aside>

@@ -469,9 +469,17 @@
       </div>
     </header>
 
+    <div class="lib-view-tabs" role="tablist" aria-label="Component page views">
+      <button type="button" role="tab" class="lib-view-tab is-active" id="view-tab-all" aria-selected="true" tabindex="0" data-view-target="all">All Sections</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-preview" aria-selected="false" tabindex="-1" data-view-target="preview">Architecture</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-source" aria-selected="false" tabindex="-1" data-view-target="source">Source Code (1)</button>
+      <button type="button" role="tab" class="lib-view-tab" id="view-tab-install" aria-selected="false" tabindex="-1" data-view-target="install">Install &amp; Usage</button>
+    </div>
+
     <div class="lib-detail-layout">
       <div class="lib-detail-primary">
-        <section class="lib-panel" aria-labelledby="preview-heading">
+        <div class="lib-view-section" data-view-section="preview">
+          <section class="lib-panel" aria-labelledby="preview-heading">
     <div class="lib-panel-head">
       <h2 id="preview-heading">Architecture &amp; Runtime Preview</h2>
       <span class="lib-pill">Otter Composition Planner (Phase 11)</span>
@@ -481,7 +489,9 @@
     <ol class="lib-arch-list"><li class="lib-arch-step"><span class="lib-arch-num">1</span><span>step1_actor: otter-official/game-entity::createActor()</span></li><li class="lib-arch-step"><span class="lib-arch-num">2</span><span>step2_bound_dmg: otter-official/math-utils::clamp()</span></li><li class="lib-arch-step"><span class="lib-arch-num">3</span><span>step3_damage: otter-official/game-entity::applyDamage()</span></li><li class="lib-arch-step"><span class="lib-arch-num">4</span><span>step4_inv: otter-official/game-entity::createInventory()</span></li><li class="lib-arch-step"><span class="lib-arch-num">5</span><span>step5_item: otter-official/game-entity::createStackableItem()</span></li><li class="lib-arch-step"><span class="lib-arch-num">6</span><span>step6_add_item: otter-official/game-entity::addItemToInventory()</span></li><li class="lib-arch-step"><span class="lib-arch-num">7</span><span>step7_equip: otter-official/game-entity::createEquipment()</span></li><li class="lib-arch-step"><span class="lib-arch-num">8</span><span>step8_serialize: otter-official/game-entity::serializeGameState() [after: step3_damage, step6_add_item]</span></li><li class="lib-arch-step"><span class="lib-arch-num">9</span><span>step9_save: otter-official/file-helpers::writeJsonObject() [after: step8_serialize]</span></li><li class="lib-arch-step"><span class="lib-arch-num">10</span><span>step10_reload: otter-official/file-helpers::readJsonObjectSafe() [after: step9_save]</span></li><li class="lib-arch-step"><span class="lib-arch-num">11</span><span>step11_restore: otter-official/game-entity::deserializeGameState() [after: step10_reload]</span></li></ol>
     
   </section>
-        <section class="lib-panel" aria-labelledby="source-heading">
+        </div>
+        <div class="lib-view-section" data-view-section="source">
+          <section class="lib-panel" aria-labelledby="source-heading">
     <div class="lib-panel-head">
       <h2 id="source-heading">Source Code (1 file)</h2>
       <span class="lib-copy-live" aria-live="polite"></span>
@@ -815,20 +825,21 @@
 </textarea>
     </div>
   </section>
-
-        <section class="lib-panel" aria-labelledby="install-heading">
-          <div class="lib-panel-head">
-            <h2 id="install-heading">Installation &amp; Usage</h2>
-            <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
-          </div>
-          <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> compose plan --workflow library/workflows/game-actor-save-state.workflow.json --explain
+        </div>
+        <div class="lib-view-section" data-view-section="install">
+          <section class="lib-panel" aria-labelledby="install-heading">
+            <div class="lib-panel-head">
+              <h2 id="install-heading">Installation &amp; Usage</h2>
+              <button type="button" class="lib-btn-copy" data-copy-target="raw-install">Copy command</button>
+            </div>
+            <pre class="lib-code-pre"><code data-lang="bash"><span class="tok-kw">otter</span> compose plan --workflow library/workflows/game-actor-save-state.workflow.json --explain
 <span class="tok-kw">otter</span> compose plan --workflow library/workflows/game-actor-save-state.workflow.json --apply --yes</code></pre>
-          <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter compose plan --workflow library/workflows/game-actor-save-state.workflow.json --explain
+            <textarea id="raw-install" class="lib-raw-code" readonly aria-hidden="true" tabindex="-1">otter compose plan --workflow library/workflows/game-actor-save-state.workflow.json --explain
 otter compose plan --workflow library/workflows/game-actor-save-state.workflow.json --apply --yes</textarea>
-          <p class="lib-usage-text">Apply into a fresh Otter console project with &#39;otter compose plan --workflow ... --apply --yes&#39;, verify with &#39;otter check src/main.ot&#39;, and execute with &#39;otter run src/main.ot&#39;.</p>
-        </section>
+            <p class="lib-usage-text">Apply into a fresh Otter console project with &#39;otter compose plan --workflow ... --apply --yes&#39;, verify with &#39;otter check src/main.ot&#39;, and execute with &#39;otter run src/main.ot&#39;.</p>
+          </section>
 
-        <section class="lib-panel" aria-labelledby="related-heading">
+          <section class="lib-panel" aria-labelledby="related-heading">
         <h2 id="related-heading">Related Components</h2>
         <div class="lib-related-grid">
           <a class="lib-related-card" href="/library/pack-otter-official-file-helpers/">
@@ -846,6 +857,7 @@ otter compose plan --workflow library/workflows/game-actor-save-state.workflow.j
           </a>
         </div>
       </section>
+        </div>
       </div>
 
       <aside class="lib-detail-aside" aria-label="Component metadata">
@@ -876,7 +888,7 @@ otter compose plan --workflow library/workflows/game-actor-save-state.workflow.j
 
         <section class="lib-aside-card">
           <h3>Catalog Provenance</h3>
-          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>6fec852</code> (tree <code>081a4c0cdfd7</code>).</p>
+          <p class="lib-aside-copy">Canonical Otter assets synced from <code>Heavens-Lava/otter-net</code> @ <code>79727ce</code> (tree <code>081a4c0cdfd7</code>).</p>
           <a class="lib-back-link" href="/library/">← Back to all 65 components</a>
         </section>
       </aside>
